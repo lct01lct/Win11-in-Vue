@@ -20,6 +20,7 @@ module.exports = {
     'vue/comment-directive': 'off',
     'space-before-function-paren': 'off',
     'vue/multi-word-component-names': 'off',
+    'no-undef': 'off',
   },
 
   overrides: [

@@ -2,10 +2,7 @@
   <div>登录</div>
 </template>
 
-<script setup>
-  const a = 10;
-  console.log(a);
-</script>
+<script setup></script>
 
 <style lang="scss" scoped>
   .div {
