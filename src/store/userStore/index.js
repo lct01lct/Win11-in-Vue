@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 
+// 自动导入
 const options = import.meta.globEager('./*.js');
 const store = {};
 

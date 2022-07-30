@@ -1,7 +1,21 @@
 <template>
-  <div>主页</div>
+  <div>
+    <settingsVue></settingsVue>
+  </div>
 </template>
 
-<script setup></script>
+<script setup>
+import settingsVue from '../../component/setting/settings.vue';
 
-<style></style>
+// 获取页面宽高并进行存储
+const { outerHeight , outerWidth } = window
+
+
+
+</script>
+
+<style>
+*{
+  box-sizing: border-box;
+}
+</style>

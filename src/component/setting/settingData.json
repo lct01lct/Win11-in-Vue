@@ -1,0 +1,55 @@
+{
+  "Accounts": [
+    {
+      "type": "accountsTop"
+    },
+    {
+      "type": "tile",
+      "name": "Your Microsoft account",
+      "desc": "Subscriptions, rewards and more",
+      "icon": ""
+    },
+    {
+      "type": "tile",
+      "name": "Your info",
+      "desc": "Accounts used by email, calendar, and contacts",
+      "icon": ""
+    },
+    {
+      "type": "tile",
+      "name": "Sign-in options",
+      "desc": "Windows Hello, security key, password, dynamic lock",
+      "icon": ""
+    },
+    {
+      "type": "tile",
+      "name": "Email & accounts",
+      "desc": "Accounts used by email, calendar, and contacts",
+      "icon": ""
+    },
+    {
+      "type": "tile",
+      "name": "Family",
+      "desc": "Manage your family group, edit account types and device permissions",
+      "icon": ""
+    },
+    {
+      "type": "tile",
+      "name": "Windows backup",
+      "desc": "Back up your files, apps, preferences to restore them across devices",
+      "icon": ""
+    },
+    {
+      "type": "tile",
+      "name": "Other users",
+      "desc": "Device access, work or school user, kiosk assigned access",
+      "icon": ""
+    },
+    {
+      "type": "tile",
+      "name": "Access work or school",
+      "desc": "Organisation resources like email, apps, and network",
+      "icon": ""
+    }
+  ]
+}
