@@ -1,4 +1,15 @@
-<script setup></script>
+<script setup>
+  import request from 'request';
+  request({
+    method: 'get',
+    url: 'v1/users',
+    data: {
+      name: 'zs',
+    },
+  })
+    .then((data) => console.log(data))
+    .catch((err) => console.log(err));
+</script>
 
 <template>
   <router-view></router-view>
