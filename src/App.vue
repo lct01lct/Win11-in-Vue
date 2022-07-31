@@ -2,7 +2,7 @@
   import request from 'request';
   request({
     method: 'get',
-    url: 'v1/users',
+    url: '/users',
     data: {
       name: 'zs',
     },
