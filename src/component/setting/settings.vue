@@ -3,7 +3,6 @@
     <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar" class="top">
       settings
     </ToolBarVue>
-    <!-- 功能导航栏 -->
     <main>
       <div class="nav">
         <div class="accountMessage">
@@ -28,7 +27,6 @@
       <div class="mainBody">
         <h1>{{ title }}</h1>
         <mainSectionSlotVue :data="translateData">
-          {{ data.Accounts }}
         </mainSectionSlotVue>
       </div>
     </main>
@@ -40,7 +38,7 @@
 import data from './settingData.json';
 import ToolBarVue from '@/component/utils/ToolBar.vue';
 import mainSectionSlotVue from '@/component/setting/mainSectionSlot.vue';
-import { reactive } from 'vue';
+import { onBeforeMount, reactive } from 'vue';
 
 /** 需求分析：
  *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
@@ -64,7 +62,7 @@ import { reactive } from 'vue';
 let IsShow = ref(true);
 
 // 获取左侧nav栏的名字，为json数据的属性名称
-
+console.log(data);
 let navNameList = [];
 
 Object.keys(data).map((value) => {
@@ -75,18 +73,22 @@ Object.keys(data).map((value) => {
 let title = ref("System")
 
 // 传递子组件的数据，显示item项
-let translateData = reactive(data.System)
+let translateData = reactive([])
+
+onBeforeMount(() => {
+  changeData("System")
+})
 
 // 清空传递的数据，传递新的值
 const changeData = (item) => {
-  translateData.splice(0,translateData.length,...data[item])
+  translateData.splice(0,translateData.length)
+  translateData.push(...data[item])
 }
 
 // 切换界面
 const toggle = (item) => {
   title.value = item
   changeData(item)
-  console.log(translateData);
 }
 
 // 接收开关的function
@@ -97,6 +99,7 @@ const updataFromToolBar = (newValue) => {
 
 <style lang="scss" scoped>
 .settingFullBox {
+  position: absolute;
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -122,7 +125,7 @@ const updataFromToolBar = (newValue) => {
         flex-direction: row;
         justify-content: start;
         align-items: center;
-        width: 92%;
+        width: 100%;
         height: 5em;
         padding: 10px;
         margin: 10px;
@@ -183,6 +186,7 @@ const updataFromToolBar = (newValue) => {
             align-items: center;
             height: 2em;
             border-radius: 5px;
+            font-size: .9em;
             img {
               width: 1em;
               margin-left: 1em;
@@ -205,17 +209,13 @@ const updataFromToolBar = (newValue) => {
       }
     }
     .mainBody {
+      // position: relative;
       display: flex;
       flex-direction: column;
       justify-content: start;
       width: 100%;
       height: 100%;
       margin-left: 1em;
-
-
-      h1{
-        margin: 0;
-      }
     }
   }
 }

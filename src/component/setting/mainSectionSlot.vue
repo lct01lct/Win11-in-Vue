@@ -13,19 +13,11 @@
 </template>
 
 <script>
-import { watchEffect } from 'vue';
 export default {
   props: ['data'],
   setup(props) {
 
-    // 去除message标签
-    // let data = props.data.filter((value) => value.type == "title")
-
-    // let message = data
-    console.log( props.data);
-
     return {
-        // message
     }
   },
 };
@@ -33,11 +25,14 @@ export default {
 
 <style lang="scss" scoped>
 ul{
+    // position: absolute;
     list-style: none;
     overflow-y: scroll;
     margin: 0;
     padding: 0;
-    height: 100%;
+    width: 100%;
+    height: 80%;
+    // bottom: 1em;
     li{
         position: relative;
         display: flex;

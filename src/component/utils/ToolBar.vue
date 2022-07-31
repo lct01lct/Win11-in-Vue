@@ -1,6 +1,6 @@
 <template>
   <div class="topButton" ref="Parent">
-    <div class="title" @mousedown="startMove">
+    <div class="title" @mousedown="moveBox">
       <slot></slot>
     </div>
     <div class="functionArea">
@@ -66,11 +66,15 @@ export default defineComponent({
       if (parent.style.width == '' || parent.style.width == '100vw') {
         parent.style.width = '60vw';
         parent.style.height = '70vh';
-        parent.style.margin = '7em auto';
+        parent.style.left = '20%';
+        parent.style.top = '15%';
+        // parent.style.margin = '7em auto';
       } else {
         parent.style.height = '100vh';
         parent.style.width = '100vw';
-        parent.style.margin = '0';
+        // parent.style.margin = '0';
+        parent.style.left = '0';
+        parent.style.top = '0';
       }
 
       changeIcon();
@@ -83,12 +87,20 @@ export default defineComponent({
 
     // 拖动元素
     // 实现思路大概是做mousedown和mouseup的事件
-    const moveBox = () => {
-      console.log('move');
+    const moveBox = (e) => {
+      const move = (e) => {
+        let x = e.pageX
+        let y = e.pageY
+        parent.style.top = 0
+        parent.style.left = 0
+      }
+      document.addEventListener("mousemove",() => {
+
+      })
     };
 
-    // 移动开始
-    const startMove = (e) => {};
+
+
     return {
       getCurrentInstance,
       onMounted,
@@ -103,7 +115,6 @@ export default defineComponent({
       max,
       close,
       moveBox,
-      startMove,
     };
   },
 });
@@ -139,4 +150,5 @@ export default defineComponent({
 img {
   width: 40%;
 }
+
 </style>

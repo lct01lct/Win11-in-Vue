@@ -6,5 +6,4 @@
   <div>44</div>
 </template>
 
-<style>
-</style>
+<style></style>
