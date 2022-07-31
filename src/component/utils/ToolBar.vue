@@ -64,11 +64,13 @@ export default defineComponent({
       // 变化图标
 
       if (parent.style.width == '' || parent.style.width == '100vw') {
-        parent.style.width = '70vw';
+        parent.style.width = '60vw';
         parent.style.height = '70vh';
+        parent.style.margin = '7em auto';
       } else {
-        parent.style.width = '100vw';
         parent.style.height = '100vh';
+        parent.style.width = '100vw';
+        parent.style.margin = '0';
       }
 
       changeIcon();
@@ -117,6 +119,7 @@ export default defineComponent({
     width: calc(100% - 150px);
     padding-left: 10px;
     line-height: 30px;
+    font-size: 12px;
   }
 
   button {
