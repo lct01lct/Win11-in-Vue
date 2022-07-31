@@ -110,6 +110,8 @@ const updataFromToolBar = (newValue) => {
   box-shadow: 0 0 15px rgb(205, 204, 204);
   user-select: none;
   
+  font-family: "Cascadia Code";
+
   main {
     display: flex;
     height: 100%;
