@@ -69,7 +69,7 @@
 
       // 切换最大化最小化
       const max = () => {
-        if (parent.style.width == '' || parent.style.width == '100vw') {
+        if (parent.style.width === '' || parent.style.width === '100vw') {
           parent.style.width = '60vw';
           parent.style.height = '70vh';
           parent.style.left = '20%';
@@ -123,7 +123,7 @@
 
       const dragChangeSize = (flag) => {
         const move = (e) => {
-          if (flag == 'HEIGHT') {
+          if (flag === 'HEIGHT') {
             parent.style.height = e.pageY - parent.offsetTop + 'px';
           } else {
             parent.style.width = e.pageX - parent.offsetLeft + 'px';

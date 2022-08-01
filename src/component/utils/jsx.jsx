@@ -39,7 +39,7 @@ export default defineComponent({
                         </p>
                       </div>
                       <div class="column" onClick={() => setPage('Windows Update')}>
-                        <img src="img/settings/Windows Update.webp" alt="" height={20} />
+                        <img src="src/assets/img/setting/Windows Update.webp" alt="" height={20} />
                         <p>
                           Windows Update
                           <br />
@@ -60,7 +60,7 @@ export default defineComponent({
               default:
                 return (
                   <li key={value}>
-                    <img src={`src/assets/img/setting/${value.icon}.png`} />
+                    {/* <img src={`src/assets/img/setting/${value.icon}.png`} /> */}
                     <div class="descMessage">
                       <span class="descMessage-name">{value.name}</span>
                       <span class="descMessage-desc">{value.desc}</span>

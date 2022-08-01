@@ -2,7 +2,7 @@
   <ul>
     <li v-for="item in data" :key="item">
       <template v-if="item.type == 'title'">
-        <!-- <img :src="`src/assets/img/setting/${item.icon}.png`"> -->
+        <!-- <img :src="`src/assets/img/setting/${item.icon}.png`" /> -->
         <div class="descMessage">
           <span class="descMessage-name">{{ item.name }}</span>
           <span class="descMessage-desc">{{ item.desc }}</span>
