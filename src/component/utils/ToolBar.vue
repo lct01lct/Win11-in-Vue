@@ -20,6 +20,7 @@
 import { getCurrentInstance, onMounted, ref } from 'vue';
 
 export default defineComponent({
+  props:["root"],
   emits: ['update:modelValue'],
   setup(props, context) {
     /** ToolBar需求分析：
@@ -43,16 +44,75 @@ export default defineComponent({
       MaxOrMin.value === allTcon[0] ? (MaxOrMin.value = allTcon[1]) : (MaxOrMin.value = allTcon[0]);
     };
 
-    class ToolBar{
-      constructor(Root,MaxOrMin){
-        this.root = document.querySelector(`${Root}`)
-        this.MaxOrMin = MaxOrMin
+    class ToolBar {
+      constructor(Root) {
+        // console.log(Root);
+        this.root = Root
       }
-      changeIcon(){
+      changeIcon(MaxOrMin) {
         let allTcon = ['maximize', 'maxmin'];
-        this.MaxOrMin.value === allTcon[0] ? (this.MaxOrMin.value = allTcon[1]) : (this.MaxOrMin.value = allTcon[0]);
+        MaxOrMin === allTcon[0] ? (MaxOrMin = allTcon[1]) : (MaxOrMin = allTcon[0]);
+      }
+      minOrClose(eventName, data) {
+        context.emit(eventName, data);
       }
 
+      changeStyle(width, height, left, top) {
+        this.root.style.width = width;
+        this.root.style.height = height;
+        this.root.style.left = left;
+        this.root.style.top = top;
+      }
+
+      // 切换最大化最小化
+      max(MaxOrMin) {
+        if (parent.style.width == '' || parent.style.width == '100vw') {
+          this.changeStyle('60vw', '70vh', '20%', '15%');
+        } else {
+          this.changeStyle('100vw', '700vh', '0', '0');
+        }
+        // 变化图标
+        this.changeIcon(MaxOrMin);
+      }
+      // 拖动元素
+      // 实现思路大概是做mousedown和mouseup的事件
+      moveBox(e) {
+        // 初始鼠标按下时候的，在toolbar的位置
+        let X = e.pageX - parent.offsetLeft;
+        let Y = e.pageY - parent.offsetTop;
+
+        // 移动监听事件
+        const move = (e) => {
+          this.root.style.top = e.pageY - Y + 'px';
+          this.root.style.left = e.pageX - X + 'px';
+        };
+        // 添加监听和移除监听
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', () => {
+          document.removeEventListener('mousemove', move);
+        });
+      }
+      /**
+       * 框的左右上下缩放
+       * @param {*} e -> Event Object
+       * 先给框的四周加上四个宽3px高100% 的div
+       * 给四个div监听鼠标按下事件，即是触发缩放的边缘了
+       * 监听滑动事件即开始缩放
+       * 监听鼠标弹起事件即删除监听
+       */
+      dragChangeSize(flag) {
+        const move = (e) => {
+          if (flag == 'HEIGHT') {
+            this.root.style.height = e.pageY - this.root.offsetTop + 'px';
+          } else {
+            this.root.style.width = e.pageX - this.root.offsetLeft + 'px';
+          }
+        };
+        document.addEventListener('mousemove', move);
+        document.addEventListener('mouseup', () => {
+          document.removeEventListener('mousemove', move);
+        });
+      }
     }
 
 
@@ -64,16 +124,19 @@ export default defineComponent({
     // 获取该工具栏的父元素
     let parent;
 
+    let instance
+    let mini
     // 由于setup执行时机是早于beforeCreate的，所以此时还不能拿到模板
     // 所以在挂在之后获取
-    onMounted(() => {
-      parent = that.refs.Parent.parentElement;
+    onBeforeMount(() => {
+      parent = document.querySelector(`.${props.root}`)
+      instance = new ToolBar(parent)
+      mini = instance.minOrClose("update:modelValue",{type:"mini"})
     });
 
+    
     // 最小化
-    const mini = () => {
-      context.emit('update:modelValue', {type:"mini"});
-    };
+    // const mini = instance.minOrClose("update:modelValue",{type:"mini"})
 
     // 切换最大化最小化
     const max = () => {

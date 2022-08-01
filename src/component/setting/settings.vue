@@ -1,6 +1,6 @@
 <template>
   <div class="settingFullBox" v-show="IsShow">
-    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">
+    <ToolBarVue root="settingFullBox" :modelValue="IsShow" @update:modelValue="updataFromToolBar">
       settings
     </ToolBarVue>
     <main>
