@@ -1,5 +1,5 @@
 <template>
-  <div class="topButton" ref="Parent">
+  <div class="topButton">
     <div class="title" @mousedown="moveBox">
       <slot></slot>
     </div>
@@ -17,7 +17,7 @@
 
 
 <script>
-import { getCurrentInstance, onMounted, ref } from 'vue';
+import { ref } from 'vue';
 
 export default defineComponent({
   props:["root"],
@@ -35,19 +35,9 @@ export default defineComponent({
      *  4. 关闭
      */
 
-    // 更改图标
-    const changeIcon = () => {
-      let allTcon = ['maximize', 'maxmin'];
-      // 如果当前图标是最大化的
-      // 那么取反为最小化的
-      // 否则赋为另一个值
-      MaxOrMin.value === allTcon[0] ? (MaxOrMin.value = allTcon[1]) : (MaxOrMin.value = allTcon[0]);
-    };
-
     class ToolBar {
       constructor(Root) {
-        // console.log(Root);
-        this.root = Root
+        this.root = document.querySelector(`${Root}`);
       }
       changeIcon(MaxOrMin) {
         let allTcon = ['maximize', 'maxmin'];
@@ -115,117 +105,31 @@ export default defineComponent({
       }
     }
 
-
     // 最大化或者最小化图标
     let MaxOrMin = ref('maximize');
 
-    let that = getCurrentInstance();
+    let instance = new ToolBar(props.root)
 
-    // 获取该工具栏的父元素
-    let parent;
+    const moveBox = instance.moveBox()
 
-    let instance
-    let mini
-    // 由于setup执行时机是早于beforeCreate的，所以此时还不能拿到模板
-    // 所以在挂在之后获取
-    onBeforeMount(() => {
-      parent = document.querySelector(`.${props.root}`)
-      instance = new ToolBar(parent)
-      mini = instance.minOrClose("update:modelValue",{type:"mini"})
-    });
+    const mini = instance.minOrClose("update:modelValue",{type:"mini"})
 
-    
-    // 最小化
-    // const mini = instance.minOrClose("update:modelValue",{type:"mini"})
+    const max = instance.max(MaxOrMin.value)
 
-    // 切换最大化最小化
-    const max = () => {
-      // 变化图标
+    const close = instance.minOrClose("update:modelValue",{type:"close"})
 
-      if (parent.style.width == '' || parent.style.width == '100vw') {
-        parent.style.width = '60vw';
-        parent.style.height = '70vh';
-        parent.style.left = '20%';
-        parent.style.top = '15%';
-      } else {
-        parent.style.height = '100vh';
-        parent.style.width = '100vw';
-        parent.style.left = '0';
-        parent.style.top = '0';
-      }
+    const dragChangeSizeWidth = instance.dragChangeSize("WIDTH")
 
-      changeIcon();
-    };
-
-    // 关闭
-    const close = () => {
-      context.emit('update:modelValue', {type:"close"});
-    };
-
-    // 拖动元素
-    // 实现思路大概是做mousedown和mouseup的事件
-    const moveBox = (e) => {
-      // 初始鼠标按下时候的，在toolbar的位置
-      let X = e.pageX - parent.offsetLeft
-      let Y = e.pageY - parent.offsetTop
-
-      // 移动监听事件
-      const move = (e) => {
-        parent.style.top = e.pageY - Y + 'px'
-        parent.style.left = e.pageX - X + 'px'
-      }
-      // 添加监听和移除监听
-      document.addEventListener("mousemove",move)
-      document.addEventListener("mouseup",() => {
-        document.removeEventListener("mousemove",move)
-      })
-    };
-
-    /**
-     * 框的左右上下缩放
-     * @param {*} e -> Event Object
-     * 先给框的四周加上四个宽3px高100% 的div
-     * 给四个div监听鼠标按下事件，即是触发缩放的边缘了
-     * 监听滑动事件即开始缩放
-     * 监听鼠标弹起事件即删除监听
-     */
-    const dragChangeSizeHeight = () => {
-      const move = (e) => {
-        parent.style.height = e.pageY - parent.offsetTop + "px"
-      }
-      document.addEventListener("mousemove",move)
-      document.addEventListener("mouseup",() => {
-        document.removeEventListener("mousemove",move)
-      })
-    } 
-
-    const dragChangeSizeWidth = () => {
-      const move = (e) => {
-        parent.style.width = e.pageX - parent.offsetLeft + "px"
-      }
-      document.addEventListener("mousemove",move)
-      document.addEventListener("mouseup",() => {
-        document.removeEventListener("mousemove",move)
-      })
-    }
-
+    const dragChangeSizeHeight = instance.dragChangeSize("HEIGHT")
 
     return {
-      getCurrentInstance,
-      onMounted,
-      ref,  
-      props,
-      context,
-      changeIcon,
       MaxOrMin,
-      that,
-      parent,
       mini,
       max,
       close,
       moveBox,
       dragChangeSizeHeight,
-      dragChangeSizeWidth
+      dragChangeSizeWidth,
     };
   },
 });
@@ -262,34 +166,32 @@ img {
   width: 40%;
 }
 
-.left{
+.left {
   position: absolute;
   left: 0;
   width: 3px;
   height: 100%;
   cursor: w-resize;
 }
-.top{
+.top {
   position: absolute;
   top: 0;
   width: 100%;
   height: 3px;
   cursor: n-resize;
 }
-.right{
+.right {
   position: absolute;
   right: 0;
   width: 3px;
   height: 100%;
   cursor: e-resize;
 }
-.bottom{
+.bottom {
   position: absolute;
   bottom: 0;
   width: 100%;
   height: 3px;
   cursor: s-resize;
 }
-
-
 </style>
