@@ -1,77 +1,73 @@
 <template>
-    <ul>
-        <li v-for="item in data" :key="item">
-            <template v-if="item.type == 'title'">
-                <img :src="`src/assets/img/setting/${item.icon}.png`">
-                <div class="descMessage">
-                    <span class="descMessage-name">{{ item.name }}</span>
-                    <span class="descMessage-desc">{{ item.desc }}</span>
-                </div>
-            </template>
-        </li>
-    </ul>
+  <ul>
+    <li v-for="item in data" :key="item">
+      <template v-if="item.type == 'title'">
+        <!-- <img :src="`src/assets/img/setting/${item.icon}.png`" /> -->
+        <div class="descMessage">
+          <span class="descMessage-name">{{ item.name }}</span>
+          <span class="descMessage-desc">{{ item.desc }}</span>
+        </div>
+      </template>
+    </li>
+  </ul>
 </template>
 
-<script>
-export default {
-  props: ['data'],
-  setup(props) {
+<script setup>
+  const props = defineProps({
+    data: Object,
+  });
 
-    return {
-    }
-  },
-};
+  const { data } = props;
 </script>
 
 <style lang="scss" scoped>
-ul{
+  ul {
     list-style: none;
     overflow-y: scroll;
     margin: 0;
     padding: 0;
     width: 100%;
     height: 100%;
-    li{
-        position: relative;
+    li {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 90%;
+      height: 4em;
+      background-color: #fafbfd;
+      border-radius: 0.2em;
+      padding-left: 1em;
+      margin: 0.5em;
+      img {
+        width: 1.5em;
+      }
+      .descMessage {
         display: flex;
-        align-items: center;
-        width: 90%;
-        height: 4em;
-        background-color: #fafbfd;
-        border-radius: .2em;
-        padding-left: 1em;
-        margin:.5em;
-        img{
-            width: 1.5em;
-        }
-        .descMessage{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            margin-left: 1.2em;
-            &-name{
-                font-size: .9em;
-            }
-
-            &-desc{
-                font-size: .2em;
-            }
+        flex-direction: column;
+        justify-content: center;
+        margin-left: 1.2em;
+        &-name {
+          font-size: 0.9em;
         }
 
-        &::after{
-            position: absolute;
-            right: 1em;
-            content: "🔜";
+        &-desc {
+          font-size: 0.2em;
         }
+      }
+
+      &::after {
+        position: absolute;
+        right: 1em;
+        content: '🔜';
+      }
     }
-}
-ul::-webkit-scrollbar {
+  }
+  ul::-webkit-scrollbar {
     width: 3px;
-}
+  }
 
-
-ul::-webkit-scrollbar-thumb {
+  ul::-webkit-scrollbar-thumb {
     border-radius: 5px;
-    background-color: #777a7c; 
-}
+    background-color: #777a7c;
+  }
 </style>
