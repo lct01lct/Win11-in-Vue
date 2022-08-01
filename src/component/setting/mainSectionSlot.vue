@@ -13,11 +13,12 @@
 </template>
 
 <script>
+
 export default {
   props: ['data'],
   setup(props) {
-
     return {
+
     }
   },
 };

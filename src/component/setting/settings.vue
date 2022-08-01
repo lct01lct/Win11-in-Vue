@@ -17,7 +17,7 @@
         </div>
         <div class="navList">
           <ul>
-            <li v-for="item in navNameList" :key="item" @click="toggle(item)">
+            <li v-for="item in navNameList" :key="item" @click="toggle($event,item)">
               <img :src="`src/assets/img/setting/${item}.webp`" alt="" />
               {{ item }}
             </li>
@@ -26,19 +26,21 @@
       </div>
       <div class="mainBody">
         <h1>{{ title }}</h1>
-        <mainSectionSlotVue :data="translateData">
-        </mainSectionSlotVue>
+        <!-- <mainSectionSlotVue :data="translateData">
+        </mainSectionSlotVue> -->
+        <jsx :data="translateData"></jsx>
       </div>
     </main>
   </div>
 </template>
-
+  
 
 <script setup>
 import data from './settingData.json';
 import ToolBarVue from '@/component/utils/ToolBar.vue';
-import mainSectionSlotVue from '@/component/setting/mainSectionSlot.vue';
+import mainSectionSlotVue from './mainSectionSlot.vue';
 import { onBeforeMount, reactive } from 'vue';
+import jsx from '@/component/utils/jsx'
 
 /** 需求分析：
  *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
@@ -62,7 +64,7 @@ import { onBeforeMount, reactive } from 'vue';
 let IsShow = ref(true);
 
 // 获取左侧nav栏的名字，为json数据的属性名称
-console.log(data);
+
 let navNameList = [];
 
 Object.keys(data).map((value) => {
@@ -86,7 +88,7 @@ const changeData = (item) => {
 }
 
 // 切换界面
-const toggle = (item) => {
+const toggle = (e,item) => {
   title.value = item
   changeData(item)
 }
@@ -226,8 +228,11 @@ const updataFromToolBar = ({type} = newValue) => {
       justify-content: start;
       width: 100%;
       height: 100%;
-      margin-left: 1em;
+      margin-left: 2em;
     }
   }
+}
+.selected{
+  background-color: #e4e8ec;
 }
 </style>
