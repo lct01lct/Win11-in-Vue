@@ -332,7 +332,7 @@
       "type": "title",
       "name": "Your info",
       "desc": "Accounts used by email, calendar, and contacts",
-      "icon": ""
+      "icon": "defAccount"
     },
     {
       "type": "title",
@@ -356,7 +356,7 @@
       "type": "title",
       "name": "Windows backup",
       "desc": "Back up your files, apps, preferences to restore them across devices",
-      "icon": ""
+      "icon": "Windows Update"
     },
     {
       "type": "title",

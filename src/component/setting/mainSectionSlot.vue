@@ -12,12 +12,13 @@
   </ul>
 </template>
 
-<script setup>
-  const props = defineProps({
-    data: Object,
-  });
-
-  const { data } = props;
+<script>
+  export default {
+    props: ['data'],
+    setup(props) {
+      return {};
+    },
+  };
 </script>
 
 <style lang="scss" scoped>
