@@ -8,6 +8,10 @@
       <button @click="max"><img :src="`/src/assets/img/setting/${MaxOrMin}.png`" /></button>
       <button @click="close"><img src="@/assets/img/setting/close.png" /></button>
     </div>
+    <!-- <div class="left" @mousedown="dragChangeSizeWidth"></div> -->
+    <div class="right" @mousedown="dragChangeSizeWidth"></div>
+    <!-- <div class="top" @mousedown="dragChangeSizeHeight"></div> -->
+    <div class="bottom" @mousedown="dragChangeSizeHeight"></div>
   </div>
 </template>
 
@@ -16,7 +20,6 @@
 import { getCurrentInstance, onMounted, ref } from 'vue';
 
 export default defineComponent({
-  props: ['modelValue'],
   emits: ['update:modelValue'],
   setup(props, context) {
     /** ToolBar需求分析：
@@ -40,6 +43,19 @@ export default defineComponent({
       MaxOrMin.value === allTcon[0] ? (MaxOrMin.value = allTcon[1]) : (MaxOrMin.value = allTcon[0]);
     };
 
+    class ToolBar{
+      constructor(Root,MaxOrMin){
+        this.root = document.querySelector(`${Root}`)
+        this.MaxOrMin = MaxOrMin
+      }
+      changeIcon(){
+        let allTcon = ['maximize', 'maxmin'];
+        this.MaxOrMin.value === allTcon[0] ? (this.MaxOrMin.value = allTcon[1]) : (this.MaxOrMin.value = allTcon[0]);
+      }
+
+    }
+
+
     // 最大化或者最小化图标
     let MaxOrMin = ref('maximize');
 
@@ -56,7 +72,7 @@ export default defineComponent({
 
     // 最小化
     const mini = () => {
-      console.log('mini');
+      context.emit('update:modelValue', {type:"mini"});
     };
 
     // 切换最大化最小化
@@ -68,11 +84,9 @@ export default defineComponent({
         parent.style.height = '70vh';
         parent.style.left = '20%';
         parent.style.top = '15%';
-        // parent.style.margin = '7em auto';
       } else {
         parent.style.height = '100vh';
         parent.style.width = '100vw';
-        // parent.style.margin = '0';
         parent.style.left = '0';
         parent.style.top = '0';
       }
@@ -82,29 +96,61 @@ export default defineComponent({
 
     // 关闭
     const close = () => {
-      context.emit('update:modelValue', false);
+      context.emit('update:modelValue', {type:"close"});
     };
 
     // 拖动元素
     // 实现思路大概是做mousedown和mouseup的事件
     const moveBox = (e) => {
-      const move = (e) => {
-        let x = e.pageX
-        let y = e.pageY
-        parent.style.top = 0
-        parent.style.left = 0
-      }
-      document.addEventListener("mousemove",() => {
+      // 初始鼠标按下时候的，在toolbar的位置
+      let X = e.pageX - parent.offsetLeft
+      let Y = e.pageY - parent.offsetTop
 
+      // 移动监听事件
+      const move = (e) => {
+        parent.style.top = e.pageY - Y + 'px'
+        parent.style.left = e.pageX - X + 'px'
+      }
+      // 添加监听和移除监听
+      document.addEventListener("mousemove",move)
+      document.addEventListener("mouseup",() => {
+        document.removeEventListener("mousemove",move)
       })
     };
 
+    /**
+     * 框的左右上下缩放
+     * @param {*} e -> Event Object
+     * 先给框的四周加上四个宽3px高100% 的div
+     * 给四个div监听鼠标按下事件，即是触发缩放的边缘了
+     * 监听滑动事件即开始缩放
+     * 监听鼠标弹起事件即删除监听
+     */
+    const dragChangeSizeHeight = () => {
+      const move = (e) => {
+        parent.style.height = e.pageY - parent.offsetTop + "px"
+      }
+      document.addEventListener("mousemove",move)
+      document.addEventListener("mouseup",() => {
+        document.removeEventListener("mousemove",move)
+      })
+    } 
+
+    const dragChangeSizeWidth = () => {
+      const move = (e) => {
+        parent.style.width = e.pageX - parent.offsetLeft + "px"
+      }
+      document.addEventListener("mousemove",move)
+      document.addEventListener("mouseup",() => {
+        document.removeEventListener("mousemove",move)
+      })
+    }
 
 
     return {
       getCurrentInstance,
       onMounted,
-      ref,
+      ref,  
       props,
       context,
       changeIcon,
@@ -115,6 +161,8 @@ export default defineComponent({
       max,
       close,
       moveBox,
+      dragChangeSizeHeight,
+      dragChangeSizeWidth
     };
   },
 });
@@ -150,5 +198,35 @@ export default defineComponent({
 img {
   width: 40%;
 }
+
+.left{
+  position: absolute;
+  left: 0;
+  width: 3px;
+  height: 100%;
+  cursor: w-resize;
+}
+.top{
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 3px;
+  cursor: n-resize;
+}
+.right{
+  position: absolute;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  cursor: e-resize;
+}
+.bottom{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  cursor: s-resize;
+}
+
 
 </style>

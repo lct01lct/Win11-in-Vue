@@ -25,19 +25,17 @@ export default {
 
 <style lang="scss" scoped>
 ul{
-    // position: absolute;
     list-style: none;
     overflow-y: scroll;
     margin: 0;
     padding: 0;
     width: 100%;
-    height: 80%;
-    // bottom: 1em;
+    height: 100%;
     li{
         position: relative;
         display: flex;
         align-items: center;
-        width: 80%;
+        width: 90%;
         height: 4em;
         background-color: #fafbfd;
         border-radius: .2em;
@@ -51,13 +49,12 @@ ul{
             flex-direction: column;
             justify-content: center;
             margin-left: 1.2em;
-
             &-name{
                 font-size: .9em;
             }
 
             &-desc{
-                font-size: .6em;
+                font-size: .2em;
             }
         }
 

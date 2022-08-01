@@ -1,6 +1,6 @@
 <template>
   <div class="settingFullBox" v-show="IsShow">
-    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar" class="top">
+    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">
       settings
     </ToolBarVue>
     <main>
@@ -92,8 +92,15 @@ const toggle = (item) => {
 }
 
 // 接收开关的function
-const updataFromToolBar = (newValue) => {
-  IsShow.value = newValue;
+const updataFromToolBar = ({type} = newValue) => {
+  if(type == "mini"){
+    IsShow.value = false;
+    setTimeout(() => {
+      IsShow.value = true;
+    }, 3000);
+  }else{
+    IsShow.value = false;
+  }
 };
 </script>
 
@@ -104,17 +111,22 @@ const updataFromToolBar = (newValue) => {
   flex-direction: column;
   width: 100vw;
   height: 100vh;
-  transition: 0.2s all ease-in;
+  transition: 0.2s ease-out;
   background-color: #f0f4f9;
   border-radius: 6px;
   box-shadow: 0 0 15px rgb(205, 204, 204);
   user-select: none;
-  
   font-family: "Cascadia Code";
+
+  // 限制缩放的大小
+  min-width: 700px;
+  min-height: 400px;
 
   main {
     display: flex;
-    height: 100%;
+    // 因为toolBar占据30px，main继承父元素的高度不会考虑toolBar
+    // 所以才会超出，在此记录
+    height: calc(100% - 30px);
     width: 100%;
     flex-direction: row;
     .nav {
@@ -149,7 +161,6 @@ const updataFromToolBar = (newValue) => {
             font-weight: 700;
           }
           span:nth-child(2) {
-            display: block;
             font-size: 0.6em;
             font-weight: 500;
           }
@@ -165,10 +176,11 @@ const updataFromToolBar = (newValue) => {
           border-left: 0;
           border-top: 0;
           border-right: 0;
-          border-bottom: 2px solid #2a6bc3;
+          border-bottom: .2px solid #2a6bc3;
           border-radius: 3px;
           &:focus {
             outline: none;
+            border-bottom: 2px solid #2a6bc3;
           }
         }
       }
@@ -176,8 +188,6 @@ const updataFromToolBar = (newValue) => {
         height: 100%;
         overflow-y: scroll;
         ul {
-          // height为0是因为navList会多出来
-          height: 0;
           padding: 10px;
           padding-top: 0;
           list-style: none;
@@ -211,8 +221,7 @@ const updataFromToolBar = (newValue) => {
       }
     }
     .mainBody {
-      // position: relative;
-      display: flex;
+      display: flex;  
       flex-direction: column;
       justify-content: start;
       width: 100%;
