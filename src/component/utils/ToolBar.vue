@@ -5,11 +5,23 @@
     </div>
     <div class="functionArea">
       <button @click="mini"><img src="@/assets/img/setting/minimize.png" /></button>
-      <button @click="max"><img :src="`/src/assets/img/setting/${MaxOrMin}.png`" /></button>
+      <button @click="max" @mouseenter="showSplit">
+        <img :src="`/src/assets/img/setting/${MaxOrMin}.png`" />
+      </button>
       <button @click="close"><img src="@/assets/img/setting/close.png" /></button>
     </div>
     <div class="right" @mousedown="dragChangeSize('WIDTH')"></div>
     <div class="bottom" @mousedown="dragChangeSize('HEIGHT')"></div>
+    <div class="splitTool" v-if="splitFlag" @mouseleave="closeSplit">
+      <div class="splitLeft">
+        <span class="splitLeft-left" @click="splitFunction('left')"></span>
+        <span class="splitLeft-right" @click="splitFunction('right')"></span>
+      </div>
+      <div class="splitRight">
+        <span class="splitRight-top" @click="splitFunction('top')"></span>
+        <span class="splitRight-bottom" @click="splitFunction('bottom')"></span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -40,6 +52,9 @@
       // 获取该工具栏的父元素
       let parent;
 
+      // 拆分功能区
+      const splitFlag = ref(false);
+
       // 由于setup执行时机是早于beforeCreate的，所以此时还不能拿到模板
       // 所以在挂在之后获取
       onMounted(() => {
@@ -62,9 +77,14 @@
         // 如果当前图标是最大化的
         // 那么取反为最小化的
         // 否则赋为另一个值
-        MaxOrMin.value === allTcon[0]
-          ? (MaxOrMin.value = allTcon[1])
-          : (MaxOrMin.value = allTcon[0]);
+        // MaxOrMin.value === allTcon[0]
+        //   ? (MaxOrMin.value = allTcon[1])
+        //   : (MaxOrMin.value = allTcon[0]);
+        if(parent.style.width === "100vw" && parent.style.height === "100vh"){
+          MaxOrMin.value = allTcon[0]
+        }else{
+          MaxOrMin.value = allTcon[1]
+        }
       };
 
       // 切换最大化最小化
@@ -111,16 +131,6 @@
        * 监听滑动事件即开始缩放
        * 监听鼠标弹起事件即删除监听
        */
-      const dragChangeSizeHeight = () => {
-        const move = (e) => {
-          parent.style.height = e.pageY - parent.offsetTop + 'px';
-        };
-        document.addEventListener('mousemove', move);
-        document.addEventListener('mouseup', () => {
-          document.removeEventListener('mousemove', move);
-        });
-      };
-
       const dragChangeSize = (flag) => {
         const move = (e) => {
           if (flag === 'HEIGHT') {
@@ -135,13 +145,71 @@
         });
       };
 
+      const showSplit = async (e) => {
+        const target = e.target;
+        const flag = await new Promise((reslove) => {
+          const timer = setTimeout(() => {
+            reslove(true);
+          }, 800);
+          target.addEventListener('mouseleave', () => {
+            clearTimeout(timer);
+            reslove(false);
+          });
+        });
+        if (flag) {
+          splitFlag.value = true;
+        }
+      };
+
+      const closeSplit = () => {
+        splitFlag.value = false;
+      };
+
+      const splitFunction = (flag) => {
+        switch (flag) {
+          case 'left': {
+            parent.style.width = '50vw';
+            parent.style.height = '100vh';
+            parent.style.left = 0;
+            parent.style.top = 0;
+            break;
+          }
+          case 'right': {
+            parent.style.width = '50vw';
+            parent.style.height = '100vh';
+            parent.style.left = `${document.body.clientWidth / 2}px`;
+            parent.style.top = 0;
+            break;
+          }
+          case 'top': {
+            parent.style.width = '100vw';
+            parent.style.height = '50vh';
+            parent.style.left = 0;
+            parent.style.top = 0;
+            break;
+          }
+          case 'bottom': {
+            parent.style.width = '100vw';
+            parent.style.height = '50vh';
+            parent.style.left = 0;
+            parent.style.top = `${window.screen.height / 2}px`;
+            break;
+          }
+        }
+        changeIcon()
+      };
+
       return {
         MaxOrMin,
+        splitFlag,
         mini,
         max,
         close,
         moveBox,
         dragChangeSize,
+        showSplit,
+        closeSplit,
+        splitFunction,
       };
     },
   });
@@ -178,20 +246,6 @@
     width: 40%;
   }
 
-  .left {
-    position: absolute;
-    left: 0;
-    width: 3px;
-    height: 100%;
-    cursor: w-resize;
-  }
-  .top {
-    position: absolute;
-    top: 0;
-    width: 100%;
-    height: 3px;
-    cursor: n-resize;
-  }
   .right {
     position: absolute;
     right: 0;
@@ -205,5 +259,71 @@
     width: 100%;
     height: 3px;
     cursor: s-resize;
+  }
+  .splitTool {
+    position: absolute;
+    right: 2em;
+    top: 25px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 99;
+
+    width: 10em;
+    height: 5em;
+    background-color: #2e2e2e;
+    border-radius: 0.7em;
+
+    .splitLeft,
+    .splitRight {
+      width: 40%;
+      height: 80%;
+    }
+    .splitLeft {
+      display: flex;
+      justify-content: space-between;
+      &-left,
+      &-right {
+        width: 45%;
+        background-color: #505050;
+      }
+      &-left {
+        border-radius: 4px 0 0 4px;
+        &:hover {
+          background-color: #b0c6cb;
+        }
+      }
+      &-right {
+        border-radius: 0 4px 4px 0;
+        &:hover {
+          background-color: #b0c6cb;
+        }
+      }
+    }
+
+    .splitRight{
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &-top,&-bottom{
+        width: 100%;
+        height: 45%;
+        background-color: #505050;
+      }
+
+      &-top {
+        border-radius: 4px 4px 0 0;
+        &:hover {
+          background-color: #b0c6cb;
+        }
+      }
+      &-bottom {
+        border-radius: 0 0 4px 4px;
+        &:hover {
+          background-color: #b0c6cb;
+        }
+      }
+    }
   }
 </style>

@@ -1,12 +1,12 @@
 <template>
   <div class="settingFullBox" v-show="IsShow">
-    <ToolBarVue root="settingFullBox" :modelValue="IsShow" @update:modelValue="updataFromToolBar">
+    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">
       settings
     </ToolBarVue>
     <main>
       <div class="nav">
         <div class="accountMessage">
-          <img src="@/assets/img/setting/defAccount.webp" alt="" />
+          <img @click="toggle('Accounts')" src="@/assets/img/setting/defAccount.webp" alt="" />
           <div class="detailMessage">
             <span>BLUG Edge</span>
             <span>Local Account</span>
@@ -17,7 +17,7 @@
         </div>
         <div class="navList">
           <ul>
-            <li v-for="item in navNameList" :key="item" @click="toggle($event, item)">
+            <li v-for="item in navNameList" :key="item" @click="toggle(item)">
               <img :src="`src/assets/img/setting/${item}.webp`" alt="" />
               {{ item }}
             </li>
@@ -25,9 +25,7 @@
         </div>
       </div>
       <div class="mainBody">
-        <h1>{{ title }}</h1>
-        <!-- <mainSectionSlotVue :data="translateData">
-        </mainSectionSlotVue> -->
+        <h1 class="title">{{ title }}</h1>
         <jsx :data="translateData"></jsx>
       </div>
     </main>
@@ -87,7 +85,7 @@
   };
 
   // 切换界面
-  const toggle = (e, item) => {
+  const toggle = (item) => {
     title.value = item;
     changeData(item);
   };
@@ -237,6 +235,13 @@
       width: 100%;
       height: 100%;
       margin-left: 2em;
+
+      .title {
+        font-size: 2em;
+        font-weight: 400;
+        padding: 0.5em 0 0.5em 0;
+        margin: 0;
+      }
     }
   }
   .selected {

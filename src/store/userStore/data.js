@@ -2,6 +2,9 @@ export default {
   state() {
     return {
       token: localStorage.getItem('token'),
+      themeSrc: 'default',
+      systemName: 'Windows',
+      accountName: 'night',
     };
   },
   getters: {
