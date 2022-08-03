@@ -1,5 +1,5 @@
 <template>
-  <div class="topButton" ref="Parent">
+  <div class="topButton" ref="ParentRef">
     <div class="title" @mousedown="moveBox">
       <slot></slot>
     </div>
@@ -26,9 +26,9 @@
 </template>
 
 <script>
-
+import{ toolSize } from '@/data/viewData'
   export default defineComponent({
-    props: ['modelValue','root'],
+    props: ['modelValue'],
     emits: ['update:modelValue'],
     setup(props, context) {
       /** ToolBar需求分析：
@@ -44,7 +44,7 @@
        */
 
       // 最大化或者最小化图标
-      const MaxOrMin = ref('maximize');
+      const MaxOrMin = ref('maxmin');
 
       const that = getCurrentInstance();
 
@@ -55,9 +55,14 @@
       const splitFlag = ref(false);
 
       // 由于setup执行时机是早于beforeCreate的，所以此时还不能拿到模板
-      // 所以在挂在之后获取
+      // 所以在挂载之后获取
       onMounted(() => {
-        parent = that.refs.Parent.parentElement;
+        // 初始化获取parent，并在toolbar上进行对父组件的大小位置的控制
+        parent = that.refs.ParentRef.parentElement;
+        parent.style.width = `${toolSize.viewSizeWidth}px`;
+        parent.style.height = `${toolSize.viewSizeHeight}px`;
+        parent.style.left = `${toolSize.left}px`;
+        parent.style.top = `${toolSize.top}px`;
       });
 
       // 最小化
@@ -79,20 +84,21 @@
         // MaxOrMin.value === allTcon[0]
         //   ? (MaxOrMin.value = allTcon[1])
         //   : (MaxOrMin.value = allTcon[0]);
-        if(parent.style.width === "100vw" && parent.style.height === "100vh"){
-          MaxOrMin.value = allTcon[0]
-        }else{
-          MaxOrMin.value = allTcon[1]
+        if (parent.style.width === '100vw' && parent.style.height === '100vh') {
+          MaxOrMin.value = allTcon[0];
+        } else {
+          MaxOrMin.value = allTcon[1];
         }
       };
 
       // 切换最大化最小化
       const max = () => {
         if (parent.style.width === '' || parent.style.width === '100vw') {
-          parent.style.width = '60vw';
-          parent.style.height = '70vh';
-          parent.style.left = '20%';
-          parent.style.top = '15%';
+          // 默认最小化为用户自定义的宽度大小，位置
+          parent.style.width = `${toolSize.viewSizeWidth}px`;
+          parent.style.height = `${toolSize.viewSizeHeight}px`;
+          parent.style.left = `${toolSize.left}px`;
+          parent.style.top = `${toolSize.top}px`;
         } else {
           parent.style.height = '100vh';
           parent.style.width = '100vw';
@@ -114,6 +120,10 @@
         const move = (e) => {
           parent.style.top = e.pageY - Y + 'px';
           parent.style.left = e.pageX - X + 'px';
+
+          // 更新文件的数据
+          toolSize.left = e.pageX - X;
+          toolSize.top = e.pageY - Y;
         };
         // 添加监听和移除监听
         document.addEventListener('mousemove', move);
@@ -134,8 +144,14 @@
         const move = (e) => {
           if (flag === 'HEIGHT') {
             parent.style.height = e.pageY - parent.offsetTop + 'px';
+
+            // 更新改变视窗的大小，并更新viewData的数据
+            toolSize.viewSizeHeight = e.pageY - parent.offsetTop;
           } else {
             parent.style.width = e.pageX - parent.offsetLeft + 'px';
+
+            // 更新改变视窗的大小，并更新viewData的数据
+            toolSize.viewSizeWidth = e.pageX - parent.offsetLeft;
           }
         };
         document.addEventListener('mousemove', move);
@@ -144,6 +160,7 @@
         });
       };
 
+      // maxButton 的移入事件，target：显示split窗口
       const showSplit = async (e) => {
         const target = e.target;
         const flag = await new Promise((reslove) => {
@@ -160,10 +177,12 @@
         }
       };
 
+      // 监听分割窗的移除事件，立即关闭该窗口
       const closeSplit = () => {
         splitFlag.value = false;
       };
 
+      // 拆分视窗
       const splitFunction = (flag) => {
         switch (flag) {
           case 'left': {
@@ -195,7 +214,7 @@
             break;
           }
         }
-        changeIcon()
+        changeIcon();
       };
 
       return {
@@ -300,12 +319,13 @@
       }
     }
 
-    .splitRight{
+    .splitRight {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
 
-      &-top,&-bottom{
+      &-top,
+      &-bottom {
         width: 100%;
         height: 45%;
         background-color: #505050;

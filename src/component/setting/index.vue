@@ -1,8 +1,6 @@
 <template>
-  <div class="settingFullBox" v-show="IsShow">
-    <ToolBarVue root="settingFullBox" :modelValue="IsShow" @update:modelValue="updataFromToolBar">
-      settings
-    </ToolBarVue>
+  <div class="settingFullBox" v-show="IsShow" ref="SettingRef">
+    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">settings</ToolBarVue>
     <main>
       <div class="nav">
         <div class="accountMessage">
@@ -34,6 +32,7 @@
 
 <script setup>
   import data from './settingData.json';
+  import ToolBarVue from '@/component/ToolBar/index.vue';
   import jsx from '@/component/setting/MainBodyList/index.jsx';
 
   /** 需求分析：
@@ -56,6 +55,8 @@
 
   // 是否显示
   const IsShow = ref(true);
+
+  const that = getCurrentInstance();
 
   // 获取左侧nav栏的名字，为json数据的属性名称
 
