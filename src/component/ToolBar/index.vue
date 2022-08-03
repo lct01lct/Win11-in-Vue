@@ -26,10 +26,9 @@
 </template>
 
 <script>
-  import { getCurrentInstance, onMounted, ref } from 'vue';
 
   export default defineComponent({
-    props: ['modelValue'],
+    props: ['modelValue','root'],
     emits: ['update:modelValue'],
     setup(props, context) {
       /** ToolBar需求分析：

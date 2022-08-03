@@ -1,6 +1,6 @@
 <template>
   <div class="settingFullBox" v-show="IsShow">
-    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">
+    <ToolBarVue root="settingFullBox" :modelValue="IsShow" @update:modelValue="updataFromToolBar">
       settings
     </ToolBarVue>
     <main>
@@ -34,10 +34,7 @@
 
 <script setup>
   import data from './settingData.json';
-  import ToolBarVue from '@/component/utils/ToolBar.vue';
-  import mainSectionSlotVue from './mainSectionSlot.vue';
-  import { onBeforeMount, reactive } from 'vue';
-  import jsx from '@/component/utils/jsx';
+  import jsx from '@/component/setting/MainBodyList/index.jsx';
 
   /** 需求分析：
    *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
