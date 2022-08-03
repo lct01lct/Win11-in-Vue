@@ -29,6 +29,7 @@ export default defineConfig({
       router: getPath('src/router'),
       request: getPath('src/services/request.js'),
     },
+    extensions: ['.vue', '.js', '.jsx'],
   },
   plugins: [
     vue(),
