@@ -90,6 +90,7 @@
   const toggle = (e, item) => {
     title.value = item;
     changeData(item);
+    console.log('item==',item);
   };
 
   // 接收开关的function

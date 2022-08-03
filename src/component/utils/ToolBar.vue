@@ -161,7 +161,7 @@
     }
 
     button {
-      width: 50px;
+      width: 46px;
       height: 100%;
       border: 0;
       background-color: transparent;
