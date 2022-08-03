@@ -27,6 +27,7 @@
 
 <script>
 import{ toolSize } from '@/data/viewData'
+import { onBeforeUnmount } from 'vue';
   export default defineComponent({
     props: ['modelValue'],
     emits: ['update:modelValue'],
@@ -48,6 +49,8 @@ import{ toolSize } from '@/data/viewData'
 
       const that = getCurrentInstance();
 
+      let { viewSizeWidth , viewSizeHeight , top , left } = toolSize;
+
       // 获取该工具栏的父元素
       let parent;
 
@@ -63,12 +66,12 @@ import{ toolSize } from '@/data/viewData'
         parent.style.height = `${toolSize.viewSizeHeight}px`;
         parent.style.left = `${toolSize.left}px`;
         parent.style.top = `${toolSize.top}px`;
+        parent.style.zIndex = '1'
       });
 
       // 最小化
       const mini = () => {
         context.emit('update:modelValue', { type: 'mini' });
-        console.log(parent);
       };
 
       // 关闭
@@ -96,10 +99,10 @@ import{ toolSize } from '@/data/viewData'
       const max = () => {
         if (parent.style.width === '' || parent.style.width === '100vw') {
           // 默认最小化为用户自定义的宽度大小，位置
-          parent.style.width = `${toolSize.viewSizeWidth}px`;
-          parent.style.height = `${toolSize.viewSizeHeight}px`;
-          parent.style.left = `${toolSize.left}px`;
-          parent.style.top = `${toolSize.top}px`;
+          parent.style.width = `${viewSizeWidth}px`;
+          parent.style.height = `${viewSizeHeight}px`;
+          parent.style.left = `${left}px`;
+          parent.style.top = `${top}px`;
         } else {
           parent.style.height = '100vh';
           parent.style.width = '100vw';
@@ -110,9 +113,19 @@ import{ toolSize } from '@/data/viewData'
         changeIcon();
       };
 
+      // 检索最大的层级
+      const searchMaxZindex = ()  => {
+        let all = Array.from(document.querySelectorAll("*"))
+        return all.sort(((a,b) => b.style.zIndex - a.style.zIndex))[0].style.zIndex
+      }
+
       // 拖动元素
       // 实现思路大概是做mousedown和mouseup的事件
       const moveBox = (e) => {
+        // 无论是否拖动，点击即会改变层级
+        // 获取层级最大的元素，并并加一
+        parent.style.zIndex = Number(searchMaxZindex()) + 1
+
         // 初始鼠标按下时候的，在toolbar的位置
         const X = e.pageX - parent.offsetLeft;
         const Y = e.pageY - parent.offsetTop;
@@ -122,9 +135,9 @@ import{ toolSize } from '@/data/viewData'
           parent.style.top = e.pageY - Y + 'px';
           parent.style.left = e.pageX - X + 'px';
 
-          // 更新文件的数据
-          toolSize.left = e.pageX - X;
-          toolSize.top = e.pageY - Y;
+          // 更新位置的数据
+          left = e.pageX - X;
+          top = e.pageY - Y;
         };
         // 添加监听和移除监听
         document.addEventListener('mousemove', move);
@@ -147,12 +160,12 @@ import{ toolSize } from '@/data/viewData'
             parent.style.height = e.pageY - parent.offsetTop + 'px';
 
             // 更新改变视窗的大小，并更新viewData的数据
-            toolSize.viewSizeHeight = e.pageY - parent.offsetTop;
+            viewSizeHeight = e.pageY - parent.offsetTop;
           } else {
             parent.style.width = e.pageX - parent.offsetLeft + 'px';
 
             // 更新改变视窗的大小，并更新viewData的数据
-            toolSize.viewSizeWidth = e.pageX - parent.offsetLeft;
+            viewSizeWidth = e.pageX - parent.offsetLeft;
           }
         };
         document.addEventListener('mousemove', move);
@@ -229,7 +242,7 @@ import{ toolSize } from '@/data/viewData'
         showSplit,
         closeSplit,
         splitFunction,
-      };
+      };  
     },
   });
 </script>
