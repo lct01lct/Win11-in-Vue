@@ -68,6 +68,7 @@ import{ toolSize } from '@/data/viewData'
       // 最小化
       const mini = () => {
         context.emit('update:modelValue', { type: 'mini' });
+        console.log(parent);
       };
 
       // 关闭

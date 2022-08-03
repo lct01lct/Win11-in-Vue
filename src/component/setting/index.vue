@@ -1,5 +1,5 @@
 <template>
-  <div class="settingFullBox" v-show="IsShow" ref="SettingRef">
+  <div class="setting FullBox" v-show="IsShow" ref="SettingRef">
     <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">settings</ToolBarVue>
     <main>
       <div class="nav">
@@ -102,7 +102,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .settingFullBox {
+  .FullBox {
     position: absolute;
     display: flex;
     flex-direction: column;
