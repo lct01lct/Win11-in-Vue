@@ -50,7 +50,7 @@ const request = (params) => {
   return new Promise((resolve, reject) => {
     http(params)
       .then((res) => resolve(res.data))
-      .catch((err) => reject(err.response.data));
+      .catch((err) => reject(err.response ? err.response.data : err.data));
   });
 };
 
