@@ -1,7 +1,8 @@
 export default {
   actions: {
-    setUser(name) {
-      this.name = name;
+    setToken(token) {
+      this.token = token;
+      localStorage.setItem('token', token);
     },
   },
 };
