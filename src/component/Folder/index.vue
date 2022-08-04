@@ -3,13 +3,21 @@
     <ToolBarVue @update:modelValue="changeIsShow">File Explorer</ToolBarVue>
     <FolderTopToolBar></FolderTopToolBar>
     <PathTool></PathTool>
-    <main></main>
+    <main>
+      <nav class="scroll">
+        <DropDown></DropDown>
+      </nav>
+      <div class="mainBody">
+        342
+      </div>
+    </main>
   </div>
 </template>
 <script setup>
   import ToolBarVue from '../ToolBar/index.vue';
   import FolderTopToolBar from './FolderTopToolBar/index.vue'
   import PathTool from './PathTool/index.vue'
+  import DropDown from './DropDown/index.vue'
 
   const isShow = ref(true);
 
@@ -52,6 +60,15 @@
       height: calc(100% - 130px);
       border-radius: 0 0 6px 6px;
       background-color: #ffffff;
+
+
+
+
+      nav{
+        width: 13em;
+        height: 100%;
+        overflow-y: scroll;
+      }
     }
   }
 </style>
