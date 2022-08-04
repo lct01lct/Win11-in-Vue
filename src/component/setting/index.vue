@@ -1,12 +1,10 @@
 <template>
-  <div class="settingFullBox" v-show="IsShow">
-    <ToolBarVue root="settingFullBox" :modelValue="IsShow" @update:modelValue="updataFromToolBar">
-      settings
-    </ToolBarVue>
+  <div class="settingFullBox" v-show="IsShow" ref="SettingRef">
+    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">settings</ToolBarVue>
     <main>
       <div class="nav">
         <div class="accountMessage">
-          <img src="@/assets/img/setting/defAccount.webp" alt="" />
+          <img @click="toggle('Accounts')" src="@/assets/img/setting/defAccount.webp" alt="" />
           <div class="detailMessage">
             <span>BLUG Edge</span>
             <span>Local Account</span>
@@ -17,7 +15,7 @@
         </div>
         <div class="navList">
           <ul>
-            <li v-for="item in navNameList" :key="item" @click="toggle($event, item)">
+            <li v-for="item in navNameList" :key="item" @click="toggle(item)">
               <img :src="`src/assets/img/setting/${item}.webp`" alt="" />
               {{ item }}
             </li>
@@ -25,9 +23,7 @@
         </div>
       </div>
       <div class="mainBody">
-        <h1>{{ title }}</h1>
-        <!-- <mainSectionSlotVue :data="translateData">
-        </mainSectionSlotVue> -->
+        <h1 class="title">{{ title }}</h1>
         <jsx :data="translateData"></jsx>
       </div>
     </main>
@@ -36,10 +32,8 @@
 
 <script setup>
   import data from './settingData.json';
-  import ToolBarVue from '@/component/utils/ToolBar.vue';
-  import mainSectionSlotVue from './mainSectionSlot.vue';
-  import { onBeforeMount, reactive } from 'vue';
-  import jsx from '@/component/utils/jsx';
+  import ToolBarVue from '@/component/ToolBar/index.vue';
+  import jsx from '@/component/setting/MainBodyList/index.jsx';
 
   /** 需求分析：
    *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
@@ -61,6 +55,8 @@
 
   // 是否显示
   const IsShow = ref(true);
+
+  const that = getCurrentInstance();
 
   // 获取左侧nav栏的名字，为json数据的属性名称
 
@@ -87,7 +83,7 @@
   };
 
   // 切换界面
-  const toggle = (e, item) => {
+  const toggle = (item) => {
     title.value = item;
     changeData(item);
   };
@@ -118,6 +114,7 @@
     box-shadow: 0 0 15px rgb(205, 204, 204);
     user-select: none;
     font-family: 'Cascadia Code';
+    z-index: 1;
 
     // 限制缩放的大小
     min-width: 700px;
@@ -237,6 +234,13 @@
       width: 100%;
       height: 100%;
       margin-left: 2em;
+
+      .title {
+        font-size: 2em;
+        font-weight: 400;
+        padding: 0.5em 0 0.5em 0;
+        margin: 0;
+      }
     }
   }
   .selected {
