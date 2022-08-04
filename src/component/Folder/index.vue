@@ -7,17 +7,15 @@
       <nav class="scroll">
         <DropDown></DropDown>
       </nav>
-      <div class="mainBody">
-        342
-      </div>
+      <div class="mainBody">342</div>
     </main>
   </div>
 </template>
 <script setup>
   import ToolBarVue from '../ToolBar/index.vue';
-  import FolderTopToolBar from './FolderTopToolBar/index.vue'
-  import PathTool from './PathTool/index.vue'
-  import DropDown from './DropDown/index.vue'
+  import FolderTopToolBar from './FolderTopToolBar/index.vue';
+  import PathTool from './PathTool/index.vue';
+  import DropDown from './DropDown/index.vue';
 
   const isShow = ref(true);
 
@@ -51,20 +49,14 @@
     min-width: 700px;
     min-height: 400px;
 
-
-
-
-    main{
+    main {
       display: flex;
       width: 100%;
       height: calc(100% - 130px);
       border-radius: 0 0 6px 6px;
       background-color: #ffffff;
 
-
-
-
-      nav{
+      nav {
         width: 13em;
         height: 100%;
         overflow-y: scroll;
