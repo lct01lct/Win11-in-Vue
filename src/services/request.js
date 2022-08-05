@@ -30,6 +30,7 @@ http.interceptors.response.use(
     return Promise.resolve(res);
   },
   (err) => {
+    console.log(err);
     const res = err.response;
     if (res.status === http.httpCode.UNAUTHORIZED) {
       // 权限不够，返回登录页
@@ -42,6 +43,8 @@ http.interceptors.response.use(
 
 const request = (params) => {
   const reqMethod = params.method.toLowerCase();
+
+  // 统一参数字段
   if (reqMethod === 'get' || reqMethod === 'delete') {
     params.param = params.data;
     delete params.data;
@@ -50,7 +53,9 @@ const request = (params) => {
   return new Promise((resolve, reject) => {
     http(params)
       .then((res) => resolve(res.data))
-      .catch((err) => reject(err.response ? err.response.data : err.data));
+      .catch((err) => {
+        reject(err.response ? err.response.data : err.data);
+      });
   });
 };
 

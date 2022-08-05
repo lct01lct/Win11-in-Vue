@@ -5,29 +5,33 @@
       <div class="username">User</div>
     </div>
     <input type="password" class="password-ipt" v-model="loginForm.password" />
-    <button class="login-btn" @click="login">登录</button>
-    <div class="error">{{ errmessage }}</div>
+    <button class="login-btn" @click="goToHome">登录</button>
+    <div class="error">{{ errMessage }}</div>
   </div>
 </template>
 
 <script setup>
-  import loginApi from './api/index';
+  import { login } from './api';
+  import useUserStore from 'store/userStore';
+  import router from '@/router';
+  const userStore = useUserStore();
 
   const loginForm = reactive({
     name: 'lct-user',
     password: '123456',
   });
 
-  const errmessage = ref('');
+  const errMessage = ref('');
 
-  const login = () => {
-    loginApi
-      .login(loginForm)
-      .then((data) => {
-        console.log(data);
+  const goToHome = () => {
+    login(loginForm)
+      .then((res) => {
+        userStore.setToken(res.token);
+        router.push({ name: 'Home' });
       })
       .catch((err) => {
-        errmessage.value = err.message;
+        console.log(err);
+        errMessage.value = err && err.message;
       });
   };
 </script>

@@ -37,18 +37,12 @@
     min-width: 700px;
     min-height: 400px;
 
-
-
-
-    main{
+    main {
       display: flex;
       width: 100%;
       height: calc(100% - 130px);
       border-radius: 0 0 6px 6px;
       background-color: #ffffff;
-
-
-
 
       nav{
         width: 15em;

@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import{ toolSize } from '@/data/viewData'
+import{ toolSize } from '@/data'
 import { onBeforeUnmount } from 'vue';
   export default defineComponent({
     props: ['modelValue'],
@@ -264,9 +264,10 @@ import { onBeforeUnmount } from 'vue';
       line-height: 30px;
       font-size: 12px;
     }
-
-    button {
-      width: 50px;
+    .functionArea{
+      flex: 1;
+      button {
+      width: 33.33%;
       height: 100%;
       border: 0;
       background-color: transparent;
@@ -276,6 +277,7 @@ import { onBeforeUnmount } from 'vue';
       &:nth-last-child(1):hover {
         background-color: red;
       }
+    }
     }
   }
 

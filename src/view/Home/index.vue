@@ -1,17 +1,18 @@
 <template>
   <div>
     <settingsVue></settingsVue>
-    <Folder></Folder>
+    <taskBarVue></taskBarVue>
+    <!-- <Folder></Folder> -->
   </div>
 </template>
 
 <script setup>
-  import settingsVue from '../../component/setting/index.vue';
-  import Folder from '@/component/Folder/index.vue'
+  import settingsVue from '@/component/setting/index.vue';
+  import taskBarVue from '@/component/taskBar/taskBar.vue';
 </script>
 
-<style>
-  * {
-    box-sizing: border-box;
-  }
+<style lang="scss" scoped>
+  // * {
+  //   box-sizing: border-box;
+  // }
 </style>

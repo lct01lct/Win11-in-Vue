@@ -100,7 +100,7 @@ http.interceptors.response.use(
               // 跳转到主页
             } else {
               // 没有登录或登录已失效
-              router.push('/login');
+              router.push('/');
               // 重置数据
               store.resetSaveData();
               ElMessage.warning('暂未登录或者登录已过期！');
