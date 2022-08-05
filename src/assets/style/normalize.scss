@@ -376,3 +376,7 @@ template {
   border-radius: 5px;
   background-color: #777a7c;
 }
+
+.notransition{
+  transition: 0s !important;
+}

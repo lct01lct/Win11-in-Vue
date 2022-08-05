@@ -1,7 +1,13 @@
 <template>
+<<<<<<< HEAD
   <div class="root">
     <settingsVue></settingsVue>
     <taskBarVue></taskBarVue>
+=======
+  <div>
+    <settingsVue></settingsVue>
+    <Folder></Folder>
+>>>>>>> account
   </div>
 </template>
 

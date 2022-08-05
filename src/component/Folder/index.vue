@@ -1,5 +1,5 @@
 <template>
-  <div class="FolderFullBox" v-show="isShow">
+  <div class="FolderFullBox">
     <ToolBarVue @update:modelValue="changeIsShow">File Explorer</ToolBarVue>
     <FolderTopToolBar></FolderTopToolBar>
     <PathTool></PathTool>
@@ -7,28 +7,25 @@
       <nav class="scroll">
         <DropDown></DropDown>
       </nav>
-      <div class="mainBody">342</div>
+      <div class="mainBody">
+        <MainBody></MainBody>
+      </div>
     </main>
   </div>
 </template>
 <script setup>
   import ToolBarVue from '../ToolBar/index.vue';
-  import FolderTopToolBar from './FolderTopToolBar/index.vue';
-  import PathTool from './PathTool/index.vue';
-  import DropDown from './DropDown/index.vue';
+  import FolderTopToolBar from './FolderTopToolBar/index.vue'
+  import PathTool from './PathTool/index.vue'
+  import DropDown from './DropDown/index.vue'
+  import MainBody from './MainBody/index.vue'
 
-  const isShow = ref(true);
+  setTimeout(() => {
+    let FolderFullBox = document.querySelector(".FolderFullBox")
 
-  const changeIsShow = ({ type } = item) => {
-    if (type === 'mini') {
-      isShow.value = false;
-      setTimeout(() => {
-        isShow.value = true;
-      }, 3000);
-    } else {
-      isShow.value = false;
-    }
-  };
+    FolderFullBox.style.zIndex = 2;
+  },4000)
+
 </script>
 
 <style lang="scss" scoped>
@@ -36,14 +33,13 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
     transition: 0.2s ease-out;
     background-color: #f0f4f9;
     border-radius: 6px;
-    box-shadow: 0 0 15px rgb(205, 204, 204);
+    box-shadow: 0 0 15px rgb(132, 131, 131);
     user-select: none;
     font-family: 'Cascadia Code';
+    z-index: -10;
 
     // 限制缩放的大小
     min-width: 700px;
@@ -56,10 +52,16 @@
       border-radius: 0 0 6px 6px;
       background-color: #ffffff;
 
-      nav {
-        width: 13em;
+      nav{
+        width: 15em;
         height: 100%;
         overflow-y: scroll;
+      }
+
+      .mainBody{
+        width: 100%;
+        height: 100%;
+        border-left: .1em solid #dddddd;
       }
     }
   }
