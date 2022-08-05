@@ -19,5 +19,17 @@
   <router-view></router-view>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
+body{
+  overflow: hidden;
+}
+#app{
+  width: 100vw;
+  height: 100vh;
+  background: url('@/assets/img/setting/assetsImg/default/default.jpg');
+  background-size: 100% 100%;
+  background-attachment: fixed;
+  overflow: hidden;
+  z-index: 0;
+}
 </style>

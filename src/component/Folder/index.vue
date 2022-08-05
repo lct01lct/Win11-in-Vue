@@ -20,6 +20,12 @@
   import DropDown from './DropDown/index.vue'
   import MainBody from './MainBody/index.vue'
 
+  setTimeout(() => {
+    let FolderFullBox = document.querySelector(".FolderFullBox")
+
+    FolderFullBox.style.zIndex = 2;
+  },4000)
+
 </script>
 
 <style lang="scss" scoped>
@@ -27,14 +33,13 @@
     position: absolute;
     display: flex;
     flex-direction: column;
-    width: 100vw;
-    height: 100vh;
     transition: 0.2s ease-out;
     background-color: #f0f4f9;
     border-radius: 6px;
-    box-shadow: 0 0 15px rgb(205, 204, 204);
+    box-shadow: 0 0 15px rgb(132, 131, 131);
     user-select: none;
     font-family: 'Cascadia Code';
+    z-index: -10;
 
     // 限制缩放的大小
     min-width: 700px;
