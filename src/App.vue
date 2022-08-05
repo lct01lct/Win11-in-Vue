@@ -1,23 +1,20 @@
 <script setup>
-  import ContextMenu from '@/component/ContextMenu/index.vue';
+  import data from '@/data/folders-data';
+  import Desc from '@/utils/desc';
 
-  const contextmenu = ref(false);
-  const position = reactive({ x: 0, y: 0 });
-  document.addEventListener('contextmenu', (e) => {
-    e.preventDefault();
-    position.x = e.x;
-    position.y = e.y;
-    contextmenu.value = true;
-    setTimeout(() => {
-      contextmenu.value = false;
-    },2000)
-  });
+  const descs = (function () {
+    const descs = [];
+    data.forEach((desc) => {
+      descs.push(new Desc(desc));
+    });
+    return descs;
+  })();
+
+  console.log(descs[1].children[0]);
 </script>
 
 <template>
-  <ContextMenu v-if="contextmenu" :position="position"></ContextMenu>
   <router-view></router-view>
 </template>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

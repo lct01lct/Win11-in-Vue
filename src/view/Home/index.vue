@@ -1,4 +1,5 @@
 <template>
+  <ContextMenu v-if="contextmenu" :position="position"></ContextMenu>
   <div class="root">
     <settingsVue></settingsVue>
     <taskBarVue></taskBarVue>
@@ -6,8 +7,21 @@
 </template>
 
 <script setup>
-  import settingsVue from '../../component/setting/settings.vue';
-  import taskBarVue from '../../component/taskBar/taskBar.vue';
+  import settingsVue from '@/component/setting/index.vue';
+  import taskBarVue from '@/component/taskBar/taskBar.vue';
+  import ContextMenu from '@/component/ContextMenu/index.vue';
+
+  const contextmenu = ref(false);
+  const position = reactive({ x: 0, y: 0 });
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+    position.x = e.x;
+    position.y = e.y;
+    contextmenu.value = true;
+    setTimeout(() => {
+      contextmenu.value = false;
+    }, 2000);
+  });
 </script>
 
 <style lang="scss" scoped>
