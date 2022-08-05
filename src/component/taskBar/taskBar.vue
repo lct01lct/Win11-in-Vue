@@ -22,20 +22,20 @@
 
       </div>
       <div class="tsright fcc">
-        <!-- <div class="up fcc">^</div>
+        <div class="up fcc">^</div>
         <div class="wf">
           <ul class="fcc">
             <li><img src="../../assets/img/icon/ui/wifi.png" alt="" /></li>
             <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
-            <li><img src="" alt="" /></li>
+           
           </ul>
-        </div> -->
-        <!-- <div class="data">
-          <div class="systemTime" @click="showDateBox">
-            <span>{{ time }}</span>
-            <span>{{ date }}</span>
+        </div>
+        <div class="data fcc">
+          <div class="systemTime " @click="showDateBox">
+            <div>{{time}}</div>
+            <div>{{date}}</div>
           </div>
-        </div> -->
+        </div>
       </div>
     </div>
   </div>
@@ -76,11 +76,9 @@
   const time = ref('00:00');
 
   const fn = () => {
-    const currentTime = new Date().getTime();
-
-    const currentDate = new Date(currentTime);
-    time.value = currentTime;
-    date.value = currentDate;
+    const currentTime = new Date();
+    time.value = (currentTime.toLocaleTimeString()).slice(0,7);//获取当前时间 上午11:29
+    date.value = currentTime.toLocaleDateString();//获取当前日期，2021/12/1
   };
   fn();
   setInterval(fn, 1000);
@@ -95,6 +93,9 @@
     background: var(--bg1);
     backdrop-filter: saturate(3) blur(20px);
     bottom: 0;
+  }
+  .tsleft{
+    width: 212px;
   }
   .tsright > div {
     height: 48px;
@@ -147,11 +148,9 @@
     }
     .systemTime {
       padding: 0 5px;
-      font-size: 12px;
-      display: grid;
-      grid-template-rows: 50% 50%;
-      align-items: center;
-      justify-items: center;
+      font-size: 14px;
+      text-align: center;
+ 
     }
   }
 </style>
