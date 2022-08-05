@@ -66,11 +66,11 @@ import { onBeforeUnmount } from 'vue';
         parent.style.height = `${toolSize.viewSizeHeight}px`;
         parent.style.left = `${toolSize.left}px`;
         parent.style.top = `${toolSize.top}px`;
-        // parent.style.zIndex = '1'
       });
 
       // 最小化
       const mini = () => {
+        parent.style.zIndex = '-1'
         context.emit('update:modelValue', { type: 'mini' });
       };
 

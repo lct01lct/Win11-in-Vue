@@ -24,6 +24,7 @@
     let FolderFullBox = document.querySelector(".FolderFullBox")
 
     FolderFullBox.style.zIndex = 2;
+    
   },4000)
 
 </script>
