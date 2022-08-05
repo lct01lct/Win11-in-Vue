@@ -66,12 +66,7 @@
    *      4.底栏点击icon，打算用事件总线发送事件，对应板块监听。
    */
   let taskBar = reactive(taskBarData)
-
-  const showTaskerbarPanel = (e) => {
-    console.log('控制显隐', e);
-  };
   // 时间数据
-
   const date = ref('0000/00/00');
   const time = ref('00:00');
 
@@ -82,6 +77,12 @@
   };
   fn();
   setInterval(fn, 1000);
+
+  const showTaskerbarPanel = (e) => {
+    console.log(e.target);
+  };
+
+
 </script>
 
 <style lang="scss" scoped>
@@ -93,6 +94,7 @@
     background: var(--bg1);
     backdrop-filter: saturate(3) blur(20px);
     bottom: 0;
+    user-select: none;
   }
   .tsleft{
     width: 212px;
@@ -121,6 +123,9 @@
   }
 
   .taskbarBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 40px;
     height: 40px;
     line-height: 40px;
@@ -128,6 +133,7 @@
     text-align: center;
     &:hover {
       background: #fff;
+      border-radius: .3em;
     }
     img {
       height: 24px;
