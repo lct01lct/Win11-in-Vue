@@ -10,6 +10,27 @@ export default defineComponent({
 
     const store = userStore();
 
+    const themeImgData = [
+      {
+        name: 'default',
+      },
+      {
+        name: 'dark',
+      },
+      {
+        name: 'moon',
+      },
+      {
+        name: 'stream',
+      },
+      {
+        name: 'color',
+      },
+      {
+        name: 'color1',
+      },
+    ];
+
     // 主题的切换，需要：切换本地store的图片路径
     // 切换被选择的图片的类名，实现被选中状态
     const toggleTheme = (e) => {
@@ -28,12 +49,12 @@ export default defineComponent({
                     <div class="left">
                       {/* 图片时动态的，应该存储在store，此处先做死数据 */}
                       <img
-                        src={`src/assets/img/setting/assetsImg/default/${store.$state.themeSrc}.jpg`}
+                        src={`src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg`}
                         class="systemThemeImg"
                       />
                       <div class="message">
                         {/* 此处的数据应为store中，先在此做死数据 */}
-                        <p>{store.$state.systemName}</p>
+                        <p>{store.getTheme}</p>
                         <p>NS14A8</p>
                         <p>Rename</p>
                       </div>
@@ -107,7 +128,16 @@ export default defineComponent({
                     <div>
                       <h3>Select a theme to apply</h3>
                       <div class="themeSelect">
-                        <img
+                        {themeImgData.map((value) => {
+                          return (
+                            <img
+                              onClick={toggleTheme}
+                              payload={value.name}
+                              src={`src/assets/img/setting/assetsImg/default/${value.name}.jpg`}
+                            />
+                          );
+                        })}
+                        {/* <img
                           onClick={toggleTheme}
                           payload="default"
                           src="src/assets/img/setting/assetsImg/default/default.jpg"
@@ -136,7 +166,7 @@ export default defineComponent({
                           onClick={toggleTheme}
                           payload="default"
                           src="src/assets/img/setting/assetsImg/default/default.jpg"
-                        />
+                        /> */}
                       </div>
                     </div>
                   </div>

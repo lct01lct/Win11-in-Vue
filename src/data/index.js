@@ -32,7 +32,7 @@ export const taskBarData = [
   },
   {
     icon: 'edge.png',
-    name: 'edge',
+    name: 'EdgeFullBox',
   },
   {
     icon: 'store.png',

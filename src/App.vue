@@ -1,5 +1,8 @@
 <script setup>
   import ContextMenu from '@/component/ContextMenu/index.vue';
+  import userStore from './store/userStore'
+
+  const store = userStore();
 
   const contextmenu = ref(false);
   const position = reactive({ x: 0, y: 0 });
@@ -12,6 +15,11 @@
       contextmenu.value = false;
     },2000)
   });
+
+  onMounted(() => {
+    document.querySelector("#app").style.backgroundImage = `url("src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg")`
+  })
+
 </script>
 
 <template>
