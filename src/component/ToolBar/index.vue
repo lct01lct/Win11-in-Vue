@@ -26,12 +26,11 @@
 </template>
 
 <script>
-import{ toolSize } from '@/data'
-import { onBeforeUnmount } from 'vue';
+import{ toolSize , toggleTaskPublicData } from '@/data'
+import{ hideBox } from '@/utils'
+
   export default defineComponent({
-    props: ['modelValue'],
-    emits: ['update:modelValue'],
-    setup(props, context) {
+    setup() {
       /** ToolBar需求分析：
        *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
        *  4. 页面布局：
@@ -70,13 +69,12 @@ import { onBeforeUnmount } from 'vue';
 
       // 最小化
       const mini = () => {
-        parent.style.zIndex = '-1'
-        context.emit('update:modelValue', { type: 'mini' });
+        hideBox(true,parent,parent.classList[0])
       };
 
       // 关闭
       const close = () => {
-        context.emit('update:modelValue', { type: 'close' });
+        hideBox(false,parent,parent.classList[0])
       };
 
       // 更改图标
@@ -113,18 +111,12 @@ import { onBeforeUnmount } from 'vue';
         changeIcon();
       };
 
-      // 检索最大的层级
-      const searchMaxZindex = ()  => {
-        let all = Array.from(document.querySelectorAll("*"))
-        return all.sort(((a,b) => b.style.zIndex - a.style.zIndex))[0].style.zIndex
-      }
-
       // 拖动元素
       // 实现思路大概是做mousedown和mouseup的事件
       const moveBox = (e) => {
         // 无论是否拖动，点击即会改变层级
         // 获取层级最大的元素，并并加一
-        parent.style.zIndex = Number(searchMaxZindex()) + 1
+        // parent.style.zIndex = toggleTaskPublicData.zIndex
 
         // 初始鼠标按下时候的，在toolbar的位置
         const X = e.pageX - parent.offsetLeft;

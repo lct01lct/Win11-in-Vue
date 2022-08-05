@@ -43,7 +43,8 @@
 
 <script setup>
   // import startMenu from '../startMenu/index.vue';
-  import { taskBarData } from '@/data'
+  import { taskBarData } from '@/data';
+  import { showBox , hideBox } from '@/utils'
   /** 需求分析：
    *  1. 点击底栏图标，图标有反应+相应板块显
    *  2.
@@ -78,8 +79,17 @@
   fn();
   setInterval(fn, 1000);
 
+  // 点击任务栏，传递name，DOM获取类名并赋予其层级为最高
   const showTaskerbarPanel = (e) => {
-    console.log(e.target);
+
+    const target = document.querySelector(`.${e}`)
+
+    if(target.style.zIndex == '' || target.style.zIndex < 0){
+      showBox(target)
+    }else{
+      hideBox(true,target,e)
+    }
+    
   };
 
 

@@ -5,6 +5,10 @@ export const toolSize = {
   top: 150,
 };
 
+export const toggleTaskPublicData = {
+  zIndex: 1,
+};
+
 export const taskBarData = [
   {
     icon: 'home.png',
@@ -20,11 +24,11 @@ export const taskBarData = [
   },
   {
     icon: 'settings.png',
-    name: 'setting',
+    name: 'settingFullBox',
   },
   {
     icon: 'explorer.png',
-    name: 'file',
+    name: 'FolderFullBox',
   },
   {
     icon: 'edge.png',

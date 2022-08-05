@@ -20,12 +20,12 @@
   import DropDown from './DropDown/index.vue'
   import MainBody from './MainBody/index.vue'
 
-  setTimeout(() => {
-    let FolderFullBox = document.querySelector(".FolderFullBox")
+  // setTimeout(() => {
+  //   let FolderFullBox = document.querySelector(".FolderFullBox")
 
-    FolderFullBox.style.zIndex = 2;
+  //   FolderFullBox.style.zIndex = 2;
     
-  },4000)
+  // },4000)
 
 </script>
 

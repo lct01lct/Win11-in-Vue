@@ -30,6 +30,5 @@ body{
   background-size: 100% 100%;
   background-attachment: fixed;
   overflow: hidden;
-  z-index: 0;
 }
 </style>

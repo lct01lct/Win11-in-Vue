@@ -1,6 +1,6 @@
 <template>
-  <div class="settingFullBox FullBox" v-show="IsShow" ref="SettingRef">
-    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">settings</ToolBarVue>
+  <div class="settingFullBox FullBox">
+    <ToolBarVue @update:modelValue="updataFromToolBar">settings</ToolBarVue>
     <main>
       <div class="nav">
         <div class="accountMessage">
@@ -53,13 +53,7 @@
    *      2. 设置页面的切换有路由实现 || 插槽实现
    */
 
-  // 是否显示
-  const IsShow = ref(true);
-
-  const that = getCurrentInstance();
-
   // 获取左侧nav栏的名字，为json数据的属性名称
-
   const navNameList = [];
 
   Object.keys(data).forEach((value) => {
@@ -86,19 +80,11 @@
   const toggle = (item) => {
     title.value = item;
     changeData(item);
-    console.log('item==',item);
   };
 
   // 接收开关的function
   const updataFromToolBar = ({ type } = newValue) => {
-    if (type === 'mini') {
-      IsShow.value = false;
-      setTimeout(() => {
-        IsShow.value = true;
-      }, 3000);
-    } else {
-      IsShow.value = false;
-    }
+
   };
 </script>
 
