@@ -79,11 +79,19 @@
   fn();
   setInterval(fn, 1000);
 
+  // setTimeout(() => {
+  //   taskBar.push({
+  //     icon:'home.png',
+  //     name:'home'
+  //   })
+  // },3000)
+
   // 点击任务栏，传递name，DOM获取类名并赋予其层级为最高
   const showTaskerbarPanel = (e) => {
 
+    // 目标组件
     const target = document.querySelector(`.${e}`)
-
+    
     if(target.style.zIndex == '' || target.style.zIndex < 0){
       showBox(target)
     }else{
