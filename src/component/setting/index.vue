@@ -1,5 +1,5 @@
 <template>
-  <div class="settingFullBox" v-show="IsShow" ref="SettingRef">
+  <div class="settingFullBox FullBox" v-show="IsShow" ref="SettingRef">
     <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">settings</ToolBarVue>
     <main>
       <div class="nav">
@@ -103,22 +103,7 @@
 
 <style lang="scss" scoped>
   .settingFullBox {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    transition: 0.2s ease-out;
     background-color: #f0f4f9;
-    border-radius: 6px;
-    box-shadow: 0 0 15px rgb(205, 204, 204);
-    user-select: none;
-    font-family: 'Cascadia Code';
-    z-index: 1;
-
-    // 限制缩放的大小
-    min-width: 700px;
-    min-height: 400px;
 
     main {
       display: flex;
