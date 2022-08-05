@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <settingsVue></settingsVue> -->
+    <settingsVue></settingsVue>
     <Folder></Folder>
   </div>
 </template>

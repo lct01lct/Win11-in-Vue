@@ -1,5 +1,5 @@
 <template>
-  <div class="FolderFullBox" v-show="isShow">
+  <div class="FolderFullBox">
     <ToolBarVue @update:modelValue="changeIsShow">File Explorer</ToolBarVue>
     <FolderTopToolBar></FolderTopToolBar>
     <PathTool></PathTool>
@@ -8,7 +8,7 @@
         <DropDown></DropDown>
       </nav>
       <div class="mainBody">
-        342
+        <MainBody></MainBody>
       </div>
     </main>
   </div>
@@ -18,19 +18,8 @@
   import FolderTopToolBar from './FolderTopToolBar/index.vue'
   import PathTool from './PathTool/index.vue'
   import DropDown from './DropDown/index.vue'
+  import MainBody from './MainBody/index.vue'
 
-  const isShow = ref(true);
-
-  const changeIsShow = ({ type } = item) => {
-    if (type === 'mini') {
-      isShow.value = false;
-      setTimeout(() => {
-        isShow.value = true;
-      }, 3000);
-    } else {
-      isShow.value = false;
-    }
-  };
 </script>
 
 <style lang="scss" scoped>
@@ -65,9 +54,15 @@
 
 
       nav{
-        width: 13em;
+        width: 15em;
         height: 100%;
         overflow-y: scroll;
+      }
+
+      .mainBody{
+        width: 100%;
+        height: 100%;
+        border-left: .1em solid #dddddd;
       }
     }
   }

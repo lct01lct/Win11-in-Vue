@@ -130,6 +130,8 @@ import { onBeforeUnmount } from 'vue';
         const X = e.pageX - parent.offsetLeft;
         const Y = e.pageY - parent.offsetTop;
 
+        parent.classList.add('notransition');
+
         // 移动监听事件
         const move = (e) => {
           parent.style.top = e.pageY - Y + 'px';
@@ -142,6 +144,7 @@ import { onBeforeUnmount } from 'vue';
         // 添加监听和移除监听
         document.addEventListener('mousemove', move);
         document.addEventListener('mouseup', () => {
+          parent.classList.remove('notransition')
           document.removeEventListener('mousemove', move);
         });
       };
@@ -155,6 +158,7 @@ import { onBeforeUnmount } from 'vue';
        * 监听鼠标弹起事件即删除监听
        */
       const dragChangeSize = (flag) => {
+        parent.classList.add('notransition')
         const move = (e) => {
           if (flag === 'HEIGHT') {
             parent.style.height = e.pageY - parent.offsetTop + 'px';
@@ -170,6 +174,7 @@ import { onBeforeUnmount } from 'vue';
         };
         document.addEventListener('mousemove', move);
         document.addEventListener('mouseup', () => {
+          parent.classList.remove('notransition')
           document.removeEventListener('mousemove', move);
         });
       };
@@ -359,4 +364,5 @@ import { onBeforeUnmount } from 'vue';
       }
     }
   }
+
 </style>

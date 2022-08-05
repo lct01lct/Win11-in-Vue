@@ -1,93 +1,88 @@
 <template>
   <div class="menu">
-    <div class="titleHaveChildren" v-if="props.children.length !== 0" @click="toggleDropStatus" ref="titleRef">{{ props.title }}</div>
+    <div
+      class="titleHaveChildren"
+      v-if="props.children.length !== 0"
+      @click="toggleDropStatus"
+      :class="{DropStatus: DropStatus}"
+    >
+      {{ props.title }}
+    </div>
     <div class="titleNoChildren" v-if="props.children.length === 0">{{ props.title }}</div>
     <div class="content" v-if="props.children.length !== 0">
-      <DropListVue
-        :children="children"
-      >
-      </DropListVue>
+      <DropListVue :children="children"></DropListVue>
     </div>
   </div>
 </template>
 
 <script setup>
-import DropListVue from './DropList.vue';
+  
+  import DropListVue from './DropList.vue'
 
-  const props = defineProps(['title','type','children']);
+  const props = defineProps(['title', 'type', 'children']);
 
-  const that = getCurrentInstance()
+  const children = reactive([]);
 
-  let titleRef ;
-
-  let children = reactive([])
-
-  onMounted(() => {
-    titleRef = that.refs.titleRef;
-
-    console.log(props);
-  })
+  let DropStatus = ref(false)
 
   const toggleDropStatus = () => {
-    if(children.length){
-      children.splice(0,children.length)
-    }else{
-      children.splice(0,0,...props.children)
+    if (children.length) {
+      children.splice(0, children.length);
+      DropStatus.value = false
+    } else {
+      children.splice(0, 0, ...props.children);
+      DropStatus.value = true
     }
-  }
-
+  };
 </script>
 
 <style lang="scss" scoped>
-.menu{
+  .menu {
     width: 90%;
-    .titleHaveChildren{
+    .titleHaveChildren {
       display: flex;
       align-items: center;
       font-size: 12px;
       height: 2em;
-      padding-left: .5em;
-      margin-left: .2em;
-      border-radius: .2em;
+      padding-left: 0.5em;
+      margin-left: 0.2em;
+      border-radius: 0.2em;
 
-      &::before{
-        content: ">";
+      &::before {
+        content: '>';
         color: #999;
-        margin-right: .8em;
+        margin-right: 0.8em;
       }
 
-      &:hover{
-
+      &:hover {
         background-color: #e3e3e3;
-
-        &::before{
-          transform:rotate(90deg);
-        }
       }
     }
 
-    .titleNoChildren{
+    .titleNoChildren {
       display: flex;
       align-items: center;
       font-size: 12px;
       height: 2em;
-      padding-left: .5em;
-      margin-left: .2em;
-      border-radius: .2em;
+      padding-left: 0.5em;
+      margin-left: 0.2em;
+      border-radius: 0.2em;
 
-      &:hover{
-
+      &:hover {
         background-color: #e3e3e3;
-
-        &::before{
-          transform:rotate(90deg);
-        }
       }
     }
 
-    .content{
-      margin-left: 15%;
+    .content {
+      padding-left: 10%;
       font-size: 12px;
     }
-}
+  }
+
+  .DropStatus{
+    &::before{
+      content: "<";
+      transform: rotate(90deg);
+    }
+  }
 </style>
