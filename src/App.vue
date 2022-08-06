@@ -1,4 +1,5 @@
 <script setup>
+<<<<<<< HEAD
   import ContextMenu from '@/component/ContextMenu/index.vue';
   import userStore from './store/userStore';
 
@@ -21,13 +22,27 @@
       '#app'
     ).style.backgroundImage = `url("src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg")`;
   });
+=======
+  import data from '@/data/folders-data';
+  import Desc from '@/utils/desc';
+
+  const descs = (function () {
+    const descs = [];
+    data.forEach((desc) => {
+      descs.push(new Desc(desc));
+    });
+    return descs;
+  })();
+
+  console.log(descs);
+>>>>>>> 3250c854acdd3a835cd91d2fef44de023657cb79
 </script>
 
 <template>
-  <ContextMenu v-if="contextmenu" :position="position"></ContextMenu>
   <router-view></router-view>
 </template>
 
+<<<<<<< HEAD
 <style lang="scss">
   body {
     overflow: hidden;
@@ -41,3 +56,6 @@
     overflow: hidden;
   }
 </style>
+=======
+<style lang="scss" scoped></style>
+>>>>>>> 3250c854acdd3a835cd91d2fef44de023657cb79
