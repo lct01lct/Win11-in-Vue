@@ -116,7 +116,6 @@
   const goToTargetPath = (title) => {
     console.log(title);
   };
-  
 </script>
 
 <style lang="scss" scoped>

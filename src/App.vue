@@ -1,6 +1,6 @@
 <script setup>
   import ContextMenu from '@/component/ContextMenu/index.vue';
-  import userStore from './store/userStore'
+  import userStore from './store/userStore';
 
   const store = userStore();
 
@@ -13,13 +13,14 @@
     contextmenu.value = true;
     setTimeout(() => {
       contextmenu.value = false;
-    },2000)
+    }, 2000);
   });
 
   onMounted(() => {
-    document.querySelector("#app").style.backgroundImage = `url("src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg")`
-  })
-
+    document.querySelector(
+      '#app'
+    ).style.backgroundImage = `url("src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg")`;
+  });
 </script>
 
 <template>
@@ -28,15 +29,15 @@
 </template>
 
 <style lang="scss">
-body{
-  overflow: hidden;
-}
-#app{
-  width: 100vw;
-  height: 100vh;
-  background: url('@/assets/img/setting/assetsImg/default/default.jpg');
-  background-size: 100% 100%;
-  background-attachment: fixed;
-  overflow: hidden;
-}
+  body {
+    overflow: hidden;
+  }
+  #app {
+    width: 100vw;
+    height: 100vh;
+    background: url('@/assets/img/setting/assetsImg/default/default.jpg');
+    background-size: 100% 100%;
+    background-attachment: fixed;
+    overflow: hidden;
+  }
 </style>

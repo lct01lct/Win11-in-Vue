@@ -1,10 +1,10 @@
 <template>
   <div class="ContextMenu" ref="menuRef">
     <ul>
-        <li>我</li>
-        <li>是</li>
-        <li>列</li>
-        <li>表</li>
+      <li>我</li>
+      <li>是</li>
+      <li>列</li>
+      <li>表</li>
     </ul>
   </div>
 </template>
@@ -15,7 +15,7 @@
   const that = getCurrentInstance();
 
   onMounted(() => {
-    let Ref = that.refs.menuRef;
+    const Ref = that.refs.menuRef;
     Ref.style.top = `${props.position.y - Ref.clientHeight / 2}px`;
     Ref.style.left = `${props.position.x - Ref.clientWidth / 2}px`;
   });

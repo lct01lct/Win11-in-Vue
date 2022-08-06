@@ -15,18 +15,10 @@
 </template>
 <script setup>
   import ToolBarVue from '../ToolBar/index.vue';
-  import FolderTopToolBar from './FolderTopToolBar/index.vue'
-  import PathTool from './PathTool/index.vue'
-  import DropDown from './DropDown/index.vue'
-  import MainBody from './MainBody/index.vue'
-
-  // setTimeout(() => {
-  //   let FolderFullBox = document.querySelector(".FolderFullBox")
-
-  //   FolderFullBox.style.zIndex = 2;
-    
-  // },4000)
-
+  import FolderTopToolBar from './FolderTopToolBar.vue';
+  import PathTool from './PathTool.vue';
+  import DropDown from './DropDown/index.vue';
+  import MainBody from './MainBody.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -44,16 +36,16 @@
       border-radius: 0 0 6px 6px;
       background-color: #ffffff;
 
-      nav{
+      nav {
         width: 15em;
         height: 100%;
         overflow-y: scroll;
       }
 
-      .mainBody{
+      .mainBody {
         width: 100%;
         height: 100%;
-        border-left: .1em solid #dddddd;
+        border-left: 0.1em solid #dddddd;
       }
     }
   }

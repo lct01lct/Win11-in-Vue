@@ -137,36 +137,6 @@ export default defineComponent({
                             />
                           );
                         })}
-                        {/* <img
-                          onClick={toggleTheme}
-                          payload="default"
-                          src="src/assets/img/setting/assetsImg/default/default.jpg"
-                        />
-                        <img
-                          onClick={toggleTheme}
-                          payload="dark"
-                          src="src/assets/img/setting/assetsImg/default/dark.jpg"
-                        />
-                        <img
-                          onClick={toggleTheme}
-                          payload="default"
-                          src="src/assets/img/setting/assetsImg/default/default.jpg"
-                        />
-                        <img
-                          onClick={toggleTheme}
-                          payload="default"
-                          src="src/assets/img/setting/assetsImg/default/default.jpg"
-                        />
-                        <img
-                          onClick={toggleTheme}
-                          payload="default"
-                          src="src/assets/img/setting/assetsImg/default/default.jpg"
-                        />
-                        <img
-                          onClick={toggleTheme}
-                          payload="default"
-                          src="src/assets/img/setting/assetsImg/default/default.jpg"
-                        /> */}
                       </div>
                     </div>
                   </div>

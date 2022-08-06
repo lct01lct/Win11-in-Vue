@@ -26,7 +26,7 @@ export const relizeZindex = () => {
 /**
  * @author(闫德强)
  * @param {*} target 目标组件元素
- * 
+ *
  * 传入目标元素，在此说明：约定底部栏的name和各组件的类名同名
  * 所以，可以直接获取到该组件，并显示
  */
