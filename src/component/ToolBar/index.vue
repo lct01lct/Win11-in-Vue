@@ -26,8 +26,8 @@
 </template>
 
 <script>
-import{ toolSize } from '@/data/viewData'
-import { onBeforeUnmount } from 'vue';
+  import { toolSize } from '@/data/viewData';
+  import { onBeforeUnmount } from 'vue';
   export default defineComponent({
     props: ['modelValue'],
     emits: ['update:modelValue'],
@@ -49,7 +49,7 @@ import { onBeforeUnmount } from 'vue';
 
       const that = getCurrentInstance();
 
-      let { viewSizeWidth , viewSizeHeight , top , left } = toolSize;
+      let { viewSizeWidth, viewSizeHeight, top, left } = toolSize;
 
       // 获取该工具栏的父元素
       let parent;
@@ -66,7 +66,7 @@ import { onBeforeUnmount } from 'vue';
         parent.style.height = `${toolSize.viewSizeHeight}px`;
         parent.style.left = `${toolSize.left}px`;
         parent.style.top = `${toolSize.top}px`;
-        parent.style.zIndex = '1'
+        parent.style.zIndex = '1';
       });
 
       // 最小化
@@ -114,17 +114,17 @@ import { onBeforeUnmount } from 'vue';
       };
 
       // 检索最大的层级
-      const searchMaxZindex = ()  => {
-        let all = Array.from(document.querySelectorAll("*"))
-        return all.sort(((a,b) => b.style.zIndex - a.style.zIndex))[0].style.zIndex
-      }
+      const searchMaxZindex = () => {
+        const all = Array.from(document.querySelectorAll('*'));
+        return all.sort((a, b) => b.style.zIndex - a.style.zIndex)[0].style.zIndex;
+      };
 
       // 拖动元素
       // 实现思路大概是做mousedown和mouseup的事件
       const moveBox = (e) => {
         // 无论是否拖动，点击即会改变层级
         // 获取层级最大的元素，并并加一
-        parent.style.zIndex = Number(searchMaxZindex()) + 1
+        parent.style.zIndex = Number(searchMaxZindex()) + 1;
 
         // 初始鼠标按下时候的，在toolbar的位置
         const X = e.pageX - parent.offsetLeft;
@@ -242,7 +242,7 @@ import { onBeforeUnmount } from 'vue';
         showSplit,
         closeSplit,
         splitFunction,
-      };  
+      };
     },
   });
 </script>

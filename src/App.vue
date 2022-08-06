@@ -10,7 +10,6 @@
     return descs;
   })();
 
-  console.log(descs[1].children[0].getPath());
   console.log(descs);
 </script>
 

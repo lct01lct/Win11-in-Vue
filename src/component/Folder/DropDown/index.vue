@@ -6,8 +6,7 @@
       :title="item.title"
       :type="item.type"
       :children="item.children"
-    >
-    </DropDownMenuVue>
+    ></DropDownMenuVue>
   </div>
 </template>
 
@@ -20,7 +19,7 @@
    *   同时dropdown的每个item子项，同时具备使主界面更新的功能
    *   至于是此组件发送请求接收数据还是主界面传递数据还没太想好
    *   初步的想法是传递数据：因为要实现更新数据并更新界面，父传子的形式
-   * 
+   *
    *   递归的结构：
    *    此为父组件，for循环菜单组件，也就是children下有对象的文件夹组件
    *    在menu文件夹组件中，会将children.length > 0 的数据传入List 组件
