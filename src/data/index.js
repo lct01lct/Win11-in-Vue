@@ -39,3 +39,36 @@ export const taskBarData = [
     name: 'store',
   },
 ];
+
+export const deskTopData = [
+  {
+    icon: 'user.png',
+    name: 'User',
+    componentName: 'User',
+  },
+  {
+    icon: 'bin1.png',
+    name: '垃圾箱',
+    componentName: 'Rubish',
+  },
+  {
+    icon: 'settings.png',
+    name: '设置',
+    componentName: 'settingFullBox',
+  },
+  {
+    icon: 'explorer.png',
+    name: '文件夹',
+    componentName: 'FolderFullBox',
+  },
+  {
+    icon: 'edge.png',
+    name: 'Edge',
+    componentName: 'EdgeFullBox',
+  },
+  {
+    icon: 'store.png',
+    name: 'store',
+    componentName: 'store',
+  },
+];

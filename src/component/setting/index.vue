@@ -1,6 +1,6 @@
 <template>
   <div class="settingFullBox FullBox">
-    <ToolBarVue @update:modelValue="updataFromToolBar">settings</ToolBarVue>
+    <ToolBarVue>settings</ToolBarVue>
     <main>
       <div class="nav">
         <div class="accountMessage">
@@ -81,9 +81,6 @@
     title.value = item;
     changeData(item);
   };
-
-  // 接收开关的function
-  const updataFromToolBar = ({ type } = newValue) => {};
 </script>
 
 <style lang="scss" scoped>

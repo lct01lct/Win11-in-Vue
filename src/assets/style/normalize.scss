@@ -350,7 +350,7 @@ template {
   display: none;
 }
 
-.FullBox{
+.FullBox {
   position: absolute;
   display: flex;
   flex-direction: column;
@@ -360,7 +360,6 @@ template {
   user-select: none;
   font-family: 'Cascadia Code';
   z-index: -1;
-
 
   // 限制缩放的大小
   min-width: 700px;
@@ -376,38 +375,38 @@ template {
   background-color: #777a7c;
 }
 
-.notransition{
+.notransition {
   transition: 0s !important;
 }
 
 @keyframes toggleTaskSlideIn {
-  from{
+  from {
     opacity: 0;
     transform: scale(0);
   }
 
-  to{
+  to {
     opacity: 1;
     transform: scale(1);
   }
 }
 
-.showBox{
-  animation: toggleTaskSlideIn .3s;
+.showBox {
+  animation: toggleTaskSlideIn 0.3s;
 }
 
 @keyframes toggleTaskSlideOut {
-  from{
+  from {
     opacity: 1;
     transform: scale(1);
   }
 
-  to{
+  to {
     opacity: 0;
     transform: scale(0);
   }
 }
 
-.hideBox{
-  animation: toggleTaskSlideOut .3s;
+.hideBox {
+  animation: toggleTaskSlideOut 0.3s;
 }

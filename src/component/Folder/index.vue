@@ -1,6 +1,6 @@
 <template>
   <div class="FolderFullBox FullBox">
-    <ToolBarVue @update:modelValue="changeIsShow">File Explorer</ToolBarVue>
+    <ToolBarVue>File Explorer</ToolBarVue>
     <FolderTopToolBar></FolderTopToolBar>
     <PathTool></PathTool>
     <main>
