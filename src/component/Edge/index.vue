@@ -2,7 +2,11 @@
   <div class="EdgeFullBox FullBox">
     <ToolBarVue></ToolBarVue>
     <main>
-      <iframe :src="src" frameborder="0"></iframe>
+      <iframe
+        :src="src"
+        frameborder="0"
+        sandbox="allow-same-origin allow-forms allow-scripts"
+      ></iframe>
     </main>
   </div>
 </template>

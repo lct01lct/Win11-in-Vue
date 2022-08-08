@@ -31,6 +31,7 @@ export const relizeZindex = () => {
  * 所以，可以直接获取到该组件，并显示
  */
 export const showBox = (target) => {
+  if (!target) return;
   target.style.zIndex = topZindex();
   target.classList.add('showBox');
   target.classList.remove('hideBox');
@@ -46,6 +47,8 @@ export const showBox = (target) => {
  * 由于底部栏的id和组件的类名同名，所以可以同时操作是否显示borderBottom
  */
 export const hideBox = (flag, target, e) => {
+  if (!target) return;
+
   target.style.zIndex = -1;
   target.classList.remove('showBox');
   target.classList.add('hideBox');

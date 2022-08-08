@@ -125,7 +125,7 @@
     ul {
       display: flex;
       justify-content: flex-start;
-      align-items: flex-start;
+      align-content: flex-start;
       flex-flow: wrap;
       overflow-y: scroll;
 
