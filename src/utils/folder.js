@@ -79,6 +79,7 @@ class Folder {
   addNewEmptyFile(options) {
     // todo
     // 超出磁盘内存报错
+    // 改变children
   }
 }
 

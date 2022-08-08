@@ -1,105 +1,91 @@
 <template>
   <div class="menu">
-    <!-- <div
+    <div
       class="titleHaveChildren"
-      @click="toggleDropStatus(props.name)"
       :class="{ DropStatus: DropStatus }"
-      v-if="childLength !== 0"
+      v-if="data.children && data.children.length !== 0"
+      @click="goToTargetFolder(data)"
     >
-      {{ props.extension }}
-      {{ props.name }}
+      <span @click="toggleDropStatus">&gt;</span>
+      {{ data.name }}
     </div>
     <div
       class="titleNoChildren"
-      v-if="props.path && childLength === 0"
-      @click="goToTargetFolder(props.name)"
+      v-if="data.path && data.children.length === 0"
+      @click="goToTargetFolder(data)"
     >
-      {{ props.name }}
+      {{ data.name }}
     </div>
     <div class="content" v-if="children.length !== 0">
-      <DropListVue :children="children"></DropListVue>
-    </div> -->
-    <div
-      class="titleHaveChildren"
-      @click="toggleDropStatus(props.name)"
-      :class="{ DropStatus: DropStatus }"
-      v-if="childLength !== 0"
-    >
-      {{ props.extension }}
-      {{ props.name }}
-    </div>
-    <div
-      class="titleNoChildren"
-      v-if="props.path && childLength === 0"
-      @click="goToTargetFolder(props.name)"
-    >
-      {{ props.name }}
-    </div>
-    <div class="content" v-if="children.length !== 0">
-      <DropListVue :children="children"></DropListVue>
+      <DropDownMenu v-for="item1 in children" :key="item1" :data="item1"></DropDownMenu>
     </div>
   </div>
 </template>
 
 <script setup>
-  import DropListVue from './DropList.vue';
-  const props = defineProps(['name', 'children', 'path', 'obj']);
+  const props = defineProps(['data']);
 
   // props.chilldren.length
-  const childLength = props.children.length;
-
+  const data = props.data;
+  console.log(data);
   // -----------------------------------------------
 
   // inject 接受父组件的回调函数：
   // target： 传递当前的文件夹情况
   const updateFileStatus = inject('updateFileStatus');
-  // 每次挂载都进行更新
-  updateFileStatus(props.obj);
-  console.log(props.children, 11);
 
   // ------------------------------------------------
 
-  const children = reactive([]);
+  // eslint-disable-next-line prefer-const
+  let children = reactive([]);
 
   const DropStatus = ref(false);
 
-  const toggleDropStatus = (name) => {
+  const toggleDropStatus = () => {
     if (children.length) {
       children.splice(0, children.length);
       DropStatus.value = false;
     } else {
-      children.splice(0, 0, ...props.obj.children);
+      children.splice(0, 0, ...props.data.children);
       DropStatus.value = true;
     }
-    console.log(name);
   };
 
-  const goToTargetFolder = (e) => {
-    console.log(e);
+  const goToTargetFolder = (DATA) => {
+    updateFileStatus(DATA.children);
   };
 </script>
 
 <style lang="scss" scoped>
   .menu {
-    width: 90%;
+    width: 95%;
+    margin-left: 2%;
+    white-space: nowrap;
+    overflow: hidden;
     .titleHaveChildren {
       display: flex;
       align-items: center;
       font-size: 12px;
       height: 2em;
+      width: 100%;
       padding-left: 0.5em;
       margin-left: 0.2em;
       border-radius: 0.2em;
 
-      &::before {
-        content: '>';
-        color: #999;
-        margin-right: 0.8em;
-      }
+      // &::before {
+      //   content: '>';
+      //   color: #999;
+      //   margin-right: 0.8em;
+      // }
 
       &:hover {
         background-color: #e3e3e3;
       }
+    }
+
+    span {
+      font-size: 1.3em;
+      margin-right: 5px;
     }
 
     .titleNoChildren {
@@ -107,7 +93,6 @@
       align-items: center;
       font-size: 12px;
       height: 2em;
-      padding-left: 0.5em;
       margin-left: 0.2em;
       border-radius: 0.2em;
 
@@ -123,8 +108,7 @@
   }
 
   .DropStatus {
-    &::before {
-      content: '<';
+    span {
       transform: rotate(90deg);
     }
   }

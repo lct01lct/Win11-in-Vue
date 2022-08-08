@@ -1,13 +1,14 @@
 <template>
   <div class="pathTool">
-    <span class="historyBtn">🔙</span>
-    <span class="historyBtn">🔜</span>
+    <span class="historyBtn" @click="backToParent">🔙</span>
+    <!-- <span class="historyBtn">🔜</span> -->
+    <span class="historyBtn">{{ props.data }}</span>
     <span class="historyBtn">🔝</span>
     <div class="path">
       <img :src="`src/assets/img/setting/${headerIcon}`" alt="" />
       <input type="text" id="input" v-model.lazy.trim="inputPath" @keydown.enter="goTargetPath" />
       <label for="input" class="path-content">
-        <span v-for="item in mock" :key="item">{{ item }}</span>
+        <span v-for="item in path" :key="item">{{ item }}</span>
       </label>
     </div>
     <div class="search">
@@ -30,19 +31,23 @@
    *      前进，后退
    *      搜索，并将内容传递至父组件
    */
+  const props = defineProps(['data']);
 
-  // const props = defineProps('pathArray')
   const headerIcon = ref('user-sm.png');
-  const mock = reactive(['C:', 'img', 'setting', 'model']);
+  const path = reactive(['C:', 'img', 'setting', 'model']);
   const inputPath = computed({
     get() {
-      return mock.join('/');
+      return path.join('/');
     },
     set(newValue) {
       const newV = newValue.split('/');
       console.log(newV);
     },
   });
+
+  const backToParent = () => {
+    console.log('好了！ 我触发了！');
+  };
 
   const goTargetPath = () => {
     console.log('ok，我去跳转！');

@@ -4,12 +4,13 @@
       <li
         v-for="item in data"
         :key="item"
-        @dblclick="goToTargetPath(item.path)"
+        @dblclick="goToTargetPath(item)"
         :title="`大小：${item.size} ${item.usageRate ? `Rate: ${item.usageRate}` : ''}`"
       >
         <img :src="`src/assets/img/setting/${item.children ? 'folder.png' : 'edge.png'}`" />
         <span>{{ `${item.name}${item.extension ? `.${item.extension}` : ''}` }}</span>
       </li>
+      <div v-if="data.length === 0">此文件夹为空！</div>
     </ul>
   </div>
 </template>
@@ -24,12 +25,15 @@
    *    文件夹图标的显示，名字的显示
    *    doubleClick跳转对应的文件夹，穿梭至指定文件夹深度
    */
+  // 接收传递需要渲染的数据
   const props = defineProps(['children']);
   const data = props.children;
-  console.log(data);
 
-  const goToTargetPath = (title) => {
-    console.log(title);
+  // 接收emits，目的是更新
+  const updatePathContent = inject('updatePathContent');
+  const goToTargetPath = (item) => {
+    data.splice(0, data.length, ...item.children);
+    updatePathContent(item);
   };
 </script>
 
@@ -73,5 +77,9 @@
         }
       }
     }
+  }
+
+  div {
+    margin: 0 auto;
   }
 </style>

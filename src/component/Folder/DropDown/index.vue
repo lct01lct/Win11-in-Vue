@@ -1,13 +1,7 @@
 <!-- eslint-disable prefer-const -->
 <template>
   <div class="LeftNavRoot">
-    <DropDownMenuVue
-      v-for="(item, i) in data"
-      :key="item"
-      :name="item.name"
-      :children="item.children"
-      :obj="props.obj[i]"
-    ></DropDownMenuVue>
+    <DropDownMenuVue v-for="item in data" :key="item" :data="item"></DropDownMenuVue>
   </div>
 </template>
 
@@ -27,7 +21,7 @@
    *    在List组件中会再次递归菜单组件
    */
 
-  const props = defineProps(['data', 'obj']);
+  const props = defineProps(['data']);
 
   // eslint-disable-next-line prefer-const
   let data = reactive(props.data);
