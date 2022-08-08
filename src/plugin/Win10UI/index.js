@@ -1,4 +1,6 @@
-const componentFile = import.meta.globEager('./**/index.js');
+import MessageBox from './MessageBox';
+
+const componentFile = import.meta.globEager('./**/index.vue');
 
 const componentsPool = [];
 for (const comp in componentFile) {
@@ -11,6 +13,7 @@ export default {
     if (options && options.components) {
       options.components.forEach((compName) => {
         componentsPool.forEach((comp) => {
+          console.log(comp);
           if (compName === comp.name) {
             app.component(comp.name, comp);
           }
@@ -23,3 +26,5 @@ export default {
     }
   },
 };
+
+export { MessageBox };
