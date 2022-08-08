@@ -4,7 +4,7 @@
       class="titleHaveChildren"
       v-if="props.children.length !== 0"
       @click="toggleDropStatus"
-      ref="titleRef"
+      :class="{ DropStatus: DropStatus }"
     >
       {{ props.title }}
     </div>
@@ -16,27 +16,21 @@
 </template>
 
 <script setup>
-  import DropListVue from './dropList';
+  import DropListVue from './DropList.vue';
 
   const props = defineProps(['title', 'type', 'children']);
 
-  const that = getCurrentInstance();
-
-  let titleRef;
-
   const children = reactive([]);
 
-  onMounted(() => {
-    titleRef = that.refs.titleRef;
-
-    console.log(props);
-  });
+  const DropStatus = ref(false);
 
   const toggleDropStatus = () => {
     if (children.length) {
       children.splice(0, children.length);
+      DropStatus.value = false;
     } else {
       children.splice(0, 0, ...props.children);
+      DropStatus.value = true;
     }
   };
 </script>
@@ -61,10 +55,6 @@
 
       &:hover {
         background-color: #e3e3e3;
-
-        &::before {
-          transform: rotate(90deg);
-        }
       }
     }
 
@@ -79,16 +69,19 @@
 
       &:hover {
         background-color: #e3e3e3;
-
-        &::before {
-          transform: rotate(90deg);
-        }
       }
     }
 
     .content {
-      margin-left: 15%;
+      padding-left: 10%;
       font-size: 12px;
+    }
+  }
+
+  .DropStatus {
+    &::before {
+      content: '<';
+      transform: rotate(90deg);
     }
   }
 </style>

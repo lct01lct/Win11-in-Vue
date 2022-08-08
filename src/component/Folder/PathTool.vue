@@ -5,20 +5,20 @@
     <span class="historyBtn">🔝</span>
     <div class="path">
       <img :src="`src/assets/img/setting/${headerIcon}`" alt="" />
-      <input type="text" id="input" v-model.lazy.trim="inputPath" @keydown.enter="goTargetPath"/>
+      <input type="text" id="input" v-model.lazy.trim="inputPath" @keydown.enter="goTargetPath" />
       <label for="input" class="path-content">
         <span v-for="item in mock" :key="item">{{ item }}</span>
       </label>
     </div>
     <div class="search">
       <img src="src/assets/img/setting/search.png" alt="" />
-      <input type="text" placeholder="search" @keydown.enter="searchStr($event)"/>
+      <input type="text" placeholder="search" @keydown.enter="searchStr($event)" />
     </div>
   </div>
 </template>
 
 <script setup>
-/** 需求分析
+  /** 需求分析
    *  path框的图片是可以动态变化的
    *  路径框是可以匹配内容的
    *  前进后退按钮可用
@@ -31,27 +31,26 @@
    *      搜索，并将内容传递至父组件
    */
 
-
   // const props = defineProps('pathArray')
-  let headerIcon = ref('user-sm.png');
-  let mock = reactive(['C:','img','setting','model']);
-  let inputPath = computed({
-    get(){
-      return mock.join("/")
+  const headerIcon = ref('user-sm.png');
+  const mock = reactive(['C:', 'img', 'setting', 'model']);
+  const inputPath = computed({
+    get() {
+      return mock.join('/');
     },
-    set(newValue){
-      let newV = newValue.split("/")
-      console.log(newV); 
-    }
-  })
+    set(newValue) {
+      const newV = newValue.split('/');
+      console.log(newV);
+    },
+  });
 
   const goTargetPath = () => {
-    console.log("ok，我去跳转！");
-  }
+    console.log('ok，我去跳转！');
+  };
 
   const searchStr = (e) => {
-    console.log(e.target.value,"好了值我拿到了，我去search了");
-  }
+    console.log(e.target.value, '好了值我拿到了，我去search了');
+  };
 </script>
 
 <style lang="scss" scoped>

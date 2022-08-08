@@ -1,6 +1,6 @@
 <template>
-  <div class="settingFullBox" v-show="IsShow" ref="SettingRef">
-    <ToolBarVue :modelValue="IsShow" @update:modelValue="updataFromToolBar">settings</ToolBarVue>
+  <div class="settingFullBox FullBox">
+    <ToolBarVue @update:modelValue="updataFromToolBar">settings</ToolBarVue>
     <main>
       <div class="nav">
         <div class="accountMessage">
@@ -33,7 +33,7 @@
 <script setup>
   import data from './settingData.json';
   import ToolBarVue from '@/component/ToolBar/index.vue';
-  import jsx from '@/component/setting/MainBodyList/index.jsx';
+  import jsx from './MainBodyList.jsx';
 
   /** 需求分析：
    *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
@@ -53,13 +53,7 @@
    *      2. 设置页面的切换有路由实现 || 插槽实现
    */
 
-  // 是否显示
-  const IsShow = ref(true);
-
-  const that = getCurrentInstance();
-
   // 获取左侧nav栏的名字，为json数据的属性名称
-
   const navNameList = [];
 
   Object.keys(data).forEach((value) => {
@@ -86,40 +80,15 @@
   const toggle = (item) => {
     title.value = item;
     changeData(item);
-    console.log('item==',item);
   };
 
   // 接收开关的function
-  const updataFromToolBar = ({ type } = newValue) => {
-    if (type === 'mini') {
-      IsShow.value = false;
-      setTimeout(() => {
-        IsShow.value = true;
-      }, 3000);
-    } else {
-      IsShow.value = false;
-    }
-  };
+  const updataFromToolBar = ({ type } = newValue) => {};
 </script>
 
 <style lang="scss" scoped>
   .settingFullBox {
-    position: absolute;
-    display: flex;
-    flex-direction: column;
-    width: 100vw;
-    height: 100vh;
-    transition: 0.2s ease-out;
     background-color: #f0f4f9;
-    border-radius: 6px;
-    box-shadow: 0 0 15px rgb(205, 204, 204);
-    user-select: none;
-    font-family: 'Cascadia Code';
-    z-index: 1;
-
-    // 限制缩放的大小
-    min-width: 700px;
-    min-height: 400px;
 
     main {
       display: flex;
