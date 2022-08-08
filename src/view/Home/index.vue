@@ -29,11 +29,6 @@
     height: 100vh;
 
     .main {
-      // display: flex;
-      // flex-direction: column;
-      // justify-content: flex-start;
-      // align-content: flex-start;
-      // flex-wrap: wrap;
       height: calc(100% - 48px);
       width: 100%;
     }

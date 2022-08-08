@@ -1,9 +1,14 @@
 <template>
   <div class="folderContent">
     <ul>
-      <li v-for="item in data" :key="item" @dblclick="goToTargetPath(item.title)">
-        <img :src="`src/assets/img/setting/${item.icon}`" />
-        <span>{{ item.title }}</span>
+      <li
+        v-for="item in data"
+        :key="item"
+        @dblclick="goToTargetPath(item.path)"
+        :title="`大小：${item.size} ${item.usageRate ? `Rate: ${item.usageRate}` : ''}`"
+      >
+        <img :src="`src/assets/img/setting/${item.children ? 'folder.png' : 'edge.png'}`" />
+        <span>{{ `${item.name}${item.extension ? `.${item.extension}` : ''}` }}</span>
       </li>
     </ul>
   </div>
@@ -19,99 +24,9 @@
    *    文件夹图标的显示，名字的显示
    *    doubleClick跳转对应的文件夹，穿梭至指定文件夹深度
    */
-
-  const data = reactive([
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'user',
-      title: 'night',
-      icon: 'user.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'user',
-      title: 'night',
-      icon: 'user.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'folder',
-      title: '.config',
-      icon: 'folder.png',
-    },
-    {
-      type: 'user',
-      title: 'night',
-      icon: 'user.png',
-    },
-  ]);
+  const props = defineProps(['children']);
+  const data = props.children;
+  console.log(data);
 
   const goToTargetPath = (title) => {
     console.log(title);
@@ -138,14 +53,15 @@
       li {
         display: flex;
         flex-direction: column;
-        justify-content: flex-start;
+        justify-content: space-around;
         align-items: center;
-        width: 7em;
-        height: 7em;
+
+        width: 6em;
+        height: 6em;
 
         img {
-          width: 6em;
-          height: 6em;
+          width: 3em;
+          height: 3em;
         }
 
         span {

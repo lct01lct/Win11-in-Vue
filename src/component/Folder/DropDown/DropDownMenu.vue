@@ -1,15 +1,41 @@
 <template>
   <div class="menu">
+    <!-- <div
+      class="titleHaveChildren"
+      @click="toggleDropStatus(props.name)"
+      :class="{ DropStatus: DropStatus }"
+      v-if="childLength !== 0"
+    >
+      {{ props.extension }}
+      {{ props.name }}
+    </div>
+    <div
+      class="titleNoChildren"
+      v-if="props.path && childLength === 0"
+      @click="goToTargetFolder(props.name)"
+    >
+      {{ props.name }}
+    </div>
+    <div class="content" v-if="children.length !== 0">
+      <DropListVue :children="children"></DropListVue>
+    </div> -->
     <div
       class="titleHaveChildren"
-      v-if="props.children.length !== 0"
-      @click="toggleDropStatus"
+      @click="toggleDropStatus(props.name)"
       :class="{ DropStatus: DropStatus }"
+      v-if="childLength !== 0"
     >
-      {{ props.title }}
+      {{ props.extension }}
+      {{ props.name }}
     </div>
-    <div class="titleNoChildren" v-if="props.children.length === 0">{{ props.title }}</div>
-    <div class="content" v-if="props.children.length !== 0">
+    <div
+      class="titleNoChildren"
+      v-if="props.path && childLength === 0"
+      @click="goToTargetFolder(props.name)"
+    >
+      {{ props.name }}
+    </div>
+    <div class="content" v-if="children.length !== 0">
       <DropListVue :children="children"></DropListVue>
     </div>
   </div>
@@ -17,21 +43,39 @@
 
 <script setup>
   import DropListVue from './DropList.vue';
+  const props = defineProps(['name', 'children', 'path', 'obj']);
 
-  const props = defineProps(['title', 'type', 'children']);
+  // props.chilldren.length
+  const childLength = props.children.length;
+
+  // -----------------------------------------------
+
+  // inject 接受父组件的回调函数：
+  // target： 传递当前的文件夹情况
+  const updateFileStatus = inject('updateFileStatus');
+  // 每次挂载都进行更新
+  updateFileStatus(props.obj);
+  console.log(props.children, 11);
+
+  // ------------------------------------------------
 
   const children = reactive([]);
 
   const DropStatus = ref(false);
 
-  const toggleDropStatus = () => {
+  const toggleDropStatus = (name) => {
     if (children.length) {
       children.splice(0, children.length);
       DropStatus.value = false;
     } else {
-      children.splice(0, 0, ...props.children);
+      children.splice(0, 0, ...props.obj.children);
       DropStatus.value = true;
     }
+    console.log(name);
+  };
+
+  const goToTargetFolder = (e) => {
+    console.log(e);
   };
 </script>
 

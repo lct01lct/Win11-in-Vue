@@ -5,10 +5,10 @@
     <PathTool></PathTool>
     <main>
       <nav class="scroll">
-        <DropDown></DropDown>
+        <DropDown :data="data" :obj="data"></DropDown>
       </nav>
       <div class="mainBody">
-        <MainBody></MainBody>
+        <MainBody :children="children"></MainBody>
       </div>
     </main>
   </div>
@@ -19,12 +19,33 @@
   import PathTool from './PathTool.vue';
   import DropDown from './DropDown/index.vue';
   import MainBody from './MainBody.vue';
+
+  import Data from '@/data/folders-data';
+  import Desc from '@/utils/desc';
+
+  // create folder obj
+  const data = (function () {
+    const descs = [];
+    Data.forEach((desc) => {
+      descs.push(new Desc(desc));
+    });
+    return descs;
+  })();
+  // 文件夹下子文件或子文件夹
+  const children = reactive([]);
+  // 接受左边栏调度传递来的子目录结构
+  const updateFileStatus = (obj) => {
+    children.push(obj);
+  };
+
+  provide('updateFileStatus', updateFileStatus);
 </script>
 
 <style lang="scss" scoped>
   .FolderFullBox {
     background-color: #f0f4f9;
 
+    z-index: 9;
     // 限制缩放的大小
     min-width: 700px;
     min-height: 400px;

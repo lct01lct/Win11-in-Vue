@@ -64,8 +64,10 @@ function separateUnit(num) {
  * @returns {Number} 没有单位的数据
  */
 function getBytes(num) {
+  // res is a obj contains size and unit(单位)
   const res = separateUnit(num);
+  // 返回数组的索引作为次方
   const index = units.indexOf(res.unit);
-
+  // return 原始的数据大小 * 1024的次方
   return res.size * Math.pow(baseRadix, index);
 }
