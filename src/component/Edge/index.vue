@@ -15,7 +15,7 @@
   import ToolBarVue from '@/component/ToolBar/index.vue';
   const src = ref('');
   onMounted(() => {
-    src.value = 'https://cn.bing.com/';
+    // src.value = 'https://cn.bing.com/';
   });
 </script>
 
