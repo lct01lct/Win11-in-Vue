@@ -8,9 +8,15 @@
         :title="`大小：${item.size} ${item.usageRate ? `Rate: ${item.usageRate}` : ''}`"
       >
         <img :src="`src/assets/img/setting/${item.children ? 'folder.png' : 'edge.png'}`" />
-        <span @click.right="changeName(item)">
-          {{ `${item.name}${item.extension ? `.${item.extension}` : ''}` }}
-        </span>
+        <div>
+          <span @click.right="changeName($event, item)">
+            {{ `${item.name}${item.extension ? `.${item.extension}` : ''}` }}
+          </span>
+          <input
+            type="text"
+            :placeholder="`${item.name}${item.extension ? `.${item.extension}` : ''}`"
+          />
+        </div>
       </li>
       <div v-if="data.length === 0">此文件夹为空！</div>
     </ul>
@@ -50,8 +56,30 @@
     }
   };
 
-  const changeName = (item) => {
-    console.log(item);
+  const changeName = (e, item) => {
+    const target = e.target;
+    const input = target.nextElementSibling;
+    input.style.display = 'block';
+    target.style.display = 'none';
+    input.focus();
+
+    // -------------------------------------
+    // 上面，处理点击时候的样式更改，下面处理失去
+    // 焦点后的对象更改
+    // -------------------------------------
+
+    input.addEventListener('blur', (e) => {
+      input.style.display = 'none';
+      target.style.display = 'block';
+      const value = e.target.value;
+      if (value) {
+        // 输入内容不为空的情况下
+        // 更改文件名字
+        // 同时更新路径
+        item.changeName && item.changeName(value);
+        item.setPath && item.setPath();
+      }
+    });
   };
 </script>
 
@@ -99,5 +127,15 @@
 
   div {
     margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  input {
+    display: none;
+    width: 100%;
+    height: 20px;
+    outline: 0;
   }
 </style>

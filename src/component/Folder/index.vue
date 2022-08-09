@@ -43,7 +43,6 @@
   .FolderFullBox {
     background-color: #f0f4f9;
 
-    z-index: 9;
     // 限制缩放的大小
     min-width: 700px;
     min-height: 400px;

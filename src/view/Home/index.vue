@@ -18,6 +18,10 @@
   import Folder from '@/component/Folder/index.vue';
   // import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
+
+  document.addEventListener('contextmenu', (e) => {
+    e.preventDefault();
+  });
 </script>
 
 <style lang="scss">
