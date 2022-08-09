@@ -8,7 +8,7 @@
         <DropDown :data="data"></DropDown>
       </nav>
       <div class="mainBody">
-        <MainBody :children="children"></MainBody>
+        <MainBody></MainBody>
         <!-- :updatePathContent="updatePathContent" -->
       </div>
     </main>
@@ -23,7 +23,9 @@
 
   import Data from '@/data/folders-data';
   import Desc from '@/utils/desc';
-
+  // 缓存下全部的文件结构
+  import userStore from '@/store/userStore';
+  const store = userStore();
   // create folder obj
   const data = (function () {
     const descs = [];
@@ -32,30 +34,9 @@
     });
     return descs;
   })();
-
-  // 文件夹下子文件或子文件夹
-  const children = reactive([]);
-
-  // 接受左边栏调度传递来的子目录结构
-  const updateFileStatus = (childrenData) => {
-    children.splice(0, children.length, ...childrenData);
-    console.log(children);
-  };
-  // 向DropDownMenu组件传递事件
-  provide('updateFileStatus', updateFileStatus);
-
-  // ------------------------------------------------
-
-  // 作为中间商接受来自Main Body传递来的path和parent信息，
-  // 传递给PathTool组件
-  // 用于前进后退事件
-  // eslint-disable-next-line prefer-const
-  let content = reactive([]);
-  const updatePathContent = (data) => {
-    content.push(data);
-    console.log(content);
-  };
-  provide('updatePathContent', updatePathContent);
+  console.log('fullData', data);
+  // cache 全部的目录结构
+  store.cacheCompletedFolder(data);
 </script>
 
 <style lang="scss" scoped>

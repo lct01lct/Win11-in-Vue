@@ -47,6 +47,10 @@ class Folder {
     this.setPath();
   }
 
+  changeName(newName) {
+    this.name = newName;
+  }
+
   // 目的是递归各个文件夹
   setFolders(list) {
     list.forEach((item) => {
@@ -80,6 +84,7 @@ class Folder {
     // todo
     // 超出磁盘内存报错
     // 改变children
+    return this.children.push(new Folder(options, this));
   }
 }
 

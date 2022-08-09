@@ -23,16 +23,15 @@
 </template>
 
 <script setup>
+  import userStore from '@/store/userStore';
   const props = defineProps(['data']);
 
   // props.chilldren.length
   const data = props.data;
-  console.log(data);
   // -----------------------------------------------
 
   // inject 接受父组件的回调函数：
   // target： 传递当前的文件夹情况
-  const updateFileStatus = inject('updateFileStatus');
 
   // ------------------------------------------------
 
@@ -51,8 +50,11 @@
     }
   };
 
+  // the userStore's instance
+  // the target is store the CurrentFolder
+  const store = userStore();
   const goToTargetFolder = (DATA) => {
-    updateFileStatus(DATA.children);
+    store.changeCurrentFolder(DATA);
   };
 </script>
 

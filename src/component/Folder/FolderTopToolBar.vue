@@ -1,6 +1,10 @@
 <template>
   <div class="fileToolBar">
     <ul>
+      <li @click="addNewFolder">
+        <img src="src/assets/img/setting/new.png" />
+        <span class="desc">New</span>
+      </li>
       <li v-for="item in toolList" :key="item">
         <span v-if="item.type === 'spacer'" class="spacer"></span>
         <template v-if="item.type === 'icon'">
@@ -21,12 +25,9 @@
   //  4. 粘贴
   //  5. 排序
   //  6. 视图
+  import userStore from '@/store/userStore';
+
   const toolList = [
-    {
-      type: 'icon',
-      icon: 'new.png',
-      desc: 'New',
-    },
     {
       type: 'spacer',
     },
@@ -63,6 +64,17 @@
       type: 'spacer',
     },
   ];
+  const store = userStore();
+  const addNewFolder = () => {
+    const currentFolder = store.storeCurrentFolder;
+    const obj = {
+      name: '新建文件夹',
+      memory: '0KB',
+      children: [],
+    };
+    const index = currentFolder.addNewEmptyFile(obj);
+    const targetObject = currentFolder.children[index - 1];
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -88,7 +100,6 @@
         padding: 0.5em;
         img {
           width: 1.2em;
-          // margin-right: .2em;
         }
         .desc {
           // margin-left: .5em;

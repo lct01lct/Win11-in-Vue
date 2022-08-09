@@ -8,7 +8,9 @@
         :title="`大小：${item.size} ${item.usageRate ? `Rate: ${item.usageRate}` : ''}`"
       >
         <img :src="`src/assets/img/setting/${item.children ? 'folder.png' : 'edge.png'}`" />
-        <span>{{ `${item.name}${item.extension ? `.${item.extension}` : ''}` }}</span>
+        <span @click.right="changeName(item)">
+          {{ `${item.name}${item.extension ? `.${item.extension}` : ''}` }}
+        </span>
       </li>
       <div v-if="data.length === 0">此文件夹为空！</div>
     </ul>
@@ -25,15 +27,31 @@
    *    文件夹图标的显示，名字的显示
    *    doubleClick跳转对应的文件夹，穿梭至指定文件夹深度
    */
-  // 接收传递需要渲染的数据
-  const props = defineProps(['children']);
-  const data = props.children;
+  // import userstore tool to change MainBody
+  import userStore from '@/store/userStore';
+  const store = userStore();
+
+  // eslint-disable-next-line prefer-const
+  let data = reactive([]);
+
+  watch(
+    () => store.storeCurrentFolder,
+    () => {
+      data.splice(0, data.length, ...store.storeCurrentFolder.children);
+    },
+    { deep: true }
+  );
 
   // 接收emits，目的是更新
-  const updatePathContent = inject('updatePathContent');
   const goToTargetPath = (item) => {
-    data.splice(0, data.length, ...item.children);
-    updatePathContent(item);
+    if (item.children) {
+      store.changeCurrentFolder(item);
+      data.splice(0, data.length, ...item.children);
+    }
+  };
+
+  const changeName = (item) => {
+    console.log(item);
   };
 </script>
 
