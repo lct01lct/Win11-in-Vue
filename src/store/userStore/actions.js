@@ -11,5 +11,17 @@ export default {
         '#app'
       ).style.backgroundImage = `url(src/assets/img/setting/assetsImg/default/${src}.jpg)`;
     },
+    changeCurrentFolder(CurrentFolder) {
+      this.storeCurrentFolder = CurrentFolder;
+    },
+    cacheCompletedFolder(Folders) {
+      this.storeCompletedFolder = Folders;
+    },
+    addLastFolder(Folder) {
+      this.lastFolder.push(Folder);
+    },
+    deleteLastFolder() {
+      return this.lastFolder.pop();
+    },
   },
 };

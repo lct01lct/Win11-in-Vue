@@ -5,10 +5,11 @@
     <PathTool></PathTool>
     <main>
       <nav class="scroll">
-        <DropDown></DropDown>
+        <DropDown :data="data"></DropDown>
       </nav>
       <div class="mainBody">
         <MainBody></MainBody>
+        <!-- :updatePathContent="updatePathContent" -->
       </div>
     </main>
   </div>
@@ -19,6 +20,23 @@
   import PathTool from './PathTool.vue';
   import DropDown from './DropDown/index.vue';
   import MainBody from './MainBody.vue';
+
+  import Data from '@/data/folders-data';
+  import Desc from '@/utils/desc';
+  // 缓存下全部的文件结构
+  import userStore from '@/store/userStore';
+  const store = userStore();
+  // create folder obj
+  const data = (function () {
+    const descs = [];
+    Data.forEach((desc) => {
+      descs.push(new Desc(desc));
+    });
+    return descs;
+  })();
+  console.log('fullData', data);
+  // cache 全部的目录结构
+  store.cacheCompletedFolder(data);
 </script>
 
 <style lang="scss" scoped>

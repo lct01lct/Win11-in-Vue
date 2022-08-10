@@ -5,6 +5,9 @@ export default {
       themeSrc: localStorage.getItem('theme') || 'default',
       systemName: 'Windows',
       accountName: 'night',
+      storeCurrentFolder: {},
+      storeCompletedFolder: {},
+      lastFolder: [],
     };
   },
   getters: {
