@@ -12,6 +12,10 @@ export default [
         children: [],
       },
       {
+        name: 'DeskTop',
+        children: [],
+      },
+      {
         extension: 'html',
         name: 'index',
         size: '10GB',

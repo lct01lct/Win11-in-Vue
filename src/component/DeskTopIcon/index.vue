@@ -3,7 +3,7 @@
     <div
       v-for="item in deskTopData"
       :key="item"
-      @click="clickApp($event, item.componentName)"
+      @dblclick="clickApp($event, item.componentName)"
       ref="IconRefs"
     >
       <img :src="`src/assets/img/icon/${item.icon}`" />

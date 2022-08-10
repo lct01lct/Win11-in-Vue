@@ -22,7 +22,7 @@
   import MainBody from './MainBody.vue';
 
   import Data from '@/data/folders-data';
-  import Desc from '@/utils/desc';
+  import Desc from '@/utils/OS/desc';
   // 缓存下全部的文件结构
   import userStore from '@/store/userStore';
   const store = userStore();
@@ -34,7 +34,7 @@
     });
     return descs;
   })();
-  console.log('fullData', data);
+  // console.log('fullData', data);
   // cache 全部的目录结构
   store.cacheCompletedFolder(data);
 </script>
