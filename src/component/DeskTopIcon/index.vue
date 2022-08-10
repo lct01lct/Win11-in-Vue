@@ -1,12 +1,17 @@
 <template>
-  <div class="deskTopIcon">
+  <div class="deskTopIcons">
     <div
-      v-for="item in deskTopData"
+      class="deskTopIcon"
+      v-for="item in DeskTopIconData"
       :key="item"
-      @dblclick="clickApp($event, item.componentName)"
+      @dblclick="clickApp($event, item)"
+      :style="`
+        top: ${((Math.floor(item.posIdx % 8) - 1) * 76.8).toFixed(1) + 'px'};
+        left: ${(Math.floor(item.posIdx / 8) * 76.8).toFixed(1) + 'px'};
+      `"
       ref="IconRefs"
     >
-      <img :src="`src/assets/img/icon/${item.icon}`" />
+      <img :src="`src/assets/img/icon/${item.icon}`" draggable="false" />
       <span>{{ item.name }}</span>
     </div>
   </div>
@@ -16,6 +21,7 @@
   import { deskTopData } from '@/data';
   import { getCurrentInstance, onMounted } from 'vue';
   import { showBox } from '../../utils';
+  import DeskTop from '@/utils/OS/desktop';
 
   const that = getCurrentInstance();
 
@@ -27,8 +33,14 @@
     Refs = that.refs.IconRefs;
   });
 
-  const clickApp = (e, name) => {
-    const target = document.querySelector(`.${name}`);
+  const clickApp = (e, item) => {
+    const target = document.querySelector(`.${item.componentName}`);
+
+    if (item.componentName === 'FolderFullBox') {
+      // todo
+      console.log(item);
+    }
+
     const targetIcon = e.target;
 
     showBox(target);
@@ -42,10 +54,108 @@
       targetIcon.parentElement.classList.add('selected');
     }
   };
+
+  const DeskTopIconData = new DeskTop(deskTopData, [
+    {
+      name: 'Music',
+      posIdx: 11,
+      children: [
+        {
+          name: 'QQ Music',
+          children: [
+            {
+              name: '周杰伦的专辑',
+              children: [
+                {
+                  extension: 'mp4',
+                  name: '青花瓷',
+                  size: '100GB',
+                },
+                {
+                  extension: 'mp4',
+                  name: '一路向北',
+                  size: '56KB',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Cloud Music',
+          children: [
+            {
+              name: '周杰伦的专辑',
+              children: [
+                {
+                  extension: 'mp4',
+                  name: '青花瓷',
+                  size: '56KB',
+                },
+                {
+                  extension: 'mp4',
+                  name: '一路向北',
+                  size: '56KB',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'Music',
+      posIdx: 10,
+      children: [
+        {
+          name: 'QQ Music',
+          children: [
+            {
+              name: '周杰伦的专辑',
+              children: [
+                {
+                  extension: 'mp4',
+                  name: '青花瓷',
+                  size: '100GB',
+                },
+                {
+                  extension: 'mp4',
+                  name: '一路向北',
+                  size: '56KB',
+                },
+              ],
+            },
+          ],
+        },
+        {
+          name: 'Cloud Music',
+          children: [
+            {
+              name: '周杰伦的专辑',
+              children: [
+                {
+                  extension: 'mp4',
+                  name: '青花瓷',
+                  size: '56KB',
+                },
+                {
+                  extension: 'mp4',
+                  name: '一路向北',
+                  size: '56KB',
+                },
+              ],
+            },
+          ],
+        },
+      ],
+    },
+  ]).appData;
+
+  console.log(DeskTopIconData);
 </script>
 
 <style lang="scss" scoped>
-  .deskTopIcon {
+  .deskTopIcons {
+    position: relative;
     width: 100%;
     height: 100%;
     padding: 0.2em;
@@ -56,7 +166,8 @@
     flex-wrap: wrap;
     user-select: none;
 
-    div {
+    .deskTopIcon {
+      position: absolute;
       display: flex;
       width: 6em;
       height: 6em;
