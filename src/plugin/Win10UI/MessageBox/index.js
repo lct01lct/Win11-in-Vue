@@ -32,7 +32,7 @@ const showMessageBox = (app, { resolve, reject }) => {
   watch(vm.state, ({ clickBtnType: type }) => {
     switch (type) {
       case 'confrim':
-        resolve(vm.promptValue && vm.promptValue);
+        resolve(vm.promptValue);
         break;
       case 'cancel':
         reject();
