@@ -2,16 +2,16 @@
   const isVisible = ref(false);
   const emits = defineEmits(['show', 'hide']);
 
-  const setIsVisible = () => {
-    isVisible.value = !isVisible.value;
-  };
-
   watch(isVisible, () => {
     if (isVisible.value) {
       emits('show');
     } else {
       emits('hide');
     }
+  });
+
+  document.addEventListener('click', function () {
+    isVisible.value = false;
   });
 </script>
 
@@ -22,11 +22,11 @@
 </script>
 
 <template>
-  <div class="popover-cantainer">
+  <div class="popover-cantainer" @click.stop>
     <transition name="popover-content-transition">
       <slot v-if="isVisible"></slot>
     </transition>
-    <div @click="setIsVisible">
+    <div @click="isVisible = !isVisible">
       <template v-if="$slots.reference">
         <slot name="reference"></slot>
       </template>
