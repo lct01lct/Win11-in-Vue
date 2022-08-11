@@ -73,9 +73,6 @@
 
 <template>
   <router-view></router-view>
-  <!-- <button @click="messageBoxClick">1</button>
-  <button @click="confirmBoxClick">2</button>
-  <button @click="promptBoxClick">3</button> -->
 </template>
 
 <style lang="scss">

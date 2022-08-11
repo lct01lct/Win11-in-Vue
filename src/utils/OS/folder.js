@@ -14,6 +14,10 @@ class Folder {
     // 同一根目录parent一样
     this.parent = parent;
     this.init(options);
+
+    if (options.posIdx) {
+      this.posIdx = options.posIdx;
+    }
   }
 
   init(options) {
