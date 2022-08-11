@@ -87,8 +87,6 @@
     const result = searchTargetFolderByPath(path);
     if (result) {
       store.changeCurrentFolder(result);
-    } else {
-      console.log('查无内容');
     }
   };
 

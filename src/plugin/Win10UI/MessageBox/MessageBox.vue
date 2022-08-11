@@ -64,6 +64,7 @@
   // 点击蒙层提示用户处理当前的盒子
   const modalClickHandle = () => {
     hasError.value = true;
+    document.querySelector('audio').play();
   };
 
   defineExpose({
@@ -76,6 +77,7 @@
 <template>
   <transition name="message-box-fade">
     <div class="message-box" v-if="state.visible">
+      <audio src="http://d.datouwang.com/uploads/file/yinxiao/2021/yinxiao5053.mp3" />
       <div class="message-box-modal-frame" @click="modalClickHandle">
         <div class="message-box-wrapper" :class="{ error: hasError }" @click.stop>
           <div class="title">
@@ -116,6 +118,7 @@
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 9999;
     // background-color: #ededed;
   }
 
@@ -129,7 +132,11 @@
     width: 400px;
     height: 200px;
     background-color: #fff;
-    border: 1px solid #000;
+    border: 2px solid transparent;
+    box-shadow: 0 0 20px rgb(125, 124, 124);
+    border-radius: 5px;
+    user-select: none;
+
     .title {
       height: 32px;
     }
@@ -145,12 +152,19 @@
   }
 
   .message-box-closed {
+    cursor: pointer;
     position: absolute;
     top: 0;
     right: 0;
   }
 
   .error {
-    border: 1px solid red;
+    // border: 2px solid red;
+    transition: 0.3s;
+    box-shadow: 0 0 40px rgb(212, 84, 84);
+  }
+
+  audio {
+    display: none;
   }
 </style>

@@ -85,7 +85,6 @@
 
   // 点击任务栏，传递name，DOM获取类名并赋予其层级为最高
   const showTaskerbarPanel = (e) => {
-    console.log(e);
     // 目标组件
     const target = document.querySelector(`.${e}`);
 

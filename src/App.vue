@@ -1,15 +1,5 @@
 <script setup>
   import userStore from './store/userStore';
-  // import data from '@/data/folders-data';
-  // import Desc from '@/utils/desc';
-
-  const store = userStore();
-
-  onMounted(() => {
-    document.querySelector(
-      '#app'
-    ).style.backgroundImage = `url("src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg")`;
-  });
 
   // const descs = (function () {
   //   const descs = [];
@@ -21,7 +11,17 @@
   // console.log(descs[0].children[0].getPath());
   // console.log(descs);
 
-  // import { MessageBox } from '@/plugin/Win10UI';
+  import { MessageBox } from '@/plugin/Win10UI';
+  // import data from '@/data/folders-data';
+  // import Desc from '@/utils/desc';
+
+  const store = userStore();
+
+  onMounted(() => {
+    document.querySelector(
+      '#app'
+    ).style.backgroundImage = `url("src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg")`;
+  });
   // const messageBoxClick = () => {
   //   MessageBox({
   //     showCancelBtn: true,
@@ -68,6 +68,7 @@
   //       console.log('reject');
   //     });
   // };
+  // promptBoxClick();
 </script>
 
 <template>

@@ -84,7 +84,7 @@ class Folder {
     // todo
     // 超出磁盘内存报错
     // 改变children
-    return this.children.push(new Folder(options, this));
+    this.children.push(new Folder(options, this));
   }
 }
 

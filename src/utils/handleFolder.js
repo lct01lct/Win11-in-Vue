@@ -1,4 +1,5 @@
 import userStore from '../store/userStore';
+import { MessageBox } from '@/plugin/Win10UI';
 const store = userStore();
 
 // 该文件作用：
@@ -48,9 +49,22 @@ export const searchTargetFolderByPath = (path) => {
   // 目标磁盘
   const targetDescArray = desc.filter((value) => value.getPath()[0] === path[0]);
   if (targetDescArray.length) {
-    return recursive(...targetDescArray, path);
+    const data = recursive(...targetDescArray, path);
+    if (data) {
+      return data;
+    } else {
+      MessageBox({
+        confirmBtnText: '确定',
+        title: '文件夹',
+        content: '数据不存在！',
+      });
+    }
   } else {
-    console.log('没数据！弹框提示！');
+    MessageBox({
+      confirmBtnText: '确定',
+      title: '文件夹',
+      content: '磁盘不存在！',
+    });
   }
 };
 

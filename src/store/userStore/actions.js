@@ -4,6 +4,9 @@ export default {
       this.token = token;
       localStorage.setItem('token', token);
     },
+    setUsername(newName) {
+      this.username = newName;
+    },
     toggleTheme(src) {
       this.themeSrc = src;
       localStorage.setItem('theme', src);

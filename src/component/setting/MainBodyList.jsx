@@ -1,4 +1,5 @@
 import { defineComponent } from 'vue';
+import { handleRename } from '@/utils';
 import userStore from '@/store/userStore/index.js';
 import './jsxCss.scss';
 
@@ -38,6 +39,10 @@ export default defineComponent({
       store.toggleTheme(model);
     };
 
+    const rename = () => {
+      handleRename();
+    };
+
     const render = () => {
       return (
         <ul class="settingMainBodyList">
@@ -54,9 +59,9 @@ export default defineComponent({
                       />
                       <div class="message">
                         {/* 此处的数据应为store中，先在此做死数据 */}
-                        <p>{store.getTheme}</p>
+                        <p>{store.getUsername}</p>
                         <p>NS14A8</p>
-                        <p>Rename</p>
+                        <p onClick={rename}>Rename</p>
                       </div>
                     </div>
                     <div class="right">
@@ -146,7 +151,7 @@ export default defineComponent({
                   <div key={value} class={value.type}>
                     <img src="src/assets/img/setting/defAccount.png" />
                     <div className="message">
-                      <span>{store.$state.accountName}</span>
+                      <span>{store.getUsername}</span>
                       <span>Local Account</span>
                       <span>Administrator</span>
                     </div>

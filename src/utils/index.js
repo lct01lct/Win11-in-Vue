@@ -1,4 +1,7 @@
 import { toggleTaskPublicData } from '../data';
+import request from '@/services/request';
+import { MessageBox } from '@/plugin/Win10UI';
+import userStore from '@/store/userStore';
 
 /**
  * 功能： 在data目录中共同维护一个最高层级的索引值，
@@ -60,5 +63,36 @@ export const hideBox = (flag, target, e) => {
     item.style.borderBottom = '0';
   } else {
     item.style.borderBottom = '3px solid black';
+  }
+};
+
+/**
+ * 处理更改用户名
+ * @returns void
+ */
+export const handleRename = async () => {
+  const store = userStore();
+  const rename = await MessageBox.prompt({
+    showCancelBtn: true,
+    cancelBtnText: '取消',
+    confirmBtnText: '确定',
+    title: '重命名你的账户',
+    content: `当前用户名为 ${store.getUsername}`,
+  }).catch(() => {});
+
+  if (!rename) {
+    return;
+  }
+
+  const res = await request({
+    method: 'patch',
+    data: {
+      rename,
+    },
+    url: '/users',
+  });
+
+  if (res.status === 'success') {
+    store.setUsername(rename);
   }
 };
