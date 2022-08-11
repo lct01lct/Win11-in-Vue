@@ -27,12 +27,18 @@
             <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
           </ul>
         </div>
-        <div class="data fcc">
-          <div class="systemTime" @click="showDateBox">
-            <div>{{ time }}</div>
-            <div>{{ date }}</div>
-          </div>
-        </div>
+
+        <Popover>
+          <Calendar></Calendar>
+          <template #reference>
+            <div class="data fcc">
+              <div class="systemTime">
+                <div>{{ time }}</div>
+                <div>{{ date }}</div>
+              </div>
+            </div>
+          </template>
+        </Popover>
       </div>
     </div>
   </div>
@@ -42,6 +48,12 @@
   // import startMenu from '../startMenu/index.vue';
   import { taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
+  import Calendar from './components/Calendar';
+
+  const count = ref(0);
+  onMounted(() => {
+    count.value = 1;
+  });
   /** 需求分析：
    *  1. 点击底栏图标，图标有反应+相应板块显
    *  2.

@@ -151,8 +151,6 @@
     },
   ]).appData;
 
-  console.log(DeskTopIconData);
-
   const dragIcon = () => {};
 </script>
 

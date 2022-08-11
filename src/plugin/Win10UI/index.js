@@ -13,7 +13,6 @@ export default {
     if (options && options.components) {
       options.components.forEach((compName) => {
         componentsPool.forEach((comp) => {
-          console.log(comp);
           if (compName === comp.name) {
             app.component(comp.name, comp);
           }
