@@ -9,6 +9,7 @@
         top: ${((Math.floor(item.posIdx % 8) - 1) * 76.8).toFixed(1) + 'px'};
         left: ${(Math.floor(item.posIdx / 8) * 76.8).toFixed(1) + 'px'};
       `"
+      @mousedown="dragIcon"
       ref="IconRefs"
     >
       <img :src="`src/assets/img/icon/${item.icon}`" draggable="false" />
@@ -151,6 +152,8 @@
   ]).appData;
 
   console.log(DeskTopIconData);
+
+  const dragIcon = () => {};
 </script>
 
 <style lang="scss" scoped>
