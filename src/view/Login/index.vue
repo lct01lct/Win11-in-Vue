@@ -22,7 +22,7 @@
   const userStore = useUserStore();
 
   const loginForm = reactive({
-    name: 'SG',
+    name: 'lct-user',
     password: '123456',
   });
 

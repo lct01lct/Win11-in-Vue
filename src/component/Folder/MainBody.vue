@@ -78,6 +78,8 @@
         // 同时更新路径
         item.changeName && item.changeName(value);
         item.setPath && item.setPath();
+        console.log('改了！', item);
+        // todo
       }
     });
   };

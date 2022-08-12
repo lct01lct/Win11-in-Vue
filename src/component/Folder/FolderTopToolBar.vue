@@ -26,6 +26,7 @@
   //  5. 排序
   //  6. 视图
   import userStore from '@/store/userStore';
+  import { uploadFolderStruct } from './api';
 
   const toolList = [
     {
@@ -72,8 +73,15 @@
       memory: '0KB',
       children: [],
     };
-    const index = currentFolder.addNewEmptyFile(obj);
-    const targetObject = currentFolder.children[index - 1];
+    const targetObject = currentFolder.addNewEmptyFile(obj);
+    console.log();
+    // todo
+    // console.log(
+    //   uploadFolderStruct({
+    //     struct: targetObject,
+    //     path: currentFolder,
+    //   })
+    // );
   };
 </script>
 

@@ -12,7 +12,7 @@
         <img :src="`src/assets/img/icon/${item.icon}`" />
         <span>{{ item.name }}</span>
       </div> -->
-    <div class="deskTopIcons">
+    <div class="deskTopIcons" ref="IconsRef">
       <div
         class="deskTopIcon"
         v-for="item in DeskTopIconData"
@@ -22,7 +22,7 @@
           top: ${((Math.floor(item.posIdx % 8) - 1) * 76.8).toFixed(1) + 'px'};
           left: ${(Math.floor(item.posIdx / 8) * 76.8).toFixed(1) + 'px'};
         `"
-        @mousedown="dragIcon"
+        @mousedown.stop="dragIcon"
         ref="IconRefs"
       >
         <img :src="`src/assets/img/icon/${item.icon}`" draggable="false" />
@@ -34,11 +34,19 @@
 
 <script setup>
   import { deskTopData } from '@/data';
-  import { getCurrentInstance, onMounted } from 'vue';
+  import { getCurrentInstance, onMounted, reactive } from 'vue';
   import { showBox } from '../../utils';
   import DeskTop from '@/utils/OS/desktop';
+  import userStore from '@/store/userStore';
+
+  import { searchTargetFolderByPath } from '@/utils/handleFolder';
 
   const that = getCurrentInstance();
+
+  const store = userStore();
+
+  // 图标的父div
+  let IconsRef;
 
   // 收集所有的桌面图标
   // 用处：用于切换选中的样式
@@ -50,6 +58,7 @@
   onMounted(() => {
     Refs = that.refs.IconRefs;
     ModalFrameRef = that.refs.ModalFrameRef;
+    IconsRef = that.refs.IconsRef;
   });
 
   const setWidth = (width, height) => {
@@ -57,24 +66,35 @@
     ModalFrameRef.style.height = height + 'px';
   };
 
+  // 判断元素是否属于该区域
+  const judgeContains = (parent) => {
+    const childNode = Array.from(parent.children);
+    const { left, right, top, bottom } = ModalFrameRef.getBoundingClientRect();
+    const containsArray = [];
+    childNode.map((value) => {
+      const item = value.getBoundingClientRect();
+      if (item.left > left && item.right < right && item.top > top && item.bottom < bottom) {
+        containsArray.push(value);
+      }
+    });
+    return containsArray;
+  };
+
   // 模态框拖动
   const dragModalFrame = (e) => {
     const X = e.pageX;
     const Y = e.pageY;
     Refs.map((value) => value.classList.remove('selected'));
-    ModalFrameRef.classList.add('notransition');
-    // console.dir(document.elementFromPoint(X, Y));
-    console.log(document.elementFromPoint(X, Y).getAttribute('type'));
+
     const move = (e) => {
       ModalFrameRef.style.left = X + 'px';
       ModalFrameRef.style.top = Y + 'px';
       setWidth(e.pageX - X, e.pageY - Y);
-      // Refs.map((value) => value.classList.add('selected'));
+      judgeContains(IconsRef).map((value) => value.classList.add('selected'));
     };
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', () => {
       setWidth(0, 0);
-      ModalFrameRef.classList.remove('notransition');
       document.removeEventListener('mousemove', move);
     });
   };
@@ -85,6 +105,8 @@
 
     if (item.componentName === 'FolderFullBox') {
       // todo
+      // 存储当前的文件夹
+      store.changeCurrentFolder(item);
       console.log(item);
     }
 
@@ -102,104 +124,58 @@
     }
   };
 
-  const DeskTopIconData = new DeskTop(deskTopData, [
-    {
-      name: 'Music',
-      posIdx: 11,
-      children: [
-        {
-          name: 'QQ Music',
-          children: [
-            {
-              name: '周杰伦的专辑',
-              children: [
-                {
-                  extension: 'mp4',
-                  name: '青花瓷',
-                  size: '100GB',
-                },
-                {
-                  extension: 'mp4',
-                  name: '一路向北',
-                  size: '56KB',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'Cloud Music',
-          children: [
-            {
-              name: '周杰伦的专辑',
-              children: [
-                {
-                  extension: 'mp4',
-                  name: '青花瓷',
-                  size: '56KB',
-                },
-                {
-                  extension: 'mp4',
-                  name: '一路向北',
-                  size: '56KB',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-    {
-      name: 'Music',
-      posIdx: 10,
-      children: [
-        {
-          name: 'QQ Music',
-          children: [
-            {
-              name: '周杰伦的专辑',
-              children: [
-                {
-                  extension: 'mp4',
-                  name: '青花瓷',
-                  size: '100GB',
-                },
-                {
-                  extension: 'mp4',
-                  name: '一路向北',
-                  size: '56KB',
-                },
-              ],
-            },
-          ],
-        },
-        {
-          name: 'Cloud Music',
-          children: [
-            {
-              name: '周杰伦的专辑',
-              children: [
-                {
-                  extension: 'mp4',
-                  name: '青花瓷',
-                  size: '56KB',
-                },
-                {
-                  extension: 'mp4',
-                  name: '一路向北',
-                  size: '56KB',
-                },
-              ],
-            },
-          ],
-        },
-      ],
-    },
-  ]).appData;
+  const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
 
-  console.log(DeskTopIconData);
+  // getDesktopFolderData.children.map((value, i) => {
+  //   value.posIdx = 100 + i;
+  //   value.componentName = 'FolderFullBox';
+  //   value.icon = 'explorer.png';
+  // });
 
-  const dragIcon = () => {};
+  // eslint-disable-next-line prefer-const
+  let DeskTopIconData = reactive(new DeskTop(deskTopData, getDesktopFolderData.children).appData);
+
+  // 监测文件结构变化
+  watch(
+    () => store.storeCompletedFolder,
+    (newValue) => {
+      const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
+      DeskTopIconData.splice(
+        0,
+        DeskTopIconData.length,
+        ...new DeskTop(deskTopData, getDesktopFolderData.children).appData
+      );
+    },
+    { deep: true }
+  );
+
+  const dragIcon = (e) => {
+    // 目前被选中的元素，拖动的元素也是去拖动他
+    const targetArray = Refs.filter((value) => {
+      const classList = Array.from(value.classList);
+      return classList.find((value) => value === 'selected');
+    });
+
+    const X = e.pageX;
+    const Y = e.pageY;
+
+    targetArray.map((value) => {
+      value.fixedLeft = X - value.offsetLeft;
+      value.fixedTop = Y - value.offsetTop;
+    });
+
+    const move = (e) => {
+      targetArray.map((value) => {
+        value.classList.add('notransition');
+        value.style.left = e.pageX - value.fixedLeft + 'px';
+        value.style.top = e.pageY - value.fixedTop + 'px';
+      });
+    };
+    document.addEventListener('mousemove', move);
+    document.addEventListener('mouseup', () => {
+      document.removeEventListener('mousemove', move);
+    });
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -271,7 +247,7 @@
     position: absolute;
     width: 0;
     height: 0;
-    background-color: rgba($color: #fffefe, $alpha: 0.2);
+    background-color: rgba($color: #fffefe, $alpha: 0.3);
     border-radius: 5px;
   }
 </style>

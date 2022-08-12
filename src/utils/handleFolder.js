@@ -13,7 +13,7 @@ const store = userStore();
  * @returns 返回目标proxy 或 false
  */
 const recursive = (targetDescArray, targetPath) => {
-  const targetArray = targetDescArray.children || undefined;
+  const targetArray = targetDescArray.children || [];
   if (targetArray) {
     for (let i = 0; i < targetArray.length; i++) {
       const target = targetArray[i];
@@ -23,7 +23,9 @@ const recursive = (targetDescArray, targetPath) => {
         if (tempPath === path) {
           return target;
         } else {
-          return recursive(target, targetPath);
+          if (recursive(target, targetPath)) {
+            return recursive(target, targetPath);
+          }
         }
       } else {
         const fileName = `${target.name}.${target.extension}`;

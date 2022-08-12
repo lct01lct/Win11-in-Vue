@@ -34,8 +34,6 @@
     });
     return descs;
   })();
-  // console.log('fullData', data);
-  // cache 全部的目录结构
   store.cacheCompletedFolder(data);
 </script>
 

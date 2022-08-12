@@ -105,7 +105,7 @@
           flex-direction: row;
           justify-content: start;
           align-items: center;
-          width: 100%;
+          width: 95%;
           height: 5em;
           padding: 10px;
           margin: 10px;

@@ -1,10 +1,10 @@
 <template>
   <div class="all">
     <div class="main">
-      <DeskTopIcon></DeskTopIcon>
       <settingsVue></settingsVue>
       <Folder></Folder>
       <!-- <Edge></Edge> -->
+      <DeskTopIcon></DeskTopIcon>
     </div>
     <div class="bar">
       <taskBarVue></taskBarVue>

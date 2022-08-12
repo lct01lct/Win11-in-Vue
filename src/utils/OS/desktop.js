@@ -13,15 +13,17 @@ class DeskTop {
   // 处理原始数据
   setAppData(baseData, userFolderData) {
     this.appData = this.appData.concat(baseData);
-
-    userFolderData.forEach((item) => {
-      this.appData.push({
-        name: item.name,
-        icon: 'explorer.png',
-        componentName: 'FolderFullBox',
-        path: item.path,
-        posIdx: item.posIdx,
-      });
+    userFolderData.forEach((item, i) => {
+      // this.appData.push({
+      //   icon: 'explorer.png',
+      //   componentName: 'FolderFullBox',
+      //   posIdx: item.posIdx,
+      //   ...item,
+      // });
+      item.posIdx = 100 + i;
+      item.componentName = 'FolderFullBox';
+      item.icon = 'explorer.png';
+      this.appData.push(item);
     });
 
     sortByPosIdx(this.appData);
