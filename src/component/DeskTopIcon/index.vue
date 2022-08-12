@@ -1,19 +1,18 @@
 <template>
   <div class="deskTopIcons">
     <div
+      :ref="deskTopIconRefs"
       class="deskTopIcon"
-      v-for="item in DeskTopIconData"
-      :key="item"
+      v-for="(item, index) in DeskTopIconData"
+      :key="index"
       @dblclick="clickApp($event, item)"
       :style="`
         top: ${((Math.floor(item.posIdx % 8) - 1) * 76.8).toFixed(1) + 'px'};
         left: ${(Math.floor(item.posIdx / 8) * 76.8).toFixed(1) + 'px'};
       `"
-      @mousedown="dragIcon"
-      ref="IconRefs"
+      @mousedown="dragIconOrOpenMenu($event, deskTopIconDoms[index], DeskTopIconData, item)"
     >
-      <img :src="`src/assets/img/icon/${item.icon}`" draggable="false" />
-      <span>{{ item.name }}</span>
+      <IconItem :icon="item.icon" :name="item.name" :data="item"></IconItem>
     </div>
   </div>
 </template>
@@ -23,6 +22,8 @@
   import { getCurrentInstance, onMounted } from 'vue';
   import { showBox } from '../../utils';
   import DeskTop from '@/utils/OS/desktop';
+  import drag from '@/utils/ViewSize/drag';
+  import IconItem from './IconItem';
 
   const that = getCurrentInstance();
 
@@ -58,7 +59,7 @@
 
   const DeskTopIconData = new DeskTop(deskTopData, [
     {
-      name: 'Music',
+      name: 'Video',
       posIdx: 11,
       children: [
         {
@@ -151,10 +152,21 @@
     },
   ]).appData;
 
-  const dragIcon = () => {};
+  const deskTopIconDoms = [];
+  const deskTopIconRefs = (e) => {
+    deskTopIconDoms.push(e);
+  };
+
+  const dragIconOrOpenMenu = (e, dom, list, item) => {
+    if (e.button === 0) {
+      drag.call(dom, e, list, item);
+    } else if (e.button === 2) {
+      console.log('菜单');
+    }
+  };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
   .deskTopIcons {
     position: relative;
     width: 100%;

@@ -2,6 +2,7 @@
   <div class="all">
     <div class="main">
       <DeskTopIcon></DeskTopIcon>
+      <IconOverlayTip></IconOverlayTip>
       <settingsVue></settingsVue>
       <Folder></Folder>
       <!-- <Edge></Edge> -->
@@ -18,6 +19,7 @@
   import Folder from '@/component/Folder/index.vue';
   // import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
+  import IconOverlayTip from './IconOvelayTip';
 
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();

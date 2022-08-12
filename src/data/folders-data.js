@@ -15,7 +15,7 @@ export default [
         name: 'DeskTop',
         children: [
           {
-            name: 'Music',
+            name: 'Video',
             posIdx: 11,
             children: [
               {
