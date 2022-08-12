@@ -37,15 +37,15 @@
 <style scoped>
   .popover-content-transition-enter-from,
   .popover-content-transition-leave-to {
-    height: 400px !important;
+    height: 500px !important;
     opacity: 0;
   }
 
   .popover-content-transition-enter-active {
-    transition: height 0.1s ease-in, opacity 0.1s ease-in;
+    transition: height 0.05s ease-in, opacity 0.05s ease-in;
   }
 
   .popover-content-transition-leave-active {
-    transition: height 0.1s ease-out, opacity 0.1s ease-out;
+    transition: height 0.05s ease-out, opacity 0.05s ease-out;
   }
 </style>
