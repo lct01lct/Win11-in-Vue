@@ -7,8 +7,8 @@
       :key="index"
       @dblclick="clickApp($event, item)"
       :style="`
-        top: ${((Math.floor(item.posIdx % 8) - 1) * 76.8).toFixed(1) + 'px'};
-        left: ${(Math.floor(item.posIdx / 8) * 76.8).toFixed(1) + 'px'};
+        top: ${((Math.floor(item.posIdx % 9) - 1) * 76.8).toFixed(1) + 'px'};
+        left: ${(Math.floor(item.posIdx / 9) * 76.8).toFixed(1) + 'px'};
       `"
       @mousedown="dragIconOrOpenMenu($event, deskTopIconDoms[index], DeskTopIconData, item)"
     >
@@ -21,6 +21,7 @@
   import { deskTopData } from '@/data';
   import { getCurrentInstance, onMounted } from 'vue';
   import { showBox } from '../../utils';
+  import { getViewportSize } from '@/utils/ViewSize/utils';
   import DeskTop from '@/utils/OS/desktop';
   import drag from '@/utils/ViewSize/drag';
   import IconItem from './IconItem';
@@ -159,7 +160,10 @@
 
   const dragIconOrOpenMenu = (e, dom, list, item) => {
     if (e.button === 0) {
-      drag.call(dom, e, list, item);
+      drag.call(dom, e, list, item, {
+        edgeWeight: getViewportSize().width,
+        edgeHeight: getViewportSize().height,
+      });
     } else if (e.button === 2) {
       console.log('菜单');
     }
@@ -181,6 +185,7 @@
 
     .deskTopIcon {
       position: absolute;
+      z-index: 998;
       display: flex;
       width: 6em;
       height: 6em;
