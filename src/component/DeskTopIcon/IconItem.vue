@@ -1,7 +1,12 @@
 <script setup>
   import drag from '@/utils/ViewSize/drag';
   import { getViewportSize } from '@/utils/ViewSize/utils';
+  import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
   import { showBox } from '../../utils';
+
+  const configStore = useDeskTopConfigStore();
+
+  const { iconBaseWeight, iconBaseHeight, maxIconCountY } = configStore;
 
   const deskTopIconRef = ref(null);
   defineProps({
@@ -59,8 +64,8 @@
     class="deskTopIcon"
     @dblclick="clickApp($event, data)"
     :style="`
-        top: ${((Math.floor(data.posIdx % 9) - 1) * 76.8).toFixed(1) + 'px'};
-        left: ${(Math.floor(data.posIdx / 9) * 76.8).toFixed(1) + 'px'};
+        top: ${((Math.floor(data.posIdx % maxIconCountY) - 1) * iconBaseWeight).toFixed(1) + 'px'};
+        left: ${(Math.floor(data.posIdx / maxIconCountY) * iconBaseHeight).toFixed(1) + 'px'};
       `"
     @mousedown="dragIconOrOpenMenu($event, deskTopIconRef, DeskTopIconData, data)"
   >

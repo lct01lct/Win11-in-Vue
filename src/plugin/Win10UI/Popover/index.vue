@@ -2,6 +2,13 @@
   const isVisible = ref(false);
   const emits = defineEmits(['show', 'hide']);
 
+  const props = defineProps({
+    dir: {
+      type: String,
+      default: 'bottom',
+    },
+  });
+
   watch(isVisible, () => {
     if (isVisible.value) {
       emits('show');
@@ -23,7 +30,7 @@
 
 <template>
   <div class="popover-cantainer" @click.stop>
-    <transition name="popover-content-transition">
+    <transition :name="'popover-content-transition-' + dir">
       <slot v-if="isVisible"></slot>
     </transition>
     <div @click="isVisible = !isVisible">
@@ -35,17 +42,33 @@
 </template>
 
 <style scoped>
-  .popover-content-transition-enter-from,
-  .popover-content-transition-leave-to {
+  /* bottom */
+  .popover-content-transition-bottom-enter-from,
+  .popover-content-transition-bottom-leave-to {
     height: 500px !important;
     opacity: 0;
   }
 
-  .popover-content-transition-enter-active {
+  .popover-content-transition-bottom-enter-active {
     transition: height 0.05s ease-in, opacity 0.05s ease-in;
   }
 
-  .popover-content-transition-leave-active {
+  .popover-content-transition-bottom-leave-active {
     transition: height 0.05s ease-out, opacity 0.05s ease-out;
+  }
+
+  /* left */
+  .popover-content-transition-left-enter-from,
+  .popover-content-transition-left-leave-to {
+    width: 200px !important;
+    opacity: 0;
+  }
+
+  .popover-content-transition-left-enter-active {
+    transition: width 0.05s ease-in, opacity 0.05s ease-in;
+  }
+
+  .popover-content-transition-left-leave-active {
+    transition: width 0.05s ease-out, opacity 0.05s ease-out;
   }
 </style>

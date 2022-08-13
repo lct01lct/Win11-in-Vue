@@ -192,7 +192,7 @@ export default function (e, list, item, config) {
   }
 
   function mouseUp() {
-    moveDragF.stop(configStore, stayPos, isInTaskbar);
+    moveDragF && moveDragF.stop(configStore, stayPos, isInTaskbar);
 
     removeEvent(document, 'mousemove', mouseMove);
     removeEvent(document, 'mouseup', mouseUp);

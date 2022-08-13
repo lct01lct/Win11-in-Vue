@@ -28,7 +28,7 @@
           </ul>
         </div>
 
-        <Popover>
+        <Popover dir="bottom">
           <Calendar></Calendar>
           <template #reference>
             <div class="data fcc">
