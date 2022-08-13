@@ -1,14 +1,28 @@
 <script setup>
   import useStore from './store';
-  import { pagePos } from '@/utils/ViewSize/utils';
+  import { pagePos, getViewportSize } from '@/utils/ViewSize/utils';
+  import { DragFeatrue } from '@/utils/ViewSize/drag';
 
   const store = useStore();
   const deskTopTipRef = ref(null);
 
   document.addEventListener('mousemove', function (e) {
     if (store.tipIsVisible) {
-      deskTopTipRef.value.style.left = pagePos(e).X + 15 + 'px';
-      deskTopTipRef.value.style.top = pagePos(e).Y + 15 + 'px';
+      // deskTopTipRef.value.style.left = pagePos(e).X + 15 + 'px';
+      // deskTopTipRef.value.style.top = pagePos(e).Y + 15 + 'px';
+      DragFeatrue.prototype.move.call(
+        {
+          mouseX: pagePos(e).X + 15,
+          mouseY: pagePos(e).Y + 15,
+          elem: deskTopTipRef.value,
+        },
+        0,
+        0,
+        {
+          edgeWeight: getViewportSize().width,
+          edgeHeight: getViewportSize().height,
+        }
+      );
     }
   });
 </script>

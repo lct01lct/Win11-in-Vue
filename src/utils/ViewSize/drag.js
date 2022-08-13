@@ -29,12 +29,9 @@ export class DragFeatrue {
     this.mouseX = pagePos(e).X;
     this.mouseY = pagePos(e).Y;
 
-    // 记录鼠标在在被拖拽鼠标
+    // 记录鼠标在在被拖拽对象的位置
     this.recordInElemX = this.mouseX - parseInt(getStyles(elem, 'left'));
     this.recordInElemY = this.mouseY - parseInt(getStyles(elem, 'top'));
-
-    this.elemWidth = parseInt(getStyles(elem, 'width'));
-    this.elemHeight = parseInt(getStyles(elem, 'height'));
   }
 
   init(list) {
@@ -47,6 +44,9 @@ export class DragFeatrue {
   move(recordInElemX, recordInElemY, config) {
     this.moveX = this.mouseX - recordInElemX;
     this.moveY = this.mouseY - recordInElemY;
+
+    this.elemWidth = parseInt(getStyles(this.elem, 'width'));
+    this.elemHeight = parseInt(getStyles(this.elem, 'height'));
 
     const edgeX = config.edgeWeight - this.elemWidth;
     const edgeY = config.edgeHeight - this.elemHeight;
@@ -61,11 +61,12 @@ export class DragFeatrue {
     } else if (this.moveY >= edgeY) {
       this.moveY = edgeY - 1;
     }
-    // console.log(this.elem);
     this.elem.style.left = this.moveX + 'px';
     this.elem.style.top = this.moveY + 'px';
-
-    this.end();
+    // console.log(this);
+    if (this.end) {
+      this.end();
+    }
 
     return this;
   }
@@ -116,6 +117,7 @@ export class DragFeatrue {
     const yIdx = Math.round(stayPos.y / configStore.iconBaseHeight);
 
     const currentPosIdx = xIdx * configStore.maxIconCountY + yIdx + 1; // posIdx 比实际渲染位置多一个单位距离
+
     this.item.posIdx = currentPosIdx;
 
     // 判断图标是否重叠
