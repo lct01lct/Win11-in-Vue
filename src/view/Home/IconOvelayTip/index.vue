@@ -23,8 +23,8 @@
   .deskTop-tip {
     position: fixed;
     z-index: 1000;
-    top: 0;
-    left: 0;
+    top: -999;
+    left: -999;
     padding: 2px;
     font-size: 14px;
     color: #0033cc;

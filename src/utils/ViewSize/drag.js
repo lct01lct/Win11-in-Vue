@@ -5,66 +5,86 @@ import {
   removeEvent,
   cancelBubble,
   preventDefaultEvent,
-  getViewportSize,
 } from './utils';
 import useTipStore from '@/view/Home/IconOvelayTip/store';
 import useConfigStore from '@/store/deskTopConfigStore';
 
-export default function (e, list, item, config) {
-  const tipStore = useTipStore();
-  const configStore = useConfigStore();
-  let isInTaskbar = false;
-  const stayPos = {};
-  const originPosIdxList = [];
-  const originPosIdx = item.posIdx;
-  list.forEach((item) => {
-    originPosIdxList.push(item.posIdx);
-  }); // 初始化 originPosIndex
-  const _self = this;
-
-  const mouseX = pagePos(e).X;
-  const mouseY = pagePos(e).Y;
-
-  const recordInElemX = mouseX - parseInt(getStyles(this, 'left'));
-  const recordInElemY = mouseY - parseInt(getStyles(this, 'top'));
-
-  const elemWidth = parseInt(getStyles(this, 'width'));
-  const elemHeight = parseInt(getStyles(this, 'height'));
-
-  addEvent(document, 'mousemove', mouseMove);
-  addEvent(document, 'mouseup', mouseUp);
-
-  function mouseMove(e) {
-    let moveX = pagePos(e).X - recordInElemX;
-    let moveY = pagePos(e).Y - recordInElemY;
-
-    const edgeX = config.edgeWeight - elemWidth;
-    const edgeY = config.edgeHeight - elemHeight;
-
-    if (moveX <= 0) {
-      moveX = 0;
-    } else if (moveX >= edgeX) {
-      moveX = edgeX - 1;
-    }
-    if (moveY <= 0) {
-      moveY = 0;
-    } else if (moveY >= edgeY) {
-      moveY = edgeY - 1;
+export class DragFeatrue {
+  /** 拖拽动画特性
+   *
+   * @param {Object} e 鼠标事件
+   * @param {Object} elem 被拖拽的对象
+   */
+  constructor(e, elem, list, item) {
+    this.e = e;
+    this.elem = elem;
+    this.stayPos = {}; // 记录当前停留的位置
+    this.originPosIdxList = [];
+    list && this.init(list); // 初始化 originPosIndex
+    if (item) {
+      this.item = item;
+      this.originPosIdx = item.posIdx;
     }
 
-    _self.style.left = moveX + 'px';
-    _self.style.top = moveY + 'px';
+    this.mouseX = pagePos(e).X;
+    this.mouseY = pagePos(e).Y;
 
-    stayPos.x = moveX;
-    stayPos.y = moveY;
+    // 记录鼠标在在被拖拽鼠标
+    this.recordInElemX = this.mouseX - parseInt(getStyles(elem, 'left'));
+    this.recordInElemY = this.mouseY - parseInt(getStyles(elem, 'top'));
+
+    this.elemWidth = parseInt(getStyles(elem, 'width'));
+    this.elemHeight = parseInt(getStyles(elem, 'height'));
+  }
+
+  init(list) {
+    list.forEach((item) => {
+      this.originPosIdxList.push(item.posIdx);
+    });
+  }
+
+  // 移动
+  move(recordInElemX, recordInElemY, config) {
+    this.moveX = this.mouseX - recordInElemX;
+    this.moveY = this.mouseY - recordInElemY;
+
+    const edgeX = config.edgeWeight - this.elemWidth;
+    const edgeY = config.edgeHeight - this.elemHeight;
+
+    if (this.moveX <= 0) {
+      this.moveX = 0;
+    } else if (this.moveX >= edgeX) {
+      this.moveX = edgeX - 1;
+    }
+    if (this.moveY <= 0) {
+      this.moveY = 0;
+    } else if (this.moveY >= edgeY) {
+      this.moveY = edgeY - 1;
+    }
+    // console.log(this.elem);
+    this.elem.style.left = this.moveX + 'px';
+    this.elem.style.top = this.moveY + 'px';
+
+    this.end();
+
+    return this;
+  }
+
+  overlay(configStore, list, tipStore, isInTaskbar) {
+    this.stayPos.x = this.moveX;
+    this.stayPos.y = this.moveY;
 
     // 进入其他图标的领域，提示操作信息
-    const mouseCurrentPosIdx = mouseEnterIconPosIdx(e, {
+    const mouseCurrentPosIdx = mouseEnterIconPosIdx(this.e, {
       iconBaseWeight: configStore.iconBaseWeight,
       iconBaseHeight: configStore.iconBaseHeight,
     });
 
-    const overlayedIconPosIdx = isIconOverlay(originPosIdxList, mouseCurrentPosIdx, originPosIdx);
+    const overlayedIconPosIdx = isIconOverlay(
+      this.originPosIdxList,
+      mouseCurrentPosIdx,
+      this.originPosIdx
+    );
     if (overlayedIconPosIdx) {
       // 提示操作信息
       const iconInfo = getIconInfoByPosIdx(list, overlayedIconPosIdx);
@@ -72,7 +92,7 @@ export default function (e, list, item, config) {
       tipStore.setTipIsVisible(true);
       tipStore.setTipContent(`用${iconInfo.name}打开`);
     } else {
-      if (pagePos(e).Y > getViewportSize().height - configStore.taskbarHeight) {
+      if (this.mouseY > configStore.deskTopViewSize) {
         // 进入底边栏
         tipStore.setTipIsVisible(true);
         tipStore.setTipContent('固定到 任务栏');
@@ -82,20 +102,24 @@ export default function (e, list, item, config) {
         tipStore.setTipIsVisible(false);
       }
     }
-
-    cancelBubble(e);
-    preventDefaultEvent(e);
   }
 
-  function mouseUp() {
+  stop(configStore, stayPos, isInTaskbar) {
+    const stopMaxHeight = (configStore.maxIconCountY - 1) * configStore.iconBaseHeight;
+    // 桌面视图为值小于菜单栏
+    if (stayPos.y >= stopMaxHeight) {
+      // 如果进入菜单栏及空白位置，则回到初始位置
+      stayPos.y = computePosByPosIdx(this.originPosIdx - 1).yPos;
+      stayPos.x = computePosByPosIdx(this.originPosIdx - 1).xPos;
+    }
     const xIdx = Math.round(stayPos.x / configStore.iconBaseWeight);
     const yIdx = Math.round(stayPos.y / configStore.iconBaseHeight);
 
-    const currentPosIdx = xIdx * 9 + yIdx + 1; // posIdx 比实际渲染位置多一个单位距离
-    item.posIdx = currentPosIdx;
+    const currentPosIdx = xIdx * configStore.maxIconCountY + yIdx + 1; // posIdx 比实际渲染位置多一个单位距离
+    this.item.posIdx = currentPosIdx;
 
     // 判断图标是否重叠
-    if (isIconOverlay(originPosIdxList, currentPosIdx, originPosIdx)) {
+    if (isIconOverlay(this.originPosIdxList, currentPosIdx, this.originPosIdx)) {
       // 两个图标重叠，执行对应的操作
       // eslint-disable-next-line prettier/prettier, no-constant-condition
       if (false) {
@@ -103,21 +127,70 @@ export default function (e, list, item, config) {
         // todo
       } else {
         // 操作无效
-        _self.style.left = computePosByPosIdx(originPosIdx - 1).xPos + 'px';
-        _self.style.top = computePosByPosIdx(originPosIdx - 1).yPos + 'px';
-        item.posIdx = originPosIdx;
+        this.setPosSizeByPosIdx(this.originPosIdx);
+        this.item.posIdx = this.originPosIdx;
       }
     } else {
       // 没重叠
       if (isInTaskbar) {
         // 图标落在任务栏
-        _self.style.left = computePosByPosIdx(originPosIdx - 1).xPos + 'px';
-        _self.style.top = computePosByPosIdx(originPosIdx - 1).yPos + 'px';
+        this.setPosSizeByPosIdx(this.originPosIdx);
       } else {
-        _self.style.left = computePosByPosIdx(currentPosIdx - 1).xPos + 'px';
-        _self.style.top = computePosByPosIdx(currentPosIdx - 1).yPos + 'px';
+        this.setPosSizeByPosIdx(currentPosIdx);
       }
     }
+  }
+
+  setPosSizeByPosIdx(posIdx) {
+    this.elem.style.left = computePosByPosIdx(posIdx - 1).xPos + 'px';
+    this.elem.style.top = computePosByPosIdx(posIdx - 1).yPos + 'px';
+  }
+
+  end() {
+    cancelBubble(this.e);
+    preventDefaultEvent(this.e);
+  }
+
+  // 设置边界
+  setEdge() {
+    return this;
+  }
+}
+
+export default function (e, list, item, config) {
+  const tipStore = useTipStore();
+  const configStore = useConfigStore();
+  const isInTaskbar = false;
+  const stayPos = {};
+  const _self = this;
+
+  const dragF = new DragFeatrue(e, this, list, item);
+  const recordInElemX = dragF.recordInElemX;
+  const recordInElemY = dragF.recordInElemY;
+
+  let moveDragF = null;
+
+  addEvent(document, 'mousemove', mouseMove);
+  addEvent(document, 'mouseup', mouseUp);
+
+  function mouseMove(e) {
+    const currentDragF = new DragFeatrue(e, _self, list, item);
+
+    currentDragF
+      .move(recordInElemX, recordInElemY, {
+        edgeWeight: config.edgeWeight,
+        edgeHeight: config.edgeHeight,
+      })
+      .overlay(configStore, list, tipStore, isInTaskbar);
+
+    stayPos.x = currentDragF.stayPos.x;
+    stayPos.y = currentDragF.stayPos.y;
+
+    moveDragF = currentDragF;
+  }
+
+  function mouseUp() {
+    moveDragF.stop(configStore, stayPos, isInTaskbar);
 
     removeEvent(document, 'mousemove', mouseMove);
     removeEvent(document, 'mouseup', mouseUp);
@@ -134,7 +207,14 @@ function computePosByPosIdx(posIdx) {
 
 // 判断 tar 是否重叠
 function isIconOverlay(list, tar, origin) {
+  const index = list.indexOf(tar);
+
+  if (index <= -1) {
+    return 0;
+  }
+
   const result = list[list.indexOf(tar)];
+
   return origin === result ? 0 : result;
 }
 

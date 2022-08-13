@@ -1,62 +1,22 @@
 <template>
   <div class="deskTopIcons">
-    <div
-      :ref="deskTopIconRefs"
-      class="deskTopIcon"
+    <IconItem
+      :icon="item.icon"
+      :name="item.name"
+      :data="item"
       v-for="(item, index) in DeskTopIconData"
       :key="index"
-      @dblclick="clickApp($event, item)"
-      :style="`
-        top: ${((Math.floor(item.posIdx % 9) - 1) * 76.8).toFixed(1) + 'px'};
-        left: ${(Math.floor(item.posIdx / 9) * 76.8).toFixed(1) + 'px'};
-      `"
-      @mousedown="dragIconOrOpenMenu($event, deskTopIconDoms[index], DeskTopIconData, item)"
-    >
-      <IconItem :icon="item.icon" :name="item.name" :data="item"></IconItem>
-    </div>
+      :ref="deskTopIconRefs"
+      :deskTopIconDoms="deskTopIconDoms"
+      :DeskTopIconData="DeskTopIconData"
+    ></IconItem>
   </div>
 </template>
 
 <script setup>
   import { deskTopData } from '@/data';
-  import { getCurrentInstance, onMounted } from 'vue';
-  import { showBox } from '../../utils';
-  import { getViewportSize } from '@/utils/ViewSize/utils';
   import DeskTop from '@/utils/OS/desktop';
-  import drag from '@/utils/ViewSize/drag';
   import IconItem from './IconItem';
-
-  const that = getCurrentInstance();
-
-  // 收集所有的桌面图标
-  // 用处：用于切换选中的样式
-  let Refs;
-
-  onMounted(() => {
-    Refs = that.refs.IconRefs;
-  });
-
-  const clickApp = (e, item) => {
-    const target = document.querySelector(`.${item.componentName}`);
-
-    if (item.componentName === 'FolderFullBox') {
-      // todo
-      console.log(item);
-    }
-
-    const targetIcon = e.target;
-
-    showBox(target);
-
-    // 排他清除样式
-    Refs.map((value) => value.classList.remove('selected'));
-
-    if (targetIcon.nodeName.toLowerCase() === 'div') {
-      targetIcon.classList.add('selected');
-    } else {
-      targetIcon.parentElement.classList.add('selected');
-    }
-  };
 
   const DeskTopIconData = new DeskTop(deskTopData, [
     {
@@ -156,17 +116,6 @@
   const deskTopIconDoms = [];
   const deskTopIconRefs = (e) => {
     deskTopIconDoms.push(e);
-  };
-
-  const dragIconOrOpenMenu = (e, dom, list, item) => {
-    if (e.button === 0) {
-      drag.call(dom, e, list, item, {
-        edgeWeight: getViewportSize().width,
-        edgeHeight: getViewportSize().height,
-      });
-    } else if (e.button === 2) {
-      console.log('菜单');
-    }
   };
 </script>
 
