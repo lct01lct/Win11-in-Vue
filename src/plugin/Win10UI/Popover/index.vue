@@ -2,7 +2,7 @@
   const isVisible = ref(false);
   const emits = defineEmits(['show', 'hide']);
 
-  const props = defineProps({
+  defineProps({
     dir: {
       type: String,
       default: 'bottom',
