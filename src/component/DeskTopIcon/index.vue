@@ -140,6 +140,10 @@
   let DeskTopIconData = reactive(new DeskTop(deskTopData, getDesktopFolderData.children).appData);
 
   // 监测文件结构变化
+  // 监测文件结构变化
+  // 监测文件结构变化
+  // 监测文件结构变化
+  // 监测文件结构变化
   watch(
     () => store.storeCompletedFolder,
     (newValue) => {
