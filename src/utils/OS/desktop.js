@@ -20,7 +20,7 @@ class DeskTop {
       //   posIdx: item.posIdx,
       //   ...item,
       // });
-      item.posIdx = 100 + i;
+      item.posIdx = 20 + i;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
       this.appData.push(item);

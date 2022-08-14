@@ -5,7 +5,8 @@
       <iframe
         src="https://cn.bing.com/"
         frameborder="0"
-        sandbox="allow-same-origin allow-forms allow-scripts"
+        sandbox="allow-forms allow-scripts allow-modals allow-top-navigation"
+        referrerpolicy="no-referrer"
       ></iframe>
     </main>
   </div>
@@ -13,9 +14,9 @@
 
 <script setup>
   import ToolBarVue from '@/component/ToolBar/index.vue';
-  onMounted(() => {
-    document.domain = 'https://cn.bing.com/';
-  });
+  // onMounted(() => {
+  //   document.domain = 'https://cn.bing.com/';
+  // });
 </script>
 
 <style lang="scss" scoped>

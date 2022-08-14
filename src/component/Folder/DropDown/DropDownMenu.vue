@@ -17,7 +17,7 @@
       {{ data.name }}
     </div>
     <div class="content" v-if="children.length !== 0">
-      <DropDownMenu v-for="item1 in children" :key="item1" :data="item1"></DropDownMenu>
+      <DropDownMenu v-for="item in children" :key="item" :data="item"></DropDownMenu>
     </div>
   </div>
 </template>
@@ -56,6 +56,15 @@
   const goToTargetFolder = (DATA) => {
     store.changeCurrentFolder(DATA);
   };
+
+  watch(
+    () => store.storeCurrentFolder,
+    (newValue) => {
+      // DropStatus.value = true;
+      // console.log(newValue);
+    },
+    { deep: true }
+  );
 </script>
 
 <style lang="scss" scoped>

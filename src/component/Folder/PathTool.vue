@@ -137,11 +137,17 @@
         align-items: center;
         margin-left: 0.5em;
         font-size: 0.8em;
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
         span {
           margin-left: 0.5em;
+          flex-wrap: nowrap;
+          overflow: hidden;
           &::after {
             content: '>';
-            margin-left: 0.5em;
+            margin-left: 0.2em;
           }
         }
       }
@@ -161,6 +167,7 @@
       }
       input {
         outline: none;
+        width: 100%;
         border: 0;
         font-size: 0.8em;
         padding-left: 0.8em;

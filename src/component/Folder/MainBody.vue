@@ -35,10 +35,14 @@
    */
   // import userstore tool to change MainBody
   import userStore from '@/store/userStore';
+
+  import { searchTargetFolderByPath } from '@/utils/handleFolder';
   const store = userStore();
 
   // eslint-disable-next-line prefer-const
   let data = reactive([]);
+  // 默认显示desktop
+  store.changeCurrentFolder(searchTargetFolderByPath(['C:', 'DeskTop']));
 
   watch(
     () => store.storeCurrentFolder,

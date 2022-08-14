@@ -19,10 +19,14 @@
         :key="item"
         @dblclick="clickApp($event, item)"
         :style="`
-          top: ${((Math.floor(item.posIdx % 8) - 1) * 76.8).toFixed(1) + 'px'};
+          top: ${
+            (Math.floor(item.posIdx % 8) - 1) * 76.8 > 0
+              ? ((Math.floor(item.posIdx % 8) - 1) * 76.8).toFixed(1) + 'px'
+              : 0 + 'px'
+          };
           left: ${(Math.floor(item.posIdx / 8) * 76.8).toFixed(1) + 'px'};
         `"
-        @mousedown.stop="dragIcon"
+        @mousedown.stop="dragIcon($event, item)"
         ref="IconRefs"
       >
         <img :src="`src/assets/img/icon/${item.icon}`" draggable="false" />
@@ -149,7 +153,7 @@
     { deep: true }
   );
 
-  const dragIcon = (e) => {
+  const dragIcon = (e, item) => {
     // 目前被选中的元素，拖动的元素也是去拖动他
     const targetArray = Refs.filter((value) => {
       const classList = Array.from(value.classList);
@@ -163,16 +167,25 @@
       value.fixedLeft = X - value.offsetLeft;
       value.fixedTop = Y - value.offsetTop;
     });
-
+    let tempPos;
     const move = (e) => {
+      console.log(targetArray);
       targetArray.map((value) => {
         value.classList.add('notransition');
         value.style.left = e.pageX - value.fixedLeft + 'px';
         value.style.top = e.pageY - value.fixedTop + 'px';
+        value.tempPos = Math.floor(e.pageX / 76.8) * 8 + Math.floor(e.pageY / 76.8) + 1;
       });
     };
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', () => {
+      // console.log((targetArray[0].__vnode.key.posIdx = 100));
+      // item.posIdx = tempPos;
+      targetArray.map((value) => {
+        // console.log(value.tempPos);
+        // console.log(value.__vnode.key.posIdx, 1);
+        value.__vnode.key.posIdx = value.tempPos;
+      });
       document.removeEventListener('mousemove', move);
     });
   };

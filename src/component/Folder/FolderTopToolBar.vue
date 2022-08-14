@@ -27,7 +27,7 @@
   //  6. 视图
   import userStore from '@/store/userStore';
   import { uploadFolderStruct } from './api';
-
+  const { appContext } = getCurrentInstance();
   const toolList = [
     {
       type: 'spacer',
@@ -66,20 +66,28 @@
     },
   ];
   const store = userStore();
-  const addNewFolder = () => {
+  const addNewFolder = async () => {
     const currentFolder = store.storeCurrentFolder;
     const obj = {
       name: '新建文件夹',
       memory: '0KB',
       children: [],
     };
-    const targetObject = currentFolder.addNewEmptyFile(obj);
-    console.log();
+    const index = currentFolder.addNewEmptyFile(obj);
+    const targetObject = currentFolder.children[index - 1];
     // todo
+    const temp = appContext.config.globalProperties._cloneDeep(targetObject);
+    // console.log(temp);
+    const a = {
+      b: 1,
+    };
+    const proxy = new Proxy(a, () => {
+      return a.b;
+    });
     // console.log(
-    //   uploadFolderStruct({
-    //     struct: targetObject,
-    //     path: currentFolder,
+    //   await uploadFolderStruct({
+    //     struct: temp,
+    //     path: currentFolder.getPath(),
     //   })
     // );
   };

@@ -87,8 +87,17 @@ class Folder {
   addNewEmptyFile(options) {
     // todo
     // 超出磁盘内存报错
+    const name = options.name;
+    const children = this.children;
+
+    // 判断是否该文件存在
+    const isRep = isRepeat(name, children);
     // 改变children
-    console.log(this);
+    if (isRep) {
+      options.extraName = `${options.name}[${isRep}]`;
+      options.name = `${options.name}[${isRep}]`;
+    }
+    console.log(options);
     return this.children.push(new Folder(options, this));
   }
 }
@@ -97,4 +106,18 @@ export default Folder;
 
 function parsePath(path) {
   return path.split('\\').filter((item) => item);
+}
+
+function isRepeat(newName, array) {
+  let count = 0;
+  console.log(newName, array, 'repeat');
+  for (let i = 0; i < array.length; i++) {
+    if (array[i].name === newName) {
+      count++;
+    }
+  }
+  if (count) {
+    return count;
+  }
+  return false;
 }

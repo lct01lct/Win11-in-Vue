@@ -9,7 +9,6 @@
       </nav>
       <div class="mainBody">
         <MainBody></MainBody>
-        <!-- :updatePathContent="updatePathContent" -->
       </div>
     </main>
   </div>
