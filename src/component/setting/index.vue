@@ -6,7 +6,7 @@
         <div class="accountMessage">
           <img @click="toggle('Accounts')" src="@/assets/img/setting/defAccount.webp" alt="" />
           <div class="detailMessage">
-            <span>BLUG Edge</span>
+            <span>{{ store.getUsername }}</span>
             <span>Local Account</span>
           </div>
         </div>
@@ -34,7 +34,8 @@
   import data from './settingData.json';
   import ToolBarVue from '@/component/ToolBar/index.vue';
   import jsx from './MainBodyList.jsx';
-
+  import userStore from '@/store/userStore';
+  const store = userStore();
   /** 需求分析：
    *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
    *  2. 最大化和缩小最大化有动态过渡
@@ -104,7 +105,7 @@
           flex-direction: row;
           justify-content: start;
           align-items: center;
-          width: 100%;
+          width: 95%;
           height: 5em;
           padding: 10px;
           margin: 10px;

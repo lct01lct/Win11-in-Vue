@@ -6,7 +6,7 @@
         <div class="avatar-wrap">
           <img src="src/assets/img/setting/assetsImg/avatar/default.jpg" />
         </div>
-        <div class="username">User</div>
+        <div class="username">{{ loginForm.name }}</div>
       </div>
       <input type="password" class="password-ipt" v-model="loginForm.password" />
       <button class="login-btn" @click="goToHome">Sign In</button>

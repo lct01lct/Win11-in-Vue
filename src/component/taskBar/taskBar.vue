@@ -27,12 +27,18 @@
             <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
           </ul>
         </div>
-        <div class="data fcc">
-          <div class="systemTime" @click="showDateBox">
-            <div>{{ time }}</div>
-            <div>{{ date }}</div>
-          </div>
-        </div>
+
+        <Popover dir="bottom">
+          <Win11Calendar></Win11Calendar>
+          <template #reference>
+            <div class="data fcc">
+              <div class="systemTime">
+                <div>{{ time }}</div>
+                <div>{{ date }}</div>
+              </div>
+            </div>
+          </template>
+        </Popover>
       </div>
     </div>
   </div>
@@ -42,6 +48,12 @@
   // import startMenu from '../startMenu/index.vue';
   import { taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
+  import Win11Calendar from './components/Win11Calendar';
+
+  const count = ref(0);
+  onMounted(() => {
+    count.value = 1;
+  });
   /** 需求分析：
    *  1. 点击底栏图标，图标有反应+相应板块显
    *  2.
@@ -85,7 +97,6 @@
 
   // 点击任务栏，传递name，DOM获取类名并赋予其层级为最高
   const showTaskerbarPanel = (e) => {
-    console.log(e);
     // 目标组件
     const target = document.querySelector(`.${e}`);
 

@@ -1,12 +1,7 @@
+<!-- eslint-disable prefer-const -->
 <template>
   <div class="LeftNavRoot">
-    <DropDownMenuVue
-      v-for="item in data"
-      :key="item"
-      :title="item.title"
-      :type="item.type"
-      :children="item.children"
-    ></DropDownMenuVue>
+    <DropDownMenuVue v-for="item in data" :key="item" :data="item"></DropDownMenuVue>
   </div>
 </template>
 
@@ -26,155 +21,11 @@
    *    在List组件中会再次递归菜单组件
    */
 
-  const data = reactive([
-    {
-      type: 'menu',
-      title: 'Quick access',
-      children: [
-        {
-          type: 'item',
-          title: 'DownLoads',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: 'Blue',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: 'Documents',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: 'Github',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: 'Picture',
-          children: [],
-        },
-      ],
-    },
-    {
-      type: 'menu',
-      title: 'One Drive',
-      children: [
-        {
-          type: 'menu',
-          title: 'Atom',
-          children: [
-            {
-              type: 'item',
-              title: 'Codeforces',
-              children: [],
-            },
-            {
-              type: 'item',
-              title: 'JavaScript',
-              children: [],
-            },
-            {
-              type: 'item',
-              title: 'GitHub',
-              children: [],
-            },
-          ],
-        },
-        {
-          type: 'item',
-          title: 'Attchments',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: 'october',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: 'office',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: 'party',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: 'New Folder',
-          children: [],
-        },
-      ],
-    },
-    {
-      type: 'menu',
-      title: 'This PC',
-      children: [
-        {
-          type: 'menu',
-          title: 'Desktop',
-          children: [],
-        },
-        {
-          type: 'menu',
-          title: 'Documents',
-          children: [
-            {
-              type: 'item',
-              title: 'Adobe',
-              children: [
-                {
-                  type: 'menu',
-                  title: 'Desktop',
-                  children: [
-                    {
-                      type: 'menu',
-                      title: 'Desktop',
-                      children: [],
-                    },
-                  ],
-                },
-              ],
-            },
-            {
-              type: 'menu',
-              title: 'Desktop',
-              children: [],
-            },
-          ],
-        },
-        {
-          type: 'item',
-          title: '2022',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: '2022',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: '2022',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: '2022',
-          children: [],
-        },
-        {
-          type: 'item',
-          title: '2022',
-          children: [],
-        },
-      ],
-    },
-  ]);
+  const props = defineProps(['data']);
+
+  // eslint-disable-next-line prefer-const
+  let data = reactive(props.data);
+  // console.log(props.obj);
 </script>
 
 <style lang="scss" scoped>

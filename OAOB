@@ -1,0 +1,82 @@
+[33md7b668a[m[33m ([m[1;36mHEAD -> [m[1;32maccount[m[33m)[m HEAD@{0}: commit: feat:文件夹初始功能实现
+[33m79f4975[m HEAD@{1}: commit: refactor: 重构文件夹部分，留此存档、
+[33m52e979b[m HEAD@{2}: commit: refactor: 数据结构发生改变，nav栏重构
+[33m18b801f[m[33m ([m[1;31morigin/desktop[m[33m)[m HEAD@{3}: commit: feat: desktop's icon and open component as long as click this icon
+[33m16a0a60[m[33m ([m[1;31morigin/login[m[33m, [m[1;32mtempBranch[m[33m)[m HEAD@{4}: checkout: moving from tempBranch to account
+[33m16a0a60[m[33m ([m[1;31morigin/login[m[33m, [m[1;32mtempBranch[m[33m)[m HEAD@{5}: merge account: Fast-forward
+[33m3250c85[m[33m ([m[1;32mtemp[m[33m)[m HEAD@{6}: checkout: moving from account to tempBranch
+[33m16a0a60[m[33m ([m[1;31morigin/login[m[33m, [m[1;32mtempBranch[m[33m)[m HEAD@{7}: commit: feat: login component's style
+[33m12891dc[m HEAD@{8}: commit (merge): merge: folder
+[33m27f3962[m HEAD@{9}: commit: refactor:formater code and change folder
+[33ma42d894[m[33m ([m[1;31morigin/edge[m[33m)[m HEAD@{10}: commit: feat: 壁纸切换，浏览器组件
+[33m87fa1b9[m[33m ([m[1;31morigin/taskbar[m[33m)[m HEAD@{11}: commit: feat: 底部栏打开关闭组件
+[33mb06997e[m HEAD@{12}: commit: feat: 底部栏打开关闭组件
+[33m1064c30[m HEAD@{13}: merge temp: Merge made by the 'ort' strategy.
+[33m4ea9b99[m HEAD@{14}: checkout: moving from temp to account
+[33mca077cd[m HEAD@{15}: commit: some to do
+[33maa5c037[m[33m ([m[1;31morigin/lzx[m[33m)[m HEAD@{16}: checkout: moving from account to temp
+[33m4ea9b99[m HEAD@{17}: pull origin lzx:temp: Merge made by the 'ort' strategy.
+[33m18c862a[m HEAD@{18}: commit: some things
+[33m8179060[m HEAD@{19}: checkout: moving from mian to account
+[33md63040e[m[33m ([m[1;32mmian[m[33m)[m HEAD@{20}: commit: temp
+[33m16cfc41[m HEAD@{21}: checkout: moving from account to mian
+[33m8179060[m HEAD@{22}: commit: temp
+[33ma18052e[m HEAD@{23}: checkout: moving from mian to account
+[33m16cfc41[m HEAD@{24}: commit: ok
+[33m3b7ed9e[m HEAD@{25}: commit: fix: change taskbar's way
+[33m9199fec[m HEAD@{26}: commit (merge): 合并新代码
+[33me16402a[m[33m ([m[1;31morigin/mian[m[33m)[m HEAD@{27}: checkout: moving from account to mian
+[33ma18052e[m HEAD@{28}: commit: feat: 层级和背景
+[33m29736a8[m HEAD@{29}: commit: fix：移除拖动增大的卡顿
+[33m6497167[m[33m ([m[1;31morigin/folder[m[33m)[m HEAD@{30}: commit: feat: add folder , 初始化完成nav栏 递归组件
+[33m5fa0dba[m HEAD@{31}: commit: feat: 点击任务栏切换显示层级,Floder开发中...
+[33md6ef052[m[33m ([m[1;31morigin/setting[m[33m)[m HEAD@{32}: commit: feat: 点击任务栏切换显示层级
+[33mfdb2573[m HEAD@{33}: checkout: moving from vercl to account
+[33med3df16[m HEAD@{34}: commit (merge): merge
+[33md81072a[m HEAD@{35}: checkout: moving from account to vercl
+[33mfdb2573[m HEAD@{36}: checkout: moving from vercl to account
+[33md81072a[m HEAD@{37}: commit: 1
+[33mb09ce63[m HEAD@{38}: checkout: moving from account to vercl
+[33mfdb2573[m HEAD@{39}: pull vercl main:vercl: Merge made by the 'ort' strategy.
+[33m038dacd[m HEAD@{40}: commit: feat:folder
+[33m66190e3[m HEAD@{41}: checkout: moving from power to account
+[33m675b7bb[m HEAD@{42}: commit: merge power Authorization
+[33m7a76933[m HEAD@{43}: merge account: Merge made by the 'ort' strategy.
+[33m7dd31fb[m[33m ([m[1;31morigin/power[m[33m)[m HEAD@{44}: checkout: moving from main to power
+[33m316de44[m[33m ([m[1;32mmain[m[33m)[m HEAD@{45}: pull origin power:power: Merge made by the 'ort' strategy.
+[33m66190e3[m HEAD@{46}: checkout: moving from account to main
+[33m66190e3[m HEAD@{47}: checkout: moving from main to account
+[33m66190e3[m HEAD@{48}: merge account: Fast-forward
+[33m30d0beb[m HEAD@{49}: checkout: moving from account to main
+[33m66190e3[m HEAD@{50}: commit: refactor:更改项目目录。 feat: 新增自定义框位置大小记录
+[33m0180123[m HEAD@{51}: reset: moving to 0180
+[33mfc5846d[m HEAD@{52}: reset: moving to fc58
+[33m0180123[m HEAD@{53}: commit: refactor:更改目录结构
+[33mb85ac55[m HEAD@{54}: reset: moving to b85a
+[33mf7cad76[m HEAD@{55}: reset: moving to f7ca
+[33mb85ac55[m HEAD@{56}: commit: feat: 任务框的停靠，列表的详细界面，列表的过渡
+[33mde96da3[m HEAD@{57}: commit (merge): chore: 合并主分支代码
+[33m9d93442[m HEAD@{58}: checkout: moving from main to account
+[33m30d0beb[m HEAD@{59}: pull origin main:main: fast-forward
+[33m4bfcd79[m HEAD@{60}: checkout: moving from account to main
+[33m9d93442[m HEAD@{61}: commit: eslint
+[33m0adcf08[m HEAD@{62}: commit: feat: 增加了框的移动，框的放大和缩小，需要fix的地方：列表框的细节实现，列表框vue -> jsx形式
+[33mf7cad76[m HEAD@{63}: reset: moving to f7ca
+[33m4577681[m HEAD@{64}: reset: moving to 4577
+[33mf7cad76[m HEAD@{65}: commit: feat: 工具栏变大缩小，封装了类的形式，但是有问题，等ok了再推！
+[33m4577681[m HEAD@{66}: commit: Bug:给toolbar做类封装，但是出了bug
+[33mfc5846d[m HEAD@{67}: commit: Bug:给toolbar做类封装，但是出了bug
+[33m7a30273[m HEAD@{68}: reset: moving to 7a30
+[33m7a30273[m HEAD@{69}: commit: feat: 目标框放大缩小
+[33m447c15c[m HEAD@{70}: commit: 合并代码
+[33mfb88dab[m HEAD@{71}: commit (merge): feat:增加切换最大化和常屏切换，图标渲染
+[33m4bfcd79[m HEAD@{72}: checkout: moving from main to account
+[33m4bfcd79[m HEAD@{73}: checkout: moving from account to main
+[33m4bfcd79[m HEAD@{74}: reset: moving to 4bfc
+[33m4bfcd79[m HEAD@{75}: checkout: moving from main to account
+[33m4bfcd79[m HEAD@{76}: merge account: Fast-forward
+[33m81f7ba5[m HEAD@{77}: checkout: moving from account to main
+[33m4bfcd79[m HEAD@{78}: commit: bug:详细过多，flex出现问题
+[33mb796654[m HEAD@{79}: commit: feat: 增加设置页面缩放，关闭；设置页面初步搭建
+[33m81f7ba5[m HEAD@{80}: checkout: moving from main to account
+[33m81f7ba5[m HEAD@{81}: clone: from https://github.com/lct01lct/Win10-in-Vue.git

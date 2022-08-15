@@ -12,6 +12,11 @@ class File {
   setInfo(info) {
     this.name = info.name;
     this.size = info.size;
+    this.extension = info.extension;
+  }
+
+  changeName(newName) {
+    this.name = newName;
   }
 }
 

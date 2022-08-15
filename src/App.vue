@@ -1,7 +1,19 @@
 <script setup>
   import userStore from './store/userStore';
-  import data from '@/data/folders-data';
-  import Desc from '@/utils/desc';
+
+  // const descs = (function () {
+  //   const descs = [];
+  //   data.forEach((desc) => {
+  //     descs.push(new Desc(desc));
+  //   });
+  //   return descs;
+  // })();
+  // console.log(descs[0].children[0].getPath());
+  // console.log(descs);
+
+  import { MessageBox } from '@/plugin/Win10UI';
+  // import data from '@/data/folders-data';
+  // import Desc from '@/utils/desc';
 
   const store = userStore();
 
@@ -10,17 +22,6 @@
       '#app'
     ).style.backgroundImage = `url("src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg")`;
   });
-
-  const descs = (function () {
-    const descs = [];
-    data.forEach((desc) => {
-      descs.push(new Desc(desc));
-    });
-    return descs;
-  })();
-
-  console.log(descs);
-  // import { MessageBox } from '@/plugin/Win10UI';
   // const messageBoxClick = () => {
   //   MessageBox({
   //     showCancelBtn: true,
@@ -67,13 +68,11 @@
   //       console.log('reject');
   //     });
   // };
+  // promptBoxClick();
 </script>
 
 <template>
   <router-view></router-view>
-  <!-- <button @click="messageBoxClick">1</button>
-  <button @click="confirmBoxClick">2</button>
-  <button @click="promptBoxClick">3</button> -->
 </template>
 
 <style lang="scss">
