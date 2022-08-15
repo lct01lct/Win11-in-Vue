@@ -38,9 +38,11 @@
   import { pinnedData, recommendData } from './StartData.json';
 
   const emit = defineEmits(['changeTag']);
-  const toAllApps = () => {
+  function toAllApps() {
+    console.log("  emit('changeTag');");
+
     emit('changeTag');
-  };
+  }
   const openApp = (appName) => {
     console.log(`打开应用：${appName}`);
   };
@@ -65,6 +67,9 @@
       background: rgba(255, 255, 255, 0.9);
       .el-icon--right {
         margin-left: 3px;
+      }
+      &:hover {
+        background: rgb(199 217 240 / 90%);
       }
     }
   }

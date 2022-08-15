@@ -132,6 +132,9 @@
         .el-icon--right {
           margin-right: 3px;
         }
+        &:hover {
+          background: rgb(199 217 240 / 90%);
+        }
       }
     }
   }
