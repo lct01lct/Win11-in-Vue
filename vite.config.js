@@ -11,7 +11,7 @@ export default defineConfig({
     port: config.VITE_PROT,
     proxy: {
       '/api': {
-        target: 'http://127.0.0.1:3000', // 目标接口地址
+        target: config.VITE_BACKEND, // 目标接口地址,env文件下配置
         changeOrigin: true,
         ws: true,
         secure: false, // https检查
