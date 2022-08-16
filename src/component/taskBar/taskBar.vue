@@ -29,7 +29,7 @@
         </div>
 
         <Popover dir="bottom">
-          <Calendar></Calendar>
+          <Win11Calendar></Win11Calendar>
           <template #reference>
             <div class="data fcc">
               <div class="systemTime">
@@ -48,7 +48,7 @@
   // import startMenu from '../startMenu/index.vue';
   import { taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
-  import Calendar from './components/Calendar';
+  import Win11Calendar from './components/Win11Calendar';
 
   const count = ref(0);
   onMounted(() => {
@@ -82,7 +82,7 @@
 
   const fn = () => {
     const currentTime = new Date();
-    time.value = currentTime.toLocaleTimeString().slice(0, 7); // 获取当前时间 上午11:29
+    time.value = currentTime.toLocaleTimeString().slice(0, 9); // 获取当前时间 上午11:29
     date.value = currentTime.toLocaleDateString(); // 获取当前日期，2021/12/1
   };
   fn();

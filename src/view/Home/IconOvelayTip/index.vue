@@ -37,8 +37,8 @@
   .deskTop-tip {
     position: fixed;
     z-index: 1000;
-    top: -999;
-    left: -999;
+    top: -999px;
+    left: -999px;
     padding: 2px;
     font-size: 14px;
     color: #0033cc;

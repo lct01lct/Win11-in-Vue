@@ -107,7 +107,7 @@ export class DragFeatrue {
     }
   }
 
-  stop(configStore, stayPos, isInTaskbar) {
+  stop(configStore, stayPos, isInTaskbar, tipStore) {
     const stopMaxHeight = (configStore.maxIconCountY - 1) * configStore.iconBaseHeight;
     // 桌面视图为值小于菜单栏
     if (stayPos.y >= stopMaxHeight) {
@@ -144,6 +144,8 @@ export class DragFeatrue {
       }
     }
     this.elem.style.zIndex = '1';
+    // 图标停靠之后，关闭信息提示框
+    tipStore.setTipIsVisible(false);
   }
 
   setPosSizeByPosIdx(posIdx) {
@@ -195,7 +197,7 @@ export default function (e, list, item, config) {
   }
 
   function mouseUp() {
-    moveDragF && moveDragF.stop(configStore, stayPos, isInTaskbar);
+    moveDragF && moveDragF.stop(configStore, stayPos, isInTaskbar, tipStore);
 
     removeEvent(document, 'mousemove', mouseMove);
     removeEvent(document, 'mouseup', mouseUp);
