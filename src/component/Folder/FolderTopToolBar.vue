@@ -25,7 +25,7 @@
   //  4. 粘贴
   //  5. 排序
   //  6. 视图
-  import userStore from '@/store/userStore';
+  import folderStore from '@/store/folderStore';
   import { uploadFolderStruct } from './api';
   const { appContext } = getCurrentInstance();
   const toolList = [
@@ -65,7 +65,7 @@
       type: 'spacer',
     },
   ];
-  const store = userStore();
+  const store = folderStore();
   const addNewFolder = async () => {
     const currentFolder = store.storeCurrentFolder;
     const obj = {
@@ -73,17 +73,16 @@
       memory: '0KB',
       children: [],
     };
-    const index = currentFolder.addNewEmptyFile(obj);
+    const index = currentFolder.addNewEmptyFolder(obj);
     const targetObject = currentFolder.children[index - 1];
+
+    // 因为将MainBody -> 新的组件，原逻辑改变
+    // 由于监听currentShowFolder所以不能检测到该树的改变
+    // 手动push一下
+    store.currentShowFolder.push(targetObject);
     // todo
     const temp = appContext.config.globalProperties._cloneDeep(targetObject);
     // console.log(temp);
-    const a = {
-      b: 1,
-    };
-    const proxy = new Proxy(a, () => {
-      return a.b;
-    });
     // console.log(
     //   await uploadFolderStruct({
     //     struct: temp,

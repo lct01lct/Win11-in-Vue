@@ -31,15 +31,16 @@
    *      搜索，并将内容传递至父组件
    */
 
-  // import userstore tool to change MainBody
+  // import folderStore tool to change MainBody
   import {
     searchTargetFolderByPath,
+    searchTargetFolderByStr,
     goChildren,
     backParent,
     goDesc,
   } from '@/utils/handleFolder.js';
-  import userStore from '@/store/userStore';
-  const store = userStore();
+  import folderStore from '@/store/folderStore';
+  const store = folderStore();
 
   // 顶部的path
   // eslint-disable-next-line prefer-const
@@ -91,7 +92,18 @@
   };
 
   const searchStr = (e) => {
-    console.log(e.target.value, '好了值我拿到了，我去search了');
+    // todo
+    // 内容高亮
+    // 需改变页面逻辑 -> folder主题显示由storeCurrentFolder.children
+    //  -> 由一个数组承接 currentShowFolder  done
+    const input = e.target.value;
+    const res = searchTargetFolderByStr(input);
+
+    // 切换高亮字体
+    if (res.length) {
+      store.setCurrentSearchStr(input.split(''));
+    }
+    store.changeCurrentShowFolder(res);
   };
 </script>
 

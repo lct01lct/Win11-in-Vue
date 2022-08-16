@@ -7,6 +7,7 @@
 
 <script setup>
   import DropDownMenuVue from './DropDownMenu.vue';
+  import folderStore from '@/store/folderStore';
 
   /** 需求分析：
    *  为什么要把菜单栏单独拿出来？
@@ -21,11 +22,19 @@
    *    在List组件中会再次递归菜单组件
    */
 
-  const props = defineProps(['data']);
-
   // eslint-disable-next-line prefer-const
-  let data = reactive(props.data);
-  // console.log(props.obj);
+  let data = reactive([]);
+
+  const store = folderStore();
+
+  watch(
+    () => store.storeCompletedFolder,
+    (newValue) => {
+      const length = data.length;
+      data.splice(0, length, ...newValue);
+    },
+    { deep: true }
+  );
 </script>
 
 <style lang="scss" scoped>

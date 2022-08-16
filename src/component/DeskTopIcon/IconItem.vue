@@ -3,6 +3,7 @@
   import { getViewportSize } from '@/utils/ViewSize/utils';
   import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
   import { showBox } from '../../utils';
+  import folderStore from '@/store/folderStore';
 
   const configStore = useDeskTopConfigStore();
 
@@ -31,13 +32,13 @@
       default: () => [],
     },
   });
-
   const clickApp = (e, item) => {
     const target = document.querySelector(`.${item.componentName}`);
 
     if (item.componentName === 'FolderFullBox') {
       // todo
-      console.log(item);
+      const store = folderStore();
+      store.changeCurrentFolder(item);
     }
 
     showBox(target);
@@ -45,6 +46,7 @@
 
   // 判断鼠标点击哪个键位
   const dragIconOrOpenMenu = (e, dom, list, item) => {
+    console.log(e, dom, list, item);
     if (e.button === 0) {
       // 左键
       drag.call(dom, e, list, item, {

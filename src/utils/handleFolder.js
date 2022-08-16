@@ -1,6 +1,6 @@
-import userStore from '../store/userStore';
+import folderStore from '../store/folderStore';
 import { MessageBox } from '@/plugin/Win10UI';
-const store = userStore();
+const store = folderStore();
 
 // 该文件作用：
 // 处理pathTool中根据路径match对应结构的方法
@@ -12,9 +12,9 @@ const store = userStore();
  * @param {*} targetPath 路径栏的目标路径
  * @returns 返回目标proxy 或 false
  */
-const recursive = (targetDescArray, targetPath) => {
+const recursiveByPath = (targetDescArray, targetPath) => {
   const targetArray = targetDescArray.children || [];
-  if (targetArray) {
+  if (targetArray.length) {
     for (let i = 0; i < targetArray.length; i++) {
       const target = targetArray[i];
       if (target.children) {
@@ -23,8 +23,8 @@ const recursive = (targetDescArray, targetPath) => {
         if (tempPath === path) {
           return target;
         } else {
-          if (recursive(target, targetPath)) {
-            return recursive(target, targetPath);
+          if (recursiveByPath(target, targetPath)) {
+            return recursiveByPath(target, targetPath);
           }
         }
       } else {
@@ -40,6 +40,34 @@ const recursive = (targetDescArray, targetPath) => {
   }
 };
 
+/** 另造轮子：由于不能复用之前的路径递归查找，所以还要再整一个用字符串的
+ *
+ * @param {object} targetDescArray 当前树的分支
+ * @param {any} searchStr 搜索框的承接变量
+ * @returns 符合的array
+ */
+const recursiveByStr = (targetDescArray, searchStr) => {
+  const targetArray = targetDescArray.children || [];
+  const res = [];
+  if (targetArray.length) {
+    for (let i = 0; i < targetArray.length; i++) {
+      const target = targetArray[i];
+      const reg = new RegExp(searchStr);
+      if (reg.test(target.name)) {
+        res.push(targetArray[i]);
+      } else {
+        const result = recursiveByStr(target, searchStr);
+        if (result.length) {
+          res.push(...result);
+        }
+      }
+    }
+    return res;
+  } else {
+    return [];
+  }
+};
+
 /** 调用recursive递归函数，返回目标文件夹信息
  *
  * @param {*} path 路径的全信息数组
@@ -51,7 +79,7 @@ export const searchTargetFolderByPath = (path) => {
   // 目标磁盘
   const targetDescArray = desc.filter((value) => value.getPath()[0] === path[0]);
   if (targetDescArray.length) {
-    const data = recursive(...targetDescArray, path);
+    const data = recursiveByPath(...targetDescArray, path);
     if (data) {
       return data;
     } else {
@@ -68,6 +96,16 @@ export const searchTargetFolderByPath = (path) => {
       content: '磁盘不存在！',
     });
   }
+};
+
+export const searchTargetFolderByStr = (searchStr) => {
+  const desc = store.storeCompletedFolder;
+  const res = [];
+  for (let i = 0; i < desc.length; i++) {
+    const target = desc[i];
+    res.push(...recursiveByStr(target, searchStr));
+  }
+  return res;
 };
 
 /** 回到当前磁盘的磁盘根对象

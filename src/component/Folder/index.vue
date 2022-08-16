@@ -5,7 +5,7 @@
     <PathTool></PathTool>
     <main>
       <nav class="scroll">
-        <DropDown :data="data"></DropDown>
+        <DropDown></DropDown>
       </nav>
       <div class="mainBody">
         <MainBody></MainBody>
@@ -17,14 +17,14 @@
   import ToolBarVue from '../ToolBar/index.vue';
   import FolderTopToolBar from './FolderTopToolBar.vue';
   import PathTool from './PathTool.vue';
-  import DropDown from './DropDown/index.vue';
-  import MainBody from './MainBody.vue';
+  import DropDown from './DropDown';
+  import MainBody from './Mainbody';
 
   import Data from '@/data/folders-data';
   import Desc from '@/utils/OS/desc';
   // 缓存下全部的文件结构
-  import userStore from '@/store/userStore';
-  const store = userStore();
+  import folderStore from '@/store/folderStore';
+  const store = folderStore();
   // create folder obj
   const data = (function () {
     const descs = [];

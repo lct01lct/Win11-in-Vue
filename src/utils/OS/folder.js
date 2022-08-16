@@ -52,7 +52,13 @@ class Folder {
   }
 
   changeName(newName) {
+    const parentChildren = this.parent.children;
+    const isRep = isRepeat(newName, parentChildren);
+    if (isRep) {
+      return false;
+    }
     this.name = newName;
+    return true;
   }
 
   // 目的是递归各个文件夹
@@ -75,13 +81,21 @@ class Folder {
   }
 
   addNewEmptyFolder(options) {
-    if (options.children) {
-      return new Error('改新建文件夹不为空');
+    if (options.children.length) {
+      return new Error('该新建文件夹不为空');
     }
     options.name = options.name || '新建文件夹';
 
-    // 文件名不合法
-    this.children.push(new Folder(options));
+    const name = options.name;
+    const children = this.children;
+
+    // 判断是否该文件存在
+    const isRep = isRepeat(name, children);
+    // 改变children
+    if (isRep) {
+      options.name = `${options.name}[${isRep}]`;
+    }
+    return this.children.push(new Folder(options, this));
   }
 
   addNewEmptyFile(options) {
@@ -94,10 +108,8 @@ class Folder {
     const isRep = isRepeat(name, children);
     // 改变children
     if (isRep) {
-      options.extraName = `${options.name}[${isRep}]`;
       options.name = `${options.name}[${isRep}]`;
     }
-    console.log(options);
     return this.children.push(new Folder(options, this));
   }
 }
@@ -110,9 +122,9 @@ function parsePath(path) {
 
 function isRepeat(newName, array) {
   let count = 0;
-  console.log(newName, array, 'repeat');
   for (let i = 0; i < array.length; i++) {
-    if (array[i].name === newName) {
+    const originName = /[A-Za-z0-9_\-\u4e00-\u9fa5]+/.exec(array[i].name)[0];
+    if (originName === newName) {
       count++;
     }
   }

@@ -63,8 +63,10 @@ export class DragFeatrue {
     }
     this.elem.style.left = this.moveX + 'px';
     this.elem.style.top = this.moveY + 'px';
+    this.elem.style.zIndex = '999';
     // console.log(this);
     if (this.end) {
+      // this.elem.style.zIndex = '1';
       this.end();
     }
 
@@ -141,6 +143,7 @@ export class DragFeatrue {
         this.setPosSizeByPosIdx(currentPosIdx);
       }
     }
+    this.elem.style.zIndex = '1';
   }
 
   setPosSizeByPosIdx(posIdx) {
@@ -234,3 +237,23 @@ function mouseEnterIconPosIdx(e, config) {
 function getIconInfoByPosIdx(list, posIdx) {
   return list.find((item) => item.posIdx === posIdx);
 }
+
+// 设置宽高
+export const setWidth = (width, height, Modal) => {
+  Modal.style.width = width + 'px';
+  Modal.style.height = height + 'px';
+};
+
+// 判断元素是否属于该区域
+export const judgeContains = (parent, Modal) => {
+  const childNode = Array.from(parent.children);
+  const { left, right, top, bottom } = Modal.getBoundingClientRect();
+  const containsArray = [];
+  childNode.map((value) => {
+    const item = value.getBoundingClientRect();
+    if (item.left > left && item.right < right && item.top > top && item.bottom < bottom) {
+      containsArray.push(value);
+    }
+  });
+  return containsArray;
+};
