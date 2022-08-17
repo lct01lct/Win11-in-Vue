@@ -1,0 +1,452 @@
+{
+  "tabListData": [
+    {
+      "main": "&",
+      "mainList": []
+    },
+    {
+      "main": "#",
+      "mainList": []
+    },
+    {
+      "main": "A",
+      "mainList": [
+        {
+          "name": "Alarms",
+          "url": "alarm.png"
+        }
+      ]
+    },
+    {
+      "main": "B",
+      "mainList": []
+    },
+    {
+      "main": "C",
+      "mainList": [
+        {
+          "name": "Calculator",
+          "url": "calculator.png"
+        },
+        {
+          "name": "Calendar",
+          "url": "calender.png"
+        },
+        {
+          "name": "Camera",
+          "url": "camera.png"
+        },
+        {
+          "name": "Cortana",
+          "url": "cortana.png"
+        }
+      ]
+    },
+    {
+      "main": "D",
+      "mainList": [
+        {
+          "name": "Discord",
+          "url": "discord.png"
+        }
+      ]
+    },
+    {
+      "main": "E",
+      "mainList": [
+        {
+          "name": "Edge",
+          "url": "edge.png"
+        },
+        {
+          "name": "Excel",
+          "url": "excel.png"
+        }
+      ]
+    },
+    {
+      "main": "F",
+      "mainList": [
+        {
+          "name": "Feedback",
+          "url": "feedback.png"
+        },
+        {
+          "name": "File Explorer",
+          "url": "explorer.png"
+        }
+      ]
+    },
+    {
+      "main": "G",
+      "mainList": [
+        {
+          "name": "Get Started",
+          "url": "getstarted.png"
+        },
+        {
+          "name": "Github",
+          "url": "github.png"
+        },
+        {
+          "name": "Groove Music",
+          "url": "groove.png"
+        }
+      ]
+    },
+    {
+      "main": "H",
+      "mainList": [
+        {
+          "name": "Help",
+          "url": "help.png"
+        }
+      ]
+    },
+    {
+      "main": "I",
+      "mainList": []
+    },
+    {
+      "main": "J",
+      "mainList": []
+    },
+    {
+      "main": "K",
+      "mainList": []
+    },
+    {
+      "main": "L",
+      "mainList": []
+    },
+    {
+      "main": "M",
+      "mainList": [
+        {
+          "name": "Mail",
+          "url": "mail.png"
+        },
+        {
+          "name": "Maps",
+          "url": "maps.png"
+        },
+        {
+          "name": "Movies",
+          "url": "movies.png"
+        },
+        {
+          "name": "MsOffice",
+          "url": "msoffice.png"
+        }
+      ]
+    },
+    {
+      "main": "N",
+      "mainList": [
+        {
+          "name": "Narrator",
+          "url": "narrator.png"
+        },
+        {
+          "name": "News",
+          "url": "news.png"
+        },
+        {
+          "name": "Notepad",
+          "url": "notepad.png"
+        }
+      ]
+    },
+    {
+      "main": "O",
+      "mainList": [
+        {
+          "name": "OneDrive",
+          "url": "oneDrive.png"
+        },
+        {
+          "name": "OneNote",
+          "url": "onenote.png"
+        },
+        {
+          "name": "Outlook",
+          "url": "outlook.png"
+        }
+      ]
+    },
+    {
+      "main": "P",
+      "mainList": [
+        {
+          "name": "Paint",
+          "url": "paint.png"
+        },
+        {
+          "name": "People",
+          "url": "people.png"
+        },
+        {
+          "name": "Photos",
+          "url": "photos.png"
+        },
+        {
+          "name": "Pinterest",
+          "url": "pinterest.png"
+        },
+        {
+          "name": "PowerPoint",
+          "url": "powerpoint.png"
+        }
+      ]
+    },
+    {
+      "main": "Q",
+      "mainList": []
+    },
+    {
+      "main": "R",
+      "mainList": [
+        {
+          "name": "Recycle Bin",
+          "url": "bin0.png"
+        }
+      ]
+    },
+    {
+      "main": "S",
+      "mainList": [
+        {
+          "name": "Security",
+          "url": "security.png"
+        },
+        {
+          "name": "Settings",
+          "url": "settings.png"
+        },
+        {
+          "name": "Share",
+          "url": "share.png"
+        },
+        {
+          "name": "Skype",
+          "url": "skype.png"
+        },
+        {
+          "name": "Snipping Tool",
+          "url": "snip.png"
+        },
+        {
+          "name": "Soltaire",
+          "url": "soltaire.png"
+        },
+        {
+          "name": "Spotify",
+          "url": "spotify.png"
+        },
+        {
+          "name": "Sticky Notes",
+          "url": "notes.png"
+        },
+        {
+          "name": "Store",
+          "url": "store.png"
+        }
+      ]
+    },
+    {
+      "main": "T",
+      "mainList": [
+        {
+          "name": "Teams",
+          "url": "teams.png"
+        },
+        {
+          "name": "Terminal",
+          "url": "terminal.png"
+        },
+        {
+          "name": "Tips",
+          "url": "tips.png"
+        },
+        {
+          "name": "To Do",
+          "url": "todo.png"
+        },
+        {
+          "name": "Twitter Tool",
+          "url": "twitter.png"
+        }
+      ]
+    },
+    {
+      "main": "U",
+      "mainList": []
+    },
+    {
+      "main": "V",
+      "mainList": [
+        {
+          "name": "VS Code",
+          "url": "code.png"
+        },
+        {
+          "name": "Voice Recorder",
+          "url": "voice.png"
+        }
+      ]
+    },
+    {
+      "main": "W",
+      "mainList": [
+        {
+          "name": "Weather",
+          "url": "weather.png"
+        },
+        {
+          "name": "White Board",
+          "url": "board.png"
+        }
+      ]
+    },
+    {
+      "main": "X",
+      "mainList": [
+        {
+          "name": "Xbox",
+          "url": "weather.png"
+        }
+      ]
+    },
+    {
+      "main": "Y",
+      "mainList": [
+        {
+          "name": "Yammmer",
+          "url": "yammer.png"
+        },
+        {
+          "name": "Your Phone",
+          "url": "yphone.png"
+        }
+      ]
+    },
+    {
+      "main": "Z",
+      "mainList": []
+    }
+  ],
+  "letterData": [
+    {
+      "name": "&",
+      "checked": false
+    },
+    {
+      "name": "#",
+      "checked": false
+    },
+    {
+      "name": "A",
+      "checked": false
+    },
+    {
+      "name": "B",
+      "checked": false
+    },
+    {
+      "name": "C",
+      "checked": false
+    },
+    {
+      "name": "D",
+      "checked": false
+    },
+    {
+      "name": "E",
+      "checked": false
+    },
+    {
+      "name": "F",
+      "checked": false
+    },
+    {
+      "name": "G",
+      "checked": false
+    },
+    {
+      "name": "H",
+      "checked": false
+    },
+    {
+      "name": "I",
+      "checked": false
+    },
+    {
+      "name": "J",
+      "checked": false
+    },
+    {
+      "name": "K",
+      "checked": false
+    },
+    {
+      "name": "L",
+      "checked": false
+    },
+    {
+      "name": "M",
+      "checked": false
+    },
+    {
+      "name": "N",
+      "checked": false
+    },
+    {
+      "name": "O",
+      "checked": false
+    },
+    {
+      "name": "P",
+      "checked": false
+    },
+    {
+      "name": "Q",
+      "checked": false
+    },
+    {
+      "name": "R",
+      "checked": false
+    },
+    {
+      "name": "S",
+      "checked": false
+    },
+    {
+      "name": "T",
+      "checked": false
+    },
+    {
+      "name": "U",
+      "checked": false
+    },
+    {
+      "name": "V",
+      "checked": false
+    },
+    {
+      "name": "W",
+      "checked": false
+    },
+    {
+      "name": "X",
+      "checked": false
+    },
+    {
+      "name": "Y",
+      "checked": false
+    },
+    {
+      "name": "Z",
+      "checked": false
+    }
+  ]
+}

@@ -3,6 +3,7 @@
   import { getViewportSize } from '@/utils/ViewSize/utils';
   import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
   import { showBox } from '../../utils';
+  import folderStore from '@/store/folderStore';
 
   const configStore = useDeskTopConfigStore();
 
@@ -31,13 +32,13 @@
       default: () => [],
     },
   });
-
   const clickApp = (e, item) => {
     const target = document.querySelector(`.${item.componentName}`);
 
     if (item.componentName === 'FolderFullBox') {
       // todo
-      console.log(item);
+      const store = folderStore();
+      store.changeCurrentFolder(item);
     }
 
     showBox(target);

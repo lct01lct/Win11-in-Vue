@@ -9,19 +9,25 @@ export const toggleTaskPublicData = {
   zIndex: 1,
 };
 
-export const taskBarData = [
+export const taskBarBottomPop = [
   {
     icon: 'home.png',
     name: 'startMenu',
+    component: 'Start',
   },
   {
     icon: 'search.png',
     name: 'search',
+    component: 'Start',
   },
   {
     icon: 'widget.png',
     name: 'widget',
+    component: 'Start',
   },
+];
+
+export const taskBarData = [
   {
     icon: 'settings.png',
     name: 'settingFullBox',

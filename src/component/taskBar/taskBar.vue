@@ -8,6 +8,16 @@
         </div>
       </div>
       <div class="center fcc">
+        <!-- 打开的方式不同，使用popover -->
+        <Popover dir="bottom" v-for="item in bottomPop" :key="item">
+          <!-- <Start></Start> -->
+          <component :is="Start"></component>
+          <template #reference>
+            <div id="taskMenu" class="taskbarBtn">
+              <img :src="`src/assets/img/icon/${item.icon}`" :id="`${item.icon}Img`" />
+            </div>
+          </template>
+        </Popover>
         <!-- 任务栏中间部分 @click="closeAllPanel"-->
         <div
           v-for="item in taskBar"
@@ -28,8 +38,8 @@
           </ul>
         </div>
 
-        <Popover dir="bottom" @show="calendarVisible = true">
-          <Win11Calendar v-if="calendarVisible"></Win11Calendar>
+        <Popover dir="bottom">
+          <Win11Calendar></Win11Calendar>
           <template #reference>
             <div class="data fcc">
               <div class="systemTime">
@@ -46,10 +56,10 @@
 
 <script setup>
   // import startMenu from '../startMenu/index.vue';
-  import { taskBarData } from '@/data';
+  import { taskBarBottomPop, taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
   import Win11Calendar from './components/Win11Calendar';
-  const calendarVisible = ref(false);
+  import Start from '../Start';
   const count = ref(0);
   onMounted(() => {
     count.value = 1;
@@ -76,13 +86,15 @@
    *      4.底栏点击icon，打算用事件总线发送事件，对应板块监听。
    */
   const taskBar = reactive(taskBarData);
+
+  const bottomPop = reactive(taskBarBottomPop);
   // 时间数据
   const date = ref('0000/00/00');
   const time = ref('00:00');
 
   const fn = () => {
     const currentTime = new Date();
-    time.value = currentTime.toLocaleTimeString().slice(0, 7); // 获取当前时间 上午11:29
+    time.value = currentTime.toLocaleTimeString().slice(0, 9); // 获取当前时间 上午11:29
     date.value = currentTime.toLocaleDateString(); // 获取当前日期，2021/12/1
   };
   fn();
@@ -103,6 +115,9 @@
     if (target.style.zIndex === '' || target.style.zIndex < 0) {
       showBox(target);
     } else {
+      if (e === 'startMenu' || e === 'search' || e === 'widget') {
+        return hideBox(false, target, e);
+      }
       hideBox(true, target, e);
     }
   };

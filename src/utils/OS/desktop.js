@@ -14,18 +14,11 @@ class DeskTop {
   setAppData(baseData, userFolderData) {
     this.appData = this.appData.concat(baseData);
     userFolderData.forEach((item, i) => {
-      // this.appData.push({
-      //   icon: 'explorer.png',
-      //   componentName: 'FolderFullBox',
-      //   posIdx: item.posIdx,
-      //   ...item,
-      // });
       item.posIdx = 20 + i;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
       this.appData.push(item);
     });
-
     sortByPosIdx(this.appData);
   }
 

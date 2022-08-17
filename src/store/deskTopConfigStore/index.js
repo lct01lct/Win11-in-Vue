@@ -7,6 +7,7 @@ export default defineStore('deskTopConfigStore', {
       iconBaseWeight: 76.8,
       iconBaseHeight: 76.8,
       taskbarHeight: 48,
+      currentSelected: [],
     };
   },
   getters: {
@@ -14,5 +15,11 @@ export default defineStore('deskTopConfigStore', {
       Math.floor((getViewportSize().height - state.taskbarHeight) / state.iconBaseWeight),
     maxIconCountX: Math.floor((state) => getViewportSize().weight / state.iconBaseHeight),
     deskTopViewSize: (state) => getViewportSize().height - state.taskbarHeight,
+  },
+  actions: {
+    changeCurrentSelected(array) {
+      const length = this.currentSelected.length;
+      this.currentSelected.splice(0, length, ...array);
+    },
   },
 });
