@@ -46,7 +46,6 @@
 
   // 判断鼠标点击哪个键位
   const dragIconOrOpenMenu = (e, dom, list, item) => {
-    console.log(e, dom, list, item);
     if (e.button === 0) {
       // 左键
       drag.call(dom, e, list, item, {

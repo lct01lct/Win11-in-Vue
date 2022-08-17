@@ -1,8 +1,10 @@
 <template>
-  <div class="container">
+  <div class="startMenu">
     <div class="content">
       <!-- <Pinned></Pinned> -->
-      <component :is="componentTag" @changeTag="changeTag"></component>
+      <transition mode="out-in">
+        <component :is="componentTag" @changeTag="changeTag"></component>
+      </transition>
     </div>
     <!-- 用户名&&电源 -->
     <div class="bottomMenu">
@@ -26,16 +28,18 @@
   };
 </script>
 <style lang="scss" scoped>
-  .container {
+  .startMenu {
     width: 610px;
     height: 636px;
     border-radius: 3px;
     box-shadow: 1px 1px 2px rgba(34, 34, 34, 0.25);
     background-color: rgb(222 235 246);
-    position: absolute;
-    top: 89px;
-    left: 300px;
-    height: 684px;
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+
     .content {
       background-color: #ddeaf54f;
       box-sizing: border-box;
@@ -79,5 +83,20 @@
       cursor: pointer;
       filter: invert(1);
     }
+  }
+
+  .v-enter-active,
+  .v-leave-active {
+    // transform: ;
+    transition: 0.3s;
+  }
+
+  .v-enter-from {
+    opacity: 1;
+    transform: translateX(10%);
+  }
+  .v-leave-to {
+    opacity: 0;
+    transform: translateX(0);
   }
 </style>

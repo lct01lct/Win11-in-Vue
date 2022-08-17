@@ -4,7 +4,6 @@
       <IconOverlayTip></IconOverlayTip>
       <settingsVue></settingsVue>
       <Folder></Folder>
-      fff
       <Start></Start>
       <!-- <Edge></Edge> -->
       <DeskTopIcon></DeskTopIcon>

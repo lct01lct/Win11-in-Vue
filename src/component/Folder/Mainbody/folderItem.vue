@@ -2,9 +2,10 @@
   <li
     ref="folderItemRef"
     @dblclick="goToTargetPath(data)"
-    :title="`大小：${size} ${usageRate ? `Rate: ${usageRate}` : ''}`"
+    :title="`大小：${size}`"
     @mousedown="mousedown($event, folderItemRef, fullyData, data)"
   >
+    <!-- ${usageRate ? `Rate: ${usageRate}` : ''} -->
     <img :src="`src/assets/img/setting/${icon}`" />
     <div>
       <span @click.right="changeName($event, data)">
