@@ -4,9 +4,11 @@
       <IconOverlayTip></IconOverlayTip>
       <settingsVue></settingsVue>
       <Folder></Folder>
-      fff
-      <Start></Start>
+
+      <!-- <Start></Start> -->
+      <!-- <Search></Search> -->
       <!-- <Edge></Edge> -->
+      <SideWiFi></SideWiFi>
       <DeskTopIcon></DeskTopIcon>
     </div>
     <div class="bar">
@@ -20,6 +22,8 @@
   import taskBarVue from '@/component/taskBar/taskBar.vue';
   import Folder from '@/component/Folder/index.vue';
   import Start from '@/component/Start/index.vue';
+  import Search from '@/component/Search/Search.vue';
+  import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
 
   // import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';

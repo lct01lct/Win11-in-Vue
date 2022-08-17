@@ -1,0 +1,28 @@
+{
+  "WiFiData": [
+    {
+      "url": "wifi",
+      "name": "WiFi"
+    },
+    {
+      "url": "bluetooth",
+      "name": "Bluetooth"
+    },
+    {
+      "url": "airplane",
+      "name": "Flight Mode"
+    },
+    {
+      "url": "saver",
+      "name": "Battery Saver"
+    },
+    {
+      "url": "sun",
+      "name": "Theme"
+    },
+    {
+      "url": "nightlight",
+      "name": "Night Light"
+    }
+  ]
+}

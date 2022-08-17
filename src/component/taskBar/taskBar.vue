@@ -175,10 +175,12 @@
       height: 20px;
       vertical-align: middle;
     }
+
     .systemTime {
       padding: 0 5px;
       font-size: 14px;
       text-align: center;
+      margin-top: 10px;
     }
   }
 </style>
