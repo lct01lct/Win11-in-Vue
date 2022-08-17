@@ -28,8 +28,8 @@
           </ul>
         </div>
 
-        <Popover dir="bottom">
-          <Win11Calendar></Win11Calendar>
+        <Popover dir="bottom" @show="calendarVisible = true">
+          <Win11Calendar v-if="calendarVisible"></Win11Calendar>
           <template #reference>
             <div class="data fcc">
               <div class="systemTime">
@@ -49,7 +49,7 @@
   import { taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
   import Win11Calendar from './components/Win11Calendar';
-
+  const calendarVisible = ref(false);
   const count = ref(0);
   onMounted(() => {
     count.value = 1;
