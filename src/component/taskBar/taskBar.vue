@@ -55,7 +55,6 @@
 </template>
 
 <script setup>
-  // import startMenu from '../startMenu/index.vue';
   import { taskBarBottomPop, taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
   import Win11Calendar from './components/Win11Calendar';

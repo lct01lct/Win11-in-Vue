@@ -40,6 +40,6 @@ export default defineConfig({
   ],
 });
 
-function getPath (pathName = '') {
+function getPath(pathName = '') {
   return path.resolve(__dirname, pathName);
 }
