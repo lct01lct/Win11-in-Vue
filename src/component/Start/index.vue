@@ -35,7 +35,7 @@
     box-shadow: 1px 1px 2px rgba(34, 34, 34, 0.25);
     background-color: rgb(222 235 246);
     position: fixed;
-    bottom: 80px;
+    bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
     z-index: -1;

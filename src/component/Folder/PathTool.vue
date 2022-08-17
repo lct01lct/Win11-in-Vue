@@ -3,11 +3,14 @@
     <span class="historyBtn" @click="backToParent">🔙</span>
     <span class="historyBtn" @click="goToChildren">🔜</span>
     <span class="historyBtn" @click="goToDesc">🔝</span>
-    <div class="path">
+    <div class="path" @click="">
       <img :src="`src/assets/img/setting/${headerIcon}`" alt="" />
       <input type="text" id="input" v-model.lazy.trim="inputPath" />
-      <label for="input" class="path-content">
-        <span v-for="item in path" :key="item">{{ item }}</span>
+      <label class="path-content">
+        <span v-for="item in path" :key="item">
+          {{ item }}
+          <!-- <em>&gt;</em> -->
+        </span>
       </label>
     </div>
     <div class="search">
@@ -148,6 +151,7 @@
         display: flex;
         align-items: center;
         margin-left: 0.5em;
+        height: 100%;
         font-size: 0.8em;
         width: 100%;
         overflow: hidden;
@@ -155,11 +159,22 @@
         text-overflow: ellipsis;
         span {
           margin-left: 0.5em;
+          height: 100%;
           flex-wrap: nowrap;
           overflow: hidden;
+          display: flex;
+          align-items: center;
+          padding: 4px;
           &::after {
             content: '>';
             margin-left: 0.2em;
+          }
+          &:hover {
+            background-color: rgba($color: #000000, $alpha: 0.1);
+          }
+
+          em {
+            border-left: 1px solid black;
           }
         }
       }

@@ -83,7 +83,8 @@
     .loopItem {
       display: flex;
       align-items: center;
-      padding: 8px 0 8px 0px;
+      padding: 8px 0 8px 30px;
+      border-radius: 4px;
       img {
         width: 20px;
         height: 20px;
