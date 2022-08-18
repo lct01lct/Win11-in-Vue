@@ -1,6 +1,7 @@
 <template>
-  <div class="all">
+  <div class="all" @contextmenu.prevent="showMainMenu">
     <div class="main">
+      <Menu></Menu>
       <IconOverlayTip></IconOverlayTip>
       <settingsVue></settingsVue>
       <Folder></Folder>
@@ -19,6 +20,7 @@
   import taskBarVue from '@/component/taskBar/taskBar.vue';
   import Folder from '@/component/Folder/index.vue';
   import Start from '@/component/Start/index.vue';
+  import Menu from './Menu';
 
   // import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
@@ -29,6 +31,8 @@
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
   });
+
+  const showMainMenu = () => {};
 </script>
 
 <style lang="scss">
