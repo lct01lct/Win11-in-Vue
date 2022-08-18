@@ -10,7 +10,7 @@
         >
           <!-- :class="{ selected: selectStat[index] }" -->
           <div>
-            <div class="quickIcon">
+            <div class="quickIcon" :class="{ selected: selectStat[index] }">
               <img width="16" :src="`src/assets/img/icon/ui/${item.url}.png`" alt="" />
             </div>
           </div>

@@ -6,7 +6,7 @@
       <Folder></Folder>
 
       <!-- <Start></Start> -->
-      <!-- <Search></Search> -->
+      <Search></Search>
       <!-- <Edge></Edge> -->
       <SideWiFi></SideWiFi>
       <DeskTopIcon></DeskTopIcon>
