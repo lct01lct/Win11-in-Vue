@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-  import userStore from '@/store/userStore';
+  import folderStore from '@/store/folderStore';
   const props = defineProps(['data']);
 
   // props.chilldren.length
@@ -50,9 +50,9 @@
     }
   };
 
-  // the userStore's instance
+  // the folderStore's instance
   // the target is store the CurrentFolder
-  const store = userStore();
+  const store = folderStore();
   const goToTargetFolder = (DATA) => {
     store.changeCurrentFolder(DATA);
   };

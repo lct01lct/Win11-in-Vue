@@ -4,9 +4,9 @@
       <IconOverlayTip></IconOverlayTip>
       <settingsVue></settingsVue>
       <Folder></Folder>
-
       <!-- <Start></Start> -->
       <Search></Search>
+      <Start></Start>
       <!-- <Edge></Edge> -->
       <SideWiFi></SideWiFi>
       <DeskTopIcon></DeskTopIcon>

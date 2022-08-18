@@ -65,6 +65,9 @@
 </script>
 
 <style lang="scss" scoped>
+  ::-webkit-scrollbar {
+    width: 0;
+  }
   .tabList {
     text-align: left;
     height: 515px;
