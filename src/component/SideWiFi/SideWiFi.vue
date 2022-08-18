@@ -8,15 +8,15 @@
           v-for="(item, index) in WiFiData"
           :key="index"
         >
-          <!-- :class="{ selected: selectStat[index] }" -->
-          <div>
-            <div class="quickIcon" :class="{ selected: selectStat[index] }">
+          <div class="quickIcon" :style="{ background: selectStat[index] != 0 ? '#0067c0' : '' }">
+            <div :style="{ filter: selectStat[index] == 1 ? 'invert(1)' : '' }">
               <img width="16" :src="`src/assets/img/icon/ui/${item.url}.png`" alt="" />
             </div>
           </div>
           <div class="qktext">{{ item.name }}</div>
         </div>
       </div>
+
       <div class="slineCont">
         <div class="mx-2">
           <img width="20" src="src/assets/img/icon/ui/brightness.png" alt="" />
@@ -32,15 +32,18 @@
     </div>
   </div>
 </template>
+
 <script setup>
   import { WiFiData } from './WFData.json';
   // import { ref } from 'vue'; // 先引入
-  let selectStat = new Array(6).fill(0);
-  // let selectStat0 = 0;
+  const selectStat = reactive(new Array(6).fill(0));
+  // let selectStat0 = 1;
   function selected(index) {
     selectStat[index] = !selectStat[index];
+    // selectStat0 = true;
     console.log(selectStat[index]);
-    selectStat = [...selectStat];
+    // selectStat = [...selectStat];
+    // selectStat.splice(1, 0);
     // that.ctx.$forceUpdate();
   }
 </script>
@@ -72,6 +75,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
     color: #2e2e2f;
     .quickIcon {
       &:hover {
@@ -84,11 +88,12 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #2e2e2f;
+
       border-bottom-color: rgba(0, 0, 0, 0.2);
       background: #fffefecf;
+
       border: solid 0.1px rgba(17, 17, 17, 0.1);
-      transition: all 0.1s ease;
+      // transition: all 0.1s ease;
     }
     .qktext {
       font-size: 0.75em;
@@ -104,10 +109,5 @@
       height: 5px;
       margin-left: 10px;
     }
-  }
-  .selected {
-    color: white;
-    background-color: rgb(118, 240, 118);
-    display: none;
   }
 </style>
