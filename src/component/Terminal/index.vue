@@ -96,7 +96,7 @@
   .Terminal {
     background-color: rgba($color: #0b0b0b, $alpha: 0.98);
     box-shadow: 0 0 5px black;
-    z-index: 10;
+    z-index: -1;
     user-select: auto;
 
     main {

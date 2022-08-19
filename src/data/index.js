@@ -16,12 +16,12 @@ export const taskBarBottomPop = [
   {
     icon: 'home.png',
     name: 'startMenu',
-    component: Start,
+    component: shallowRef(Start),
   },
   {
     icon: 'search.png',
     name: 'search',
-    component: Search,
+    component: shallowRef(Search),
   },
   {
     icon: 'widget.png',
@@ -30,7 +30,7 @@ export const taskBarBottomPop = [
   },
 ];
 
-export const taskBarData = [
+export const taskBarData = reactive([
   {
     icon: 'settings.png',
     name: 'settingFullBox',
@@ -47,7 +47,7 @@ export const taskBarData = [
     icon: 'store.png',
     name: 'store',
   },
-];
+]);
 
 export const deskTopData = [
   {

@@ -34,8 +34,9 @@
   // import { reactive } from 'vue';
   // import { useStore } from "vuex";
   // const store = useStore();
-  import { defineEmits } from 'vue';
   import { pinnedData, recommendData } from './StartData.json';
+  import { showBox, hideBox } from '@/utils';
+  import { taskBarData } from '@/data';
 
   const emit = defineEmits(['changeTag']);
   function toAllApps() {
@@ -45,6 +46,14 @@
   }
   const openApp = (appName) => {
     console.log(`打开应用：${appName}`);
+    if (appName === 'Terminal') {
+      const target = document.querySelector(`.${appName}`);
+      showBox(target);
+      taskBarData.push({
+        icon: 'terminal.png',
+        name: 'Terminal',
+      });
+    }
   };
 </script>
 
