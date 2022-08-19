@@ -74,10 +74,16 @@ const recursiveByStr = (targetDescArray, searchStr) => {
  * @return proxy目标对象 或 false
  */
 export const searchTargetFolderByPath = (path) => {
+  // 是回到磁盘根路径吗？
+  if (path.length === 1) {
+    return goDesc(path)[0];
+  }
+
   // 全部的磁盘信息
   const desc = store.storeCompletedFolder;
   // 目标磁盘
   const targetDescArray = desc.filter((value) => value.getPath()[0] === path[0]);
+
   if (targetDescArray.length) {
     const data = recursiveByPath(...targetDescArray, path);
     if (data) {
@@ -115,7 +121,12 @@ export const searchTargetFolderByStr = (searchStr) => {
 export const goDesc = (path) => {
   const desc = store.storeCompletedFolder;
   const targetTopDesc = desc.filter((value) => value.getPath()[0] === path[0]);
-  store.changeCurrentFolder(...targetTopDesc);
+
+  if (!targetTopDesc.length) {
+    return [];
+  }
+  // store.changeCurrentFolder(...targetTopDesc);
+  return targetTopDesc;
 };
 
 /**

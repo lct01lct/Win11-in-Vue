@@ -7,6 +7,8 @@
       <Start></Start>
       <!-- <Edge></Edge> -->
       <DeskTopIcon></DeskTopIcon>
+      <Run></Run>
+      <Terminal></Terminal>
     </div>
     <div class="bar">
       <taskBarVue></taskBarVue>
@@ -19,6 +21,8 @@
   import taskBarVue from '@/component/taskBar/taskBar.vue';
   import Folder from '@/component/Folder/index.vue';
   import Start from '@/component/Start/index.vue';
+  import Run from '@/component/Run';
+  import Terminal from '@/component/Terminal';
 
   // import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
@@ -28,6 +32,11 @@
 
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
+  });
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Control') {
+      console.log('control');
+    }
   });
 </script>
 

@@ -3,15 +3,17 @@
     <span class="historyBtn" @click="backToParent">🔙</span>
     <span class="historyBtn" @click="goToChildren">🔜</span>
     <span class="historyBtn" @click="goToDesc">🔝</span>
-    <div class="path" @click="">
+    <div class="path">
       <img :src="`src/assets/img/setting/${headerIcon}`" alt="" />
       <input type="text" id="input" v-model.lazy.trim="inputPath" />
-      <label class="path-content">
+      <div class="path-content">
         <span v-for="item in path" :key="item">
-          {{ item }}
-          <!-- <em>&gt;</em> -->
+          <!-- {{ item }} -->
+          <i @click="goTarget(path, item)">{{ item }}</i>
+          <div class="showOtherBrother" @click="showOtherBrother(path, item)">&gt;</div>
         </span>
-      </label>
+      </div>
+      <label for="input" class="clickLocation"></label>
     </div>
     <div class="search">
       <img src="src/assets/img/setting/search.png" alt="" />
@@ -49,6 +51,41 @@
   // eslint-disable-next-line prefer-const
   let path = reactive([]);
 
+  // 路径栏点击切换
+  const goTarget = (full, item) => {
+    // 比较笨的todo
+    // 根据点击的切除路径，然后再次递归组件
+    // eslint-disable-next-line prefer-const
+    let tempArray = JSON.parse(JSON.stringify(full));
+    tempArray.map((value, i) => {
+      if (value === item) {
+        const length = tempArray.length - i;
+        tempArray.splice(i + 1, length);
+      }
+    });
+    const result = searchTargetFolderByPath(tempArray);
+    if (result) {
+      store.changeCurrentFolder(result);
+    }
+  };
+
+  const showOtherBrother = (full, item) => {
+    // eslint-disable-next-line prefer-const
+    let tempArray = JSON.parse(JSON.stringify(full));
+    tempArray.map((value, i) => {
+      if (value === item) {
+        const length = tempArray.length - i;
+        tempArray.splice(i + 1, length);
+      }
+    });
+    console.log(tempArray);
+    const result = searchTargetFolderByPath(tempArray);
+    console.log(result);
+    // if (result) {
+    //   store.changeCurrentFolder(result);
+    // }
+  };
+
   // 监视路径变化
   watch(
     () => store.storeCurrentFolder,
@@ -83,7 +120,8 @@
 
   // 回到顶级磁盘功能按键方法，调用文件的公用处理函数
   const goToDesc = () => {
-    goDesc(path);
+    const res = goDesc(path);
+    store.changeCurrentFolder(...res);
   };
 
   // 按路径匹配功能按键方法，调用文件的公用处理函数
@@ -153,7 +191,6 @@
         margin-left: 0.5em;
         height: 100%;
         font-size: 0.8em;
-        width: 100%;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
@@ -164,17 +201,29 @@
           overflow: hidden;
           display: flex;
           align-items: center;
-          padding: 4px;
-          &::after {
-            content: '>';
-            margin-left: 0.2em;
-          }
-          &:hover {
-            background-color: rgba($color: #000000, $alpha: 0.1);
+          // padding: 4px;
+          // &::after {
+          //   content: '>';
+          //   margin-left: 0.2em;
+          // }
+          i {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 4px;
+            &:hover {
+              background-color: rgba($color: #000000, $alpha: 0.1);
+            }
           }
 
-          em {
-            border-left: 1px solid black;
+          .showOtherBrother {
+            position: relative;
+            margin-left: 5px;
+            font-style: normal;
+
+            &:hover {
+              transform: rotate(90deg);
+            }
           }
         }
       }
@@ -200,5 +249,11 @@
         padding-left: 0.8em;
       }
     }
+  }
+
+  .clickLocation {
+    flex-grow: 1;
+    min-width: 1em;
+    height: 100%;
   }
 </style>

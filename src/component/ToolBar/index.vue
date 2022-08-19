@@ -1,7 +1,12 @@
 <script setup>
   import { toolSize } from '@/data';
   import { hideBox } from '@/utils';
-
+  defineProps({
+    color: {
+      type: String,
+      default: 'black',
+    },
+  });
   /** ToolBar需求分析：
    *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
    *  4. 页面布局：
@@ -212,7 +217,7 @@
 </script>
 <template>
   <div class="topButton" ref="ParentRef">
-    <div class="title" @mousedown="moveBox">
+    <div class="title" :style="{ color: color }" @mousedown="moveBox">
       <slot></slot>
     </div>
     <div class="functionArea">

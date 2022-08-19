@@ -1,3 +1,5 @@
+import Start from '@/component/Start';
+
 export const toolSize = {
   viewSizeWidth: 800,
   viewSizeHeight: 500,
@@ -13,7 +15,7 @@ export const taskBarBottomPop = [
   {
     icon: 'home.png',
     name: 'startMenu',
-    component: 'Start',
+    component: Start,
   },
   {
     icon: 'search.png',
