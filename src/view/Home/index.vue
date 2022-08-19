@@ -1,23 +1,23 @@
 <template>
-  <div class="all" @contextmenu.prevent="showMainMenu">
+  <div class="all" @contextmenu.prevent="showMainMenu($event)" @click="initDeskTop">
     <div class="main">
-      <Menu></Menu>
+      <Menu ref="menuRef"></Menu>
       <IconOverlayTip></IconOverlayTip>
-      <settingsVue></settingsVue>
+      <SettingsVue></SettingsVue>
       <Folder></Folder>
       <Start></Start>
       <!-- <Edge></Edge> -->
       <DeskTopIcon></DeskTopIcon>
     </div>
     <div class="bar">
-      <taskBarVue></taskBarVue>
+      <TaskBarVue></TaskBarVue>
     </div>
   </div>
 </template>
 
 <script setup>
-  import settingsVue from '@/component/setting/index.vue';
-  import taskBarVue from '@/component/taskBar/taskBar.vue';
+  import SettingsVue from '@/component/setting/index.vue';
+  import TaskBarVue from '@/component/taskBar/taskBar.vue';
   import Folder from '@/component/Folder/index.vue';
   import Start from '@/component/Start/index.vue';
   import Menu from './Menu';
@@ -26,13 +26,24 @@
   import DeskTopIcon from '@/component/DeskTopIcon';
   import { getUsers } from './api';
   import IconOverlayTip from './IconOvelayTip';
+  import useMenuStore from './Menu/store/menuStore';
+
   getUsers();
+
+  const menuStore = useMenuStore();
 
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
   });
 
-  const showMainMenu = () => {};
+  const initDeskTop = () => {
+    menuStore.setMenuVisible(false);
+  };
+
+  const menuRef = ref(null);
+  const showMainMenu = (e) => {
+    menuRef.value.setMenu(e, 'blank');
+  };
 </script>
 
 <style lang="scss">

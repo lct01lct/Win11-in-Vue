@@ -34,7 +34,7 @@
   // import { reactive } from 'vue';
   // import { useStore } from "vuex";
   // const store = useStore();
-  import { defineEmits } from 'vue';
+  // import { defineEmits } from 'vue';
   import { pinnedData, recommendData } from './StartData.json';
 
   const emit = defineEmits(['changeTag']);
