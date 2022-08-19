@@ -8,6 +8,8 @@
       <Start></Start>
       <!-- <Edge></Edge> -->
       <DeskTopIcon></DeskTopIcon>
+      <Run></Run>
+      <Terminal></Terminal>
     </div>
     <div class="bar">
       <TaskBarVue></TaskBarVue>
@@ -21,6 +23,8 @@
   import Folder from '@/component/Folder/index.vue';
   import Start from '@/component/Start/index.vue';
   import Menu from './Menu';
+  import Run from '@/component/Run';
+  import Terminal from '@/component/Terminal';
 
   // import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
@@ -44,6 +48,12 @@
   const showMainMenu = (e) => {
     menuRef.value.setMenu(e, 'blank');
   };
+
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Control') {
+      console.log('control');
+    }
+  });
 </script>
 
 <style lang="scss">

@@ -88,7 +88,8 @@
       flex-direction: column;
       align-items: center;
       padding: 10px 0;
-      cursor: pointer;
+      // cursor: pointer;
+      border-radius: 4px;
       &:hover {
         background: rgb(255 255 255);
       }
@@ -119,7 +120,9 @@
       display: flex;
       justify-content: flex-start;
       align-items: center;
-      cursor: pointer;
+      // cursor: pointer;
+      padding-left: 10px;
+      border-radius: 4px;
       div {
         text-align: left;
         h3 {
