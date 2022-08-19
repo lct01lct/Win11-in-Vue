@@ -7,7 +7,7 @@
       </transition>
     </div>
     <!-- 用户名&&电源 -->
-    <div class="bottomMenu">
+    <div class="bottomMenu" @click="gotoLoginPage">
       <!-- 左侧头像和用户名 -->
       <div class="user">
         <img src="src/assets/img/icon/startIcon/user.png" alt="" />
@@ -22,9 +22,14 @@
   import { markRaw, shallowRef } from 'vue';
   import AllApp from './allApp.vue';
   import Pinned from './pinned.vue';
+  import router from '@/router';
   const componentTag = shallowRef(Pinned);
   const changeTag = () => {
     componentTag.value = componentTag.value === markRaw(Pinned) ? markRaw(AllApp) : markRaw(Pinned);
+  };
+
+  const gotoLoginPage = () => {
+    router.push('/');
   };
 </script>
 <style lang="scss" scoped>

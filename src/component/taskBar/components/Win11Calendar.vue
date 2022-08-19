@@ -1,5 +1,8 @@
 <script setup>
   const selectedDay = ref('');
+  watch(selectedDay, () => {
+    console.log(selectedDay.value);
+  });
 </script>
 
 <template>
@@ -15,6 +18,6 @@
     right: 0;
     width: 400px;
     height: 600px;
-    background: #fff;
+    background: #242624;
   }
 </style>

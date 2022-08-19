@@ -4,6 +4,7 @@
       <IconOverlayTip></IconOverlayTip>
       <settingsVue></settingsVue>
       <Folder></Folder>
+      <!-- <Start></Start> -->
       <Start></Start>
       <!-- <Edge></Edge> -->
       <DeskTopIcon></DeskTopIcon>
@@ -28,6 +29,7 @@
   import DeskTopIcon from '@/component/DeskTopIcon';
   import { getUsers } from './api';
   import IconOverlayTip from './IconOvelayTip';
+
   getUsers();
 
   document.addEventListener('contextmenu', (e) => {

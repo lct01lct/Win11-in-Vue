@@ -31,12 +31,18 @@
       </div>
       <div class="tsright fcc">
         <div class="up fcc">^</div>
-        <div class="wf">
-          <ul class="fcc">
-            <li><img src="../../assets/img/icon/ui/wifi.png" alt="" /></li>
-            <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
-          </ul>
-        </div>
+
+        <Popover dir="bottom">
+          <SideWiFi></SideWiFi>
+          <template #reference>
+            <div class="wf">
+              <ul class="fcc">
+                <li><img src="../../assets/img/icon/ui/wifi.png" alt="" /></li>
+                <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
+              </ul>
+            </div>
+          </template>
+        </Popover>
 
         <Popover dir="bottom">
           <Win11Calendar></Win11Calendar>
@@ -58,7 +64,8 @@
   import { taskBarBottomPop, taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
   import Win11Calendar from './components/Win11Calendar';
-  import Start from '../Start';
+  import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
+
   const count = ref(0);
   onMounted(() => {
     count.value = 1;
@@ -189,10 +196,12 @@
       height: 20px;
       vertical-align: middle;
     }
+
     .systemTime {
       padding: 0 5px;
       font-size: 14px;
       text-align: center;
+      margin-top: 10px;
     }
   }
 </style>
