@@ -1,5 +1,5 @@
 <template>
-  <div class="Terminal FullBox">
+  <div class="Terminal FullBox" v-if="false">
     <ToolBar color="white">命令提示符</ToolBar>
     <main>
       <CommandItem v-for="item in itemArray" :key="item" :item="item" />

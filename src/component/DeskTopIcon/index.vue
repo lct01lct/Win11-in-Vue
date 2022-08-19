@@ -138,10 +138,6 @@
       transition: 0.1s;
       border-radius: 0.2em;
 
-      &:hover {
-        background-color: rgba($color: #fffefe, $alpha: 0.2);
-      }
-
       img {
         width: 2em;
         height: 2em;
