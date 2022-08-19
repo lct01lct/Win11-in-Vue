@@ -5,6 +5,7 @@
   import { showBox } from '../../utils';
   import folderStore from '@/store/folderStore';
   import useMeunStore from '@/view/Home/Menu/store/menuStore';
+
   const meunStore = useMeunStore();
   const menuVisible = computed(() => meunStore.menuVisible);
 
@@ -67,6 +68,9 @@
       return false;
     }
     if (type === 'enter') {
+      if (configStore.currentSelected.length) {
+        return false;
+      }
       isActive.value = true;
     } else if (type === 'leave') {
       isActive.value = false;

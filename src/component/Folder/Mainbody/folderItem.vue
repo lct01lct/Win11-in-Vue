@@ -29,6 +29,7 @@
   import folderStore from '@/store/folderStore';
   import drag from '@/utils/ViewSize/drag';
   import useMeunStore from '@/view/Home/Menu/store/menuStore';
+
   const meunStore = useMeunStore();
   const menuVisible = computed(() => meunStore.menuVisible);
 
