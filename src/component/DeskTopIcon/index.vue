@@ -18,44 +18,23 @@
 
 <script setup>
   import { deskTopData } from '@/data';
-  import { getCurrentInstance, onMounted, reactive } from 'vue';
   import DeskTop from '@/utils/OS/desktop';
-  import folderStore from '@/store/folderStore';
   import deskTopConfigStore from '@/store/deskTopConfigStore';
   import { setWidth, judgeContains } from '@/utils/ViewSize/drag';
   import { searchTargetFolderByPath } from '@/utils/handleFolder';
   import IconItem from './IconItem';
 
-  const store = folderStore();
   const deskTopStore = deskTopConfigStore();
-
-  watch(
-    () => store.storeCompletedFolder,
-    (newValue) => {
-      const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
-      DeskTopIconData.splice(
-        0,
-        DeskTopIconData.length,
-        ...new DeskTop(deskTopData, getDesktopFolderData.children).appData
-      );
-    },
-    { deep: true }
-  );
 
   const that = getCurrentInstance();
 
   // // 图标的父div
   let IconsRef;
 
-  // // 收集所有的桌面图标
-  // // 用处：用于切换选中的样式
-  let Refs;
-
   // // 模态拖动框
   let ModalFrameRef;
 
   onMounted(() => {
-    Refs = that.refs.IconRefs;
     ModalFrameRef = that.refs.ModalFrameRef;
     IconsRef = that.refs.IconsRef;
   });
@@ -87,8 +66,6 @@
 
       // 当前被选中的元素
       const inContains = judgeContains(IconsRef, ModalFrameRef);
-      inContains.map((value) => value.classList.add('selected'));
-
       // 存储状态
       deskTopStore.changeCurrentSelected(inContains);
     };
@@ -103,7 +80,9 @@
   const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
 
   // eslint-disable-next-line prefer-const
-  let DeskTopIconData = reactive(new DeskTop(deskTopData, getDesktopFolderData.children).appData);
+  let DeskTopIconData = computed(
+    () => new DeskTop(deskTopData, getDesktopFolderData.children).appData
+  );
 </script>
 
 <style lang="scss">

@@ -13,13 +13,12 @@ class DeskTop {
   // 处理原始数据
   setAppData(baseData, userFolderData) {
     this.appData = this.appData.concat(baseData);
-    const index = this.emptyPosIdx;
 
     userFolderData.forEach((item, i) => {
-      console.log(index);
       item.posIdx = 20 + i;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
+      // console.log(item);
       this.appData.push(item);
     });
     sortByPosIdx(this.appData);

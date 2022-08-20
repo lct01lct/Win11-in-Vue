@@ -1,6 +1,6 @@
 <script setup>
   import { toolSize } from '@/data';
-  import { hideBox } from '@/utils';
+  import { hideBox, searchMaxZindex } from '@/utils';
   defineProps({
     color: {
       type: String,
@@ -81,7 +81,7 @@
   const moveBox = (e) => {
     // 无论是否拖动，点击即会改变层级
     // 获取层级最大的元素，并并加一
-    parent.style.zIndex = parent.style.zIndex + 2;
+    parent.style.zIndex = searchMaxZindex();
 
     // 初始鼠标按下时候的，在toolbar的位置
     const X = e.pageX - parent.offsetLeft;
