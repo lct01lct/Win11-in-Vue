@@ -11,7 +11,7 @@
         <!-- 打开的方式不同，使用popover -->
         <Popover dir="bottom" v-for="item in bottomPop" :key="item">
           <!-- <Start></Start> -->
-          <component :is="Start"></component>
+          <component :is="item.component"></component>
           <template #reference>
             <div id="taskMenu" class="taskbarBtn">
               <img :src="`src/assets/img/icon/${item.icon}`" :id="`${item.icon}Img`" />
@@ -55,7 +55,6 @@
 </template>
 
 <script setup>
-  // import startMenu from '../startMenu/index.vue';
   import { taskBarBottomPop, taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
   import Win11Calendar from './components/Win11Calendar';

@@ -12,6 +12,10 @@ export default [
         children: [],
       },
       {
+        name: 'Users',
+        children: [],
+      },
+      {
         name: 'DeskTop',
         children: [
           {

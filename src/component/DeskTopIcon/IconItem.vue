@@ -4,6 +4,10 @@
   import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
   import { showBox } from '../../utils';
   import folderStore from '@/store/folderStore';
+  import useMeunStore from '@/view/Home/Menu/store/menuStore';
+
+  const meunStore = useMeunStore();
+  const menuVisible = computed(() => meunStore.menuVisible);
 
   const configStore = useDeskTopConfigStore();
 
@@ -57,6 +61,24 @@
       console.log('菜单');
     }
   };
+
+  const isActive = ref(false);
+  const setIsActive = (type) => {
+    if (menuVisible.value) {
+      return false;
+    }
+    if (type === 'enter') {
+      if (configStore.currentSelected.length) {
+        return false;
+      }
+      isActive.value = true;
+    } else if (type === 'leave') {
+      isActive.value = false;
+    }
+  };
+  document.addEventListener('click', function () {
+    isActive.value = false;
+  });
 </script>
 
 <template>
@@ -69,10 +91,17 @@
         left: ${(Math.floor(data.posIdx / maxIconCountY) * iconBaseHeight).toFixed(1) + 'px'};
       `"
     @mousedown="dragIconOrOpenMenu($event, deskTopIconRef, DeskTopIconData, data)"
+    :class="{ active: isActive }"
+    @mouseenter="setIsActive('enter')"
+    @mouseleave="setIsActive('leave')"
   >
     <img :src="`src/assets/img/icon/${icon}`" draggable="false" />
     <span>{{ name }}</span>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped lang="scss">
+  .active {
+    background-color: rgba($color: #fffefe, $alpha: 0.2);
+  }
+</style>

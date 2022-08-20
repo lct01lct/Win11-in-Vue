@@ -251,7 +251,7 @@ export const judgeContains = (parent, Modal) => {
   const childNode = Array.from(parent.children);
   const { left, right, top, bottom } = Modal.getBoundingClientRect();
   const containsArray = [];
-  childNode.map((value) => {
+  childNode.forEach((value) => {
     const item = value.getBoundingClientRect();
     if (item.left > left && item.right < right && item.top > top && item.bottom < bottom) {
       containsArray.push(value);

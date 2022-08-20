@@ -36,7 +36,6 @@
 <script setup>
   // import { emit, ref } from 'process';
   // import { emit } from 'process';
-  import { ref, defineEmits } from 'vue';
   import { tabListData, letterData } from './StartData.json';
   const jump = ref(false);
 
@@ -83,7 +82,8 @@
     .loopItem {
       display: flex;
       align-items: center;
-      padding: 8px 0 8px 0px;
+      padding: 8px 0 8px 30px;
+      border-radius: 4px;
       img {
         width: 20px;
         height: 20px;

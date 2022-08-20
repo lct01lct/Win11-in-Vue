@@ -1,39 +1,65 @@
 <template>
-  <div class="all">
+  <div class="all" @contextmenu.prevent="showMainMenu($event)" @click="initDeskTop">
     <div class="main">
+      <Menu ref="menuRef"></Menu>
       <IconOverlayTip></IconOverlayTip>
-      <settingsVue></settingsVue>
+      <SettingsVue></SettingsVue>
       <Folder></Folder>
-      <!-- <Start></Start> -->
       <Search></Search>
       <Start></Start>
-      <!-- <Edge></Edge> -->
       <SideWiFi></SideWiFi>
       <LeftPane></LeftPane>
       <DeskTopIcon></DeskTopIcon>
+      <Run></Run>
+      <Terminal></Terminal>
     </div>
     <div class="bar">
-      <taskBarVue></taskBarVue>
+      <TaskBarVue></TaskBarVue>
     </div>
   </div>
 </template>
 
 <script setup>
-  import settingsVue from '@/component/setting/index.vue';
-  import taskBarVue from '@/component/taskBar/taskBar.vue';
+  import SettingsVue from '@/component/setting/index.vue';
+  import TaskBarVue from '@/component/taskBar/taskBar.vue';
   import Folder from '@/component/Folder/index.vue';
   import Start from '@/component/Start/index.vue';
+
   import Search from '@/component/Search/Search.vue';
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
   import LeftPane from '@/component/LeftPane/LeftPane.vue';
+
+  import Menu from './Menu';
+  import Run from '@/component/Run';
+  import Terminal from '@/component/Terminal';
+
   // import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
   import { getUsers } from './api';
   import IconOverlayTip from './IconOvelayTip';
+  import useMenuStore from './Menu/store/menuStore';
+
   getUsers();
+
+  const menuStore = useMenuStore();
 
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
+  });
+
+  const initDeskTop = () => {
+    menuStore.setMenuVisible(false);
+  };
+
+  const menuRef = ref(null);
+  const showMainMenu = (e) => {
+    menuRef.value.setMenu(e, 'blank');
+  };
+
+  document.addEventListener('keyup', (e) => {
+    if (e.key === 'Control') {
+      console.log('control');
+    }
   });
 </script>
 
