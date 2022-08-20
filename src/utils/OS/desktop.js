@@ -13,15 +13,14 @@ class DeskTop {
   // 处理原始数据
   setAppData(baseData, userFolderData) {
     this.appData = this.appData.concat(baseData);
-    // console.log(baseData, userFolderData);
+    const index = this.emptyPosIdx;
+
     userFolderData.forEach((item, i) => {
-      // console.log(this.emptyPosIdx);
-      item.posIdx = this.emptyPosIdx;
+      console.log(index);
+      item.posIdx = 20 + i;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
-
       this.appData.push(item);
-      this.setEmptyPosIdx();
     });
     sortByPosIdx(this.appData);
   }
@@ -40,7 +39,6 @@ class DeskTop {
         break;
       }
     }
-    console.log(this.emptyPosIdx);
   }
 
   // 设置图标摆放排序
