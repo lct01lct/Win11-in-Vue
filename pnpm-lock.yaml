@@ -17,6 +17,7 @@ specifiers:
   eslint-plugin-promise: ^6.0.0
   eslint-plugin-vue: ^9.3.0
   lodash: ^4.17.21
+  mitt: ^3.0.0
   pinia: ^2.0.18
   prettier: ^2.7.1
   router: ^1.3.7
@@ -33,6 +34,7 @@ dependencies:
   chinese-lunar-calendar: 1.0.1
   dayjs: 1.11.5
   lodash: 4.17.21
+  mitt: 3.0.0
   pinia: 2.0.18_vue@3.2.37
   router: 1.3.7
   vue: 3.2.37
@@ -1995,6 +1997,10 @@ packages:
   /minimist/1.2.6:
     resolution: {integrity: sha512-Jsjnk4bw3YJqYzbdyBiNsPWHPfO++UGG749Cxs6peCu5Xg4nrena6OVxOYxrQTqww0Jmwt+Ref8rggumkTLz9Q==}
     dev: true
+
+  /mitt/3.0.0:
+    resolution: {integrity: sha512-7dX2/10ITVyqh4aOSVI9gdape+t9l2/8QxHrFmUXu4EEUpdlxl6RudZUPZoc+zuY2hk1j7XxVroIVIan/pD/SQ==}
+    dev: false
 
   /mlly/0.5.12:
     resolution: {integrity: sha512-8moXGh6Hfy2Nmys3DDEm4CuxDBk5Y7Lk1jQ4JcwW0djO9b+SCKTpw0enIQeZIuEnPljdxHSGmcbXU9hpIIEYeQ==}

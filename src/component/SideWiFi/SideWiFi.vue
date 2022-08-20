@@ -1,5 +1,5 @@
 <template>
-  <div class="sidePane">
+  <div class="sidePane" :style="{ right: show == true ? '12px' : '-372px' }">
     <div class="quickSettings">
       <div class="qkCont">
         <div
@@ -35,6 +35,8 @@
 
 <script setup>
   import { WiFiData } from './WFData.json';
+  import $bus from '@/utils/ViewSize/Bus.js';
+
   // import { ref } from 'vue'; // 先引入
   const selectStat = reactive(new Array(6).fill(0));
   // let selectStat0 = 1;
@@ -46,18 +48,29 @@
     // selectStat.splice(1, 0);
     // that.ctx.$forceUpdate();
   }
+  const show = ref(0);
+
+  $bus.on('showOne', (index) => {
+    if (index === 4) {
+      console.log(index);
+      show.value = !show.value;
+    } else {
+      show.value = false;
+    }
+  });
 </script>
 <style lang="scss" scoped>
   .sidePane {
     position: absolute;
     bottom: 58px;
-    right: 12px;
+    right: -372px;
     width: 360px;
     border-radius: 0.5rem;
     background: #e9f2ff;
     padding: 1.25rem 1.25rem 2rem 1.25rem;
     overflow: hidden;
     z-index: 10;
+    transition: all 0.3s;
   }
   .quickSettings {
     // background: #e9f2ff;

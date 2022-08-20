@@ -1,5 +1,5 @@
 <template>
-  <div class="startMenu">
+  <div class="startMenu" :style="{ bottom: show == true ? '80px' : '-680px' }">
     <div class="content">
       <!-- <Pinned></Pinned> -->
       <transition mode="out-in">
@@ -23,6 +23,8 @@
   import AllApp from './allApp.vue';
   import Pinned from './pinned.vue';
   import router from '@/router';
+
+  import $bus from '@/utils/ViewSize/Bus.js';
   const componentTag = shallowRef(Pinned);
   const changeTag = () => {
     componentTag.value = componentTag.value === markRaw(Pinned) ? markRaw(AllApp) : markRaw(Pinned);
@@ -31,6 +33,16 @@
   const gotoLoginPage = () => {
     router.push('/');
   };
+  const show = ref(0);
+
+  $bus.on('showOne', (index) => {
+    if (index === 2) {
+      console.log(index);
+      show.value = !show.value;
+    } else {
+      show.value = false;
+    }
+  });
 </script>
 <style lang="scss" scoped>
   .startMenu {
@@ -43,7 +55,7 @@
     bottom: 80px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: -1;
+    z-index: 20;
 
     .content {
       background-color: #ddeaf54f;

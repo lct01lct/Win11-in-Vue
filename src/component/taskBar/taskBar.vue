@@ -3,7 +3,7 @@
     <!-- <startMenu></startMenu> -->
     <div class="taskbar fcs">
       <div class="tsleft">
-        <div class="taskbarBtn" id="widget" @click.stop="showTaskerbarPanel('widget')">
+        <div class="taskbarBtn" id="widget" @click.stop="showTasker(1)">
           <img src="../../assets/img/icon/widget.png" alt="" id="startMenuImg" />
         </div>
       </div>
@@ -31,7 +31,7 @@
       </div>
       <div class="tsright fcc">
         <div class="up fcc">^</div>
-        <div class="wf">
+        <div class="wf" @click.stop="showTasker(4)">
           <ul class="fcc">
             <li><img src="../../assets/img/icon/ui/wifi.png" alt="" /></li>
             <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
@@ -60,6 +60,7 @@
   import { showBox, hideBox } from '@/utils';
   import Win11Calendar from './components/Win11Calendar';
   import Start from '../Start';
+  import $bus from '@/utils/ViewSize/Bus.js';
   const count = ref(0);
   onMounted(() => {
     count.value = 1;
@@ -111,16 +112,19 @@
   const showTaskerbarPanel = (e) => {
     // 目标组件
     const target = document.querySelector(`.${e}`);
-
     if (target.style.zIndex === '' || target.style.zIndex < 0) {
       showBox(target);
     } else {
       if (e === 'startMenu' || e === 'search' || e === 'widget') {
         return hideBox(false, target, e);
       }
-      hideBox(true, target, e);
+      return hideBox(true, target, e);
     }
   };
+  // 向Bus发送事件
+  function showTasker(controlIndex) {
+    $bus.emit('showOne', controlIndex);
+  }
 </script>
 
 <style lang="scss" scoped>

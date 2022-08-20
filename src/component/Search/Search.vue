@@ -1,5 +1,5 @@
 <template>
-  <div class="search-box">
+  <div class="search-box" :style="{ top: show ? '10px' : '-800px' }">
     <div class="search-bar">
       <div class="search-icon"><img width="18" src="src/assets/img/icon/search.png" alt="" /></div>
 
@@ -50,6 +50,17 @@
   /** 需求分析：
    *  1. 静态页面
    */
+  import $bus from '@/utils/ViewSize/Bus.js';
+  const show = ref(0);
+
+  $bus.on('showOne', (index) => {
+    if (index == 3) {
+      console.log(index);
+      show.value = !show.value;
+    } else {
+      show.value = false;
+    }
+  });
 </script>
 
 <style lang="scss" scoped>
@@ -62,6 +73,8 @@
     padding: 30px;
     border-radius: 10px;
     background-color: aliceblue;
+    transition: all 0.4;
+    z-index: 20;
     .search-bar {
       height: 35px;
       border: solid 2px #1885e3;

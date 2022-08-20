@@ -9,6 +9,7 @@
       <Start></Start>
       <!-- <Edge></Edge> -->
       <SideWiFi></SideWiFi>
+      <LeftPane></LeftPane>
       <DeskTopIcon></DeskTopIcon>
     </div>
     <div class="bar">
@@ -24,7 +25,7 @@
   import Start from '@/component/Start/index.vue';
   import Search from '@/component/Search/Search.vue';
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
-
+  import LeftPane from '@/component/LeftPane/LeftPane.vue';
   // import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
   import { getUsers } from './api';
