@@ -21,6 +21,8 @@ export const topZindex = (target) => {
   return ++toggleTaskPublicData.zIndex;
 };
 
+export const searchMaxZindex = () => {};
+
 /**
  * function：切换task显示将其透明度设置为-1，并维护公共数据，表明
  *          当前页面上显示的application数字减一

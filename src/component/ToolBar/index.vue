@@ -7,17 +7,6 @@
       default: 'black',
     },
   });
-  /** ToolBar需求分析：
-   *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
-   *  4. 页面布局：
-   *      a. 顶部Tab功能按钮为一栏
-   *
-   *  需要添加的监视：
-   *  1. 长按拖动
-   *  2. 最小化
-   *  3. 最大化
-   *  4. 关闭
-   */
 
   // 最大化或者最小化图标
   const MaxOrMin = ref('maxmin');
@@ -92,7 +81,7 @@
   const moveBox = (e) => {
     // 无论是否拖动，点击即会改变层级
     // 获取层级最大的元素，并并加一
-    // parent.style.zIndex = toggleTaskPublicData.zIndex
+    parent.style.zIndex = parent.style.zIndex + 2;
 
     // 初始鼠标按下时候的，在toolbar的位置
     const X = e.pageX - parent.offsetLeft;
