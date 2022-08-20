@@ -36,7 +36,7 @@
 <script setup>
   // import { emit, ref } from 'process';
   // import { emit } from 'process';
-  import { ref, defineEmits } from 'vue';
+  // import { ref, defineEmits } from 'vue';
   import { tabListData, letterData } from './StartData.json';
   const jump = ref(false);
 

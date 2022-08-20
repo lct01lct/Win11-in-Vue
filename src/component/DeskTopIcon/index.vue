@@ -33,6 +33,7 @@
     () => store.storeCompletedFolder,
     (newValue) => {
       const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
+      // DeskTopIconData = new DeskTop(deskTopData, getDesktopFolderData.children).appData;
       DeskTopIconData.splice(
         0,
         DeskTopIconData.length,
@@ -103,7 +104,7 @@
   const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
 
   // eslint-disable-next-line prefer-const
-  let DeskTopIconData = reactive(new DeskTop(deskTopData, getDesktopFolderData.children).appData);
+  let DeskTopIconData = new DeskTop(deskTopData, getDesktopFolderData.children).appData;
 </script>
 
 <style lang="scss">
