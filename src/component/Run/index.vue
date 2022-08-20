@@ -16,7 +16,7 @@
   });
   setTimeout(() => {
     document.querySelector('.ok').click();
-    console.log(document.querySelector('.ok'));
+    // console.log(document.querySelector('.ok'));
   }, 3000);
 </script>
 

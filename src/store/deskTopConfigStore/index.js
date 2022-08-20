@@ -19,9 +19,13 @@ export default defineStore('deskTopConfigStore', {
     deskTopViewSize: (state) => getViewportSize().height - state.taskbarHeight,
   },
   actions: {
-    changeCurrentSelected(array) {
-      const length = this.currentSelected.length;
-      this.currentSelected.splice(0, length, ...array);
+    changeCurrentSelected(data) {
+      this.currentSelected = [];
+      if (Array.isArray(data)) {
+        this.currentSelected = this.currentSelected.concat(data);
+      } else {
+        this.currentSelected.push(data);
+      }
     },
   },
 });

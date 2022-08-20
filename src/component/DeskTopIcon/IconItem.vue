@@ -4,17 +4,14 @@
   import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
   import { showBox } from '../../utils';
   import folderStore from '@/store/folderStore';
-  import useMeunStore from '@/view/Home/Menu/store/menuStore';
-
-  const meunStore = useMeunStore();
-  const menuVisible = computed(() => meunStore.menuVisible);
+  // import useMeunStore from '@/view/Home/Menu/store/menuStore';
 
   const configStore = useDeskTopConfigStore();
 
   const { iconBaseWeight, iconBaseHeight, maxIconCountY } = configStore;
 
   const deskTopIconRef = ref(null);
-  defineProps({
+  const props = defineProps({
     icon: {
       type: String,
       default: 'explorer.png',
@@ -36,7 +33,7 @@
       default: () => [],
     },
   });
-  const clickApp = (e, item) => {
+  const dblClickApp = (e, item) => {
     const target = document.querySelector(`.${item.componentName}`);
 
     if (item.componentName === 'FolderFullBox') {
@@ -62,46 +59,40 @@
     }
   };
 
-  const isActive = ref(false);
-  const setIsActive = (type) => {
-    if (menuVisible.value) {
-      return false;
-    }
-    if (type === 'enter') {
-      if (configStore.currentSelected.length) {
-        return false;
-      }
-      isActive.value = true;
-    } else if (type === 'leave') {
-      isActive.value = false;
-    }
-  };
+  const isSelected = ref(false);
   document.addEventListener('click', function () {
-    isActive.value = false;
+    isSelected.value = false;
   });
+
+  const clickApp = () => {
+    configStore.changeCurrentSelected(props.data);
+  };
+
+  const getClasses = () => {
+    const classes = [];
+    if (configStore.currentSelected.some((item) => item.posIdx === props.data.posIdx)) {
+      classes.push('selected');
+    }
+    return classes;
+  };
 </script>
 
 <template>
   <div
     ref="deskTopIconRef"
     class="deskTopIcon"
-    @dblclick="clickApp($event, data)"
+    @click.stop="clickApp"
+    @dblclick="dblClickApp($event, data)"
     :style="`
         top: ${((Math.floor(data.posIdx % maxIconCountY) - 1) * iconBaseWeight).toFixed(1) + 'px'};
         left: ${(Math.floor(data.posIdx / maxIconCountY) * iconBaseHeight).toFixed(1) + 'px'};
       `"
     @mousedown="dragIconOrOpenMenu($event, deskTopIconRef, DeskTopIconData, data)"
-    :class="{ active: isActive }"
-    @mouseenter="setIsActive('enter')"
-    @mouseleave="setIsActive('leave')"
+    :class="getClasses()"
   >
     <img :src="`src/assets/img/icon/${icon}`" draggable="false" />
     <span>{{ name }}</span>
   </div>
 </template>
 
-<style scoped lang="scss">
-  .active {
-    background-color: rgba($color: #fffefe, $alpha: 0.2);
-  }
-</style>
+<style scoped lang="scss"></style>

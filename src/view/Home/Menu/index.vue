@@ -60,19 +60,26 @@
     <hr />
     <div class="text-options-wrapper">
       <ul class="text-options-list">
-        <li class="text-option-item">打开</li>
-        <li class="text-option-item">以管理员身份打开</li>
+        <li class="text-option-item">查看</li>
+        <li class="text-option-item">排序方式</li>
+        <li class="text-option-item">刷新</li>
+        <li class="text-option-item">新建</li>
+        <!-- <li class="text-option-item">以管理员身份打开</li>
         <li class="text-option-item">固定到开始屏幕</li>
         <li class="text-option-item">压缩为ZIP文件</li>
         <li class="text-option-item">复制文件地址</li>
-        <li class="text-option-item">属性</li>
+        <li class="text-option-item">属性</li> -->
       </ul>
       <hr />
       <ul class="text-options-list">
-        <li class="text-option-item">OneDirve</li>
+        <li class="text-option-item">显示更多选项</li>
       </ul>
       <hr />
       <ul class="text-options-list">
+        <!-- <li class="text-option-item">OneDirve</li> -->
+        <li class="text-option-item">显示设置</li>
+        <li class="text-option-item">个性化</li>
+        <li class="text-option-item">Open in Windows Terminal</li>
         <li class="text-option-item">显示更多选项</li>
       </ul>
     </div>
