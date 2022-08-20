@@ -47,9 +47,15 @@
 
 <script setup>
   import { lastedData, todayData } from './searchData.json';
+  import { showBox } from '@/utils';
   /** 需求分析：
    *  1. 静态页面
    */
+
+  const openApp = (name) => {
+    const target = document.querySelector(`.${name}`);
+    showBox(target, name);
+  };
 </script>
 
 <style lang="scss" scoped>
@@ -97,6 +103,7 @@
             display: flex;
             align-items: center;
             margin: 5px 0;
+            border-radius: 4px;
             img {
               width: 26px;
             }

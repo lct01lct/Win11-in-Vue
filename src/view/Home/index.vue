@@ -25,7 +25,7 @@
   import Run from '@/component/Run';
   import Terminal from '@/component/Terminal';
 
-  // import Edge from '@/component/Edge/index.vue';
+  import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
   import { getUsers } from './api';
   import IconOverlayTip from './IconOvelayTip';

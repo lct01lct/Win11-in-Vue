@@ -2,6 +2,7 @@ import { toggleTaskPublicData } from '../data';
 import request from '@/services/request';
 import { MessageBox } from '@/plugin/Win10UI';
 import userStore from '@/store/userStore';
+import { taskBarData } from '@/data';
 
 /**
  * 功能： 在data目录中共同维护一个最高层级的索引值，
@@ -12,7 +13,11 @@ import userStore from '@/store/userStore';
  * @author("闫德强")
  * @return number
  */
-export const topZindex = () => {
+export const topZindex = (target) => {
+  toggleTaskPublicData.currentAppCount.map((value) => {
+    value.style.zIndex = toggleTaskPublicData.zIndex;
+  });
+  toggleTaskPublicData.currentAppCount.push(target);
   return ++toggleTaskPublicData.zIndex;
 };
 
@@ -22,7 +27,14 @@ export const topZindex = () => {
  * @author(闫德强)
  * @return void
  */
-export const relizeZindex = () => {
+export const relizeZindex = (target) => {
+  toggleTaskPublicData.currentAppCount.map((value, i, array) => {
+    const originClass = value.getAttribute('class');
+    const targetClass = target.getAttribute('class');
+    if (originClass === targetClass) {
+      array.splice(i, 1);
+    }
+  });
   --toggleTaskPublicData.zIndex;
 };
 
@@ -33,11 +45,28 @@ export const relizeZindex = () => {
  * 传入目标元素，在此说明：约定底部栏的name和各组件的类名同名
  * 所以，可以直接获取到该组件，并显示
  */
-export const showBox = (target) => {
+export const showBox = (target, name) => {
   if (!target) return;
-  target.style.zIndex = topZindex();
+  target.style.zIndex = topZindex(target);
+
   target.classList.add('showBox');
   target.classList.remove('hideBox');
+
+  if (name) {
+    let flag;
+    taskBarData.map((value) => {
+      if (value.name === name) {
+        flag = true;
+      }
+    });
+    if (flag) {
+      return;
+    }
+    taskBarData.push({
+      icon: `${name}.png`,
+      name,
+    });
+  }
 };
 
 /**
@@ -55,7 +84,7 @@ export const hideBox = (flag, target, e) => {
   target.style.zIndex = -1;
   target.classList.remove('showBox');
   target.classList.add('hideBox');
-  relizeZindex();
+  relizeZindex(target);
 
   const item = document.querySelector(`#${e}`);
 

@@ -1,8 +1,12 @@
 {
   "lastedData": [
     {
+      "url": "terminal",
+      "name": "Terminal"
+    },
+    {
       "url": "edge",
-      "name": "Edge"
+      "name": "EdgeFullBox"
     },
     {
       "url": "winWord",

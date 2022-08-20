@@ -13,8 +13,9 @@ class DeskTop {
   // 处理原始数据
   setAppData(baseData, userFolderData) {
     this.appData = this.appData.concat(baseData);
+    console.log(this.emptyPosIdx);
     userFolderData.forEach((item, i) => {
-      item.posIdx = 20 + i;
+      item.posIdx = this.emptyPosIdx;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
       this.appData.push(item);

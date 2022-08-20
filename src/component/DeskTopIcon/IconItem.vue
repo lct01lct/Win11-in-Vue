@@ -63,6 +63,7 @@
   <div
     ref="deskTopIconRef"
     class="deskTopIcon"
+    :title="name"
     @dblclick="clickApp($event, data)"
     :style="`
         top: ${((Math.floor(data.posIdx % maxIconCountY) - 1) * iconBaseWeight).toFixed(1) + 'px'};

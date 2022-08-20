@@ -10,6 +10,7 @@ export const toolSize = {
 
 export const toggleTaskPublicData = {
   zIndex: 1,
+  currentAppCount: [],
 };
 
 export const taskBarBottomPop = [

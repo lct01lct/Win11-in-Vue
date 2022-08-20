@@ -106,13 +106,6 @@
   fn();
   setInterval(fn, 1000);
 
-  // setTimeout(() => {
-  //   taskBar.push({
-  //     icon: 'home.png',
-  //     name: 'home',
-  //   });
-  // }, 3000);
-
   // 点击任务栏，传递name，DOM获取类名并赋予其层级为最高
   const showTaskerbarPanel = (e) => {
     // 目标组件
@@ -121,9 +114,6 @@
     if (target.style.zIndex === '' || target.style.zIndex < 0) {
       showBox(target);
     } else {
-      if (e === 'startMenu' || e === 'search' || e === 'widget') {
-        return hideBox(false, target, e);
-      }
       hideBox(true, target, e);
     }
   };

@@ -146,6 +146,15 @@
         width: 2em;
         height: 2em;
       }
+
+      span {
+        text-align: center;
+        width: 100%;
+        font-size: 0.7em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
   }
 

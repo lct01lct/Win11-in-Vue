@@ -199,3 +199,24 @@ function handleCdArray(path, command, folder, itemArray) {
 
   path.push(command);
 }
+
+export const handleTabCommand = (path, command) => {
+  const current = searchTargetFolderByPath(path);
+
+  // eslint-disable-next-line prefer-const
+  let array = [];
+
+  if (!current.children.length) {
+    return array;
+  }
+
+  const reg = new RegExp(command[0]);
+
+  current.children.map((value) => {
+    if (reg.test(value.name)) {
+      array.push(value.name);
+    }
+  });
+
+  return array;
+};
