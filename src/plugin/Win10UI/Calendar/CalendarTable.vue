@@ -129,8 +129,8 @@
           :class="getClasses(cell)"
           @click="handlePickDay(cell)"
         >
-          <div>{{ cell.content }}</div>
-          <div>{{ cell.lunar.dateStr.slice(-2) }}</div>
+          <div class="wordnew">{{ cell.content }}</div>
+          <div class="wordold">{{ cell.lunar.dateStr.slice(-2) }}</div>
         </td>
       </tr>
     </tbody>
@@ -138,6 +138,22 @@
 </template>
 
 <style scoped>
+  td {
+    text-align: center;
+    /* margin: 6px; */
+    padding: 11px;
+    font-size: 13px;
+    border-radius: 50%;
+    .wordnew {
+      font-size: 15px;
+    }
+    .wordold {
+      font-size: 13px;
+    }
+  }
+  td:hover {
+    background-color: #cdcdcdc9;
+  }
   /* 本月的日期 */
   .normal-date {
     color: #000;
@@ -150,7 +166,7 @@
 
   /* 实际日期的当天 */
   .current-day {
-    background-color: rgb(133, 133, 180);
+    background-color: rgb(133, 133, 180) !important;
   }
 
   /* 被选中的日期 */

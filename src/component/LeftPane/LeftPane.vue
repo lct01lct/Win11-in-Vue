@@ -30,13 +30,15 @@
   import { imgInfoList } from './imgInfo.json';
   import $bus from '@/utils/ViewSize/Bus.js';
   // import { ref, reactive } from 'vue';
-  const currentTime = new Date();
+  let currentTime = new Date();
   const time = ref('00:00');
-  time.value = currentTime.toLocaleTimeString().slice(0, 9); // 获取当前时间 上午11:29
+  time.value = currentTime.toLocaleTimeString().slice(0, 7); // 获取当前时间 上午11:29
   const show = ref(0);
 
   $bus.on('showOne', (index) => {
     if (index === 1) {
+      currentTime = new Date();
+      time.value = currentTime.toLocaleTimeString().slice(0, 7);
       console.log(index);
       show.value = !show.value;
     } else {

@@ -1,5 +1,5 @@
 <template>
-  <div class="startMenu" :style="{ bottom: show == true ? '80px' : '-680px' }">
+  <div class="startMenu">
     <div class="content">
       <!-- <Pinned></Pinned> -->
       <transition mode="out-in">
@@ -46,6 +46,17 @@
 </script>
 <style lang="scss" scoped>
   .startMenu {
+    // width: 610px;
+    // height: 636px;
+    // border-radius: 3px;
+    // box-shadow: 1px 1px 2px rgba(34, 34, 34, 0.25);
+    // background-color: rgb(222 235 246);
+    // position: fixed;
+    // bottom: 60px;
+    // left: 50%;
+    // transform: translateX(-50%);
+    // z-index: 20;
+
     width: 610px;
     height: 636px;
     border-radius: 3px;
@@ -55,8 +66,7 @@
     bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 20;
-
+    z-index: -1;
     .content {
       background-color: #ddeaf54f;
       box-sizing: border-box;

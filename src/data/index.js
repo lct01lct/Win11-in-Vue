@@ -1,5 +1,5 @@
 import Start from '@/component/Start';
-
+import Search from '@/component/Search/Search.vue';
 export const toolSize = {
   viewSizeWidth: 800,
   viewSizeHeight: 500,
@@ -15,17 +15,16 @@ export const taskBarBottomPop = [
   {
     icon: 'home.png',
     name: 'startMenu',
-    component: Start,
+    component: shallowRef(Start),
   },
   {
     icon: 'search.png',
     name: 'search',
-    component: 'Start',
+    component: shallowRef(Search),
   },
   {
     icon: 'widget.png',
     name: 'widget',
-    component: 'Start',
   },
 ];
 
