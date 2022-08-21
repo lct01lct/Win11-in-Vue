@@ -1,31 +1,23 @@
 <template>
   <div>
+    <!-- <startMenu></startMenu> -->
     <div class="taskbar fcs">
       <div class="tsleft">
-        <!-- <div class="taskbarBtn" id="widget" @click.stop="showTaskerbarPanel('widget')">
-          <img src="@/assets/img/icon/widget.png" alt="" id="startMenuImg" />
-        </div> -->
-        <Popover dir="left">
-          <LeftPane></LeftPane>
-          <template #reference>
-            <div id="taskMenu" class="taskbarBtn">
-              <img :src="getSrcIcon('widget.png')" id="widget.pngImg`" />
-            </div>
-          </template>
-        </Popover>
+        <div class="taskbarBtn" id="widget" @click.stop="showTasker(1)">
+          <img src="../../assets/img/icon/widget.png" alt="" id="startMenuImg" />
+        </div>
       </div>
       <div class="center fcc">
         <!-- 打开的方式不同，使用popover -->
-        <template v-for="item in bottomPop" :key="item">
-          <Popover :dir="item.way">
-            <component :is="item.component"></component>
-            <template #reference>
-              <div id="taskMenu" class="taskbarBtn">
-                <img :src="getSrcIcon(item.icon)" :id="`${item.icon}Img`" />
-              </div>
-            </template>
-          </Popover>
-        </template>
+        <Popover dir="bottom" v-for="item in bottomPop" :key="item">
+          <!-- <Start></Start> -->
+          <component :is="item.component"></component>
+          <template #reference>
+            <div id="taskMenu" class="taskbarBtn">
+              <img :src="`src/assets/img/icon/${item.icon}`" :id="`${item.icon}Img`" />
+            </div>
+          </template>
+        </Popover>
         <!-- 任务栏中间部分 @click="closeAllPanel"-->
         <div
           v-for="item in taskBar"
@@ -34,23 +26,17 @@
           class="taskbarBtn"
           @click="showTaskerbarPanel(item.name)"
         >
-          <img :src="getSrcIcon(item.icon)" :id="`${item.name}Img`" />
+          <img :src="`src/assets/img/icon/${item.icon}`" :id="`${item.name}Img`" />
         </div>
       </div>
       <div class="tsright fcc">
         <div class="up fcc">^</div>
-
-        <Popover dir="bottom">
-          <SideWiFi></SideWiFi>
-          <template #reference>
-            <div class="wf">
-              <ul class="fcc">
-                <li><img src="@/assets/img/icon/ui/wifi.png" alt="" /></li>
-                <li><img src="@/assets/img/icon/ui/audio3.png" alt="" /></li>
-              </ul>
-            </div>
-          </template>
-        </Popover>
+        <div class="wf" @click.stop="showTasker(4)">
+          <ul class="fcc">
+            <li><img src="../../assets/img/icon/ui/wifi.png" alt="" /></li>
+            <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
+          </ul>
+        </div>
 
         <Popover dir="bottom">
           <Win11Calendar></Win11Calendar>
@@ -72,10 +58,7 @@
   import { taskBarBottomPop, taskBarData } from '@/data';
   import { showBox, hideBox } from '@/utils';
   import Win11Calendar from './components/Win11Calendar';
-  import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
-  import { getSrcIcon } from '../../utils/getSrc';
-  import LeftPane from '@/component/LeftPane/LeftPane';
-
+  import $bus from '@/utils/ViewSize/Bus.js';
   const count = ref(0);
   onMounted(() => {
     count.value = 1;
@@ -102,31 +85,40 @@
    *      4.底栏点击icon，打算用事件总线发送事件，对应板块监听。
    */
   const taskBar = reactive(taskBarData);
-
   const bottomPop = reactive(taskBarBottomPop);
   // 时间数据
   const date = ref('0000/00/00');
   const time = ref('00:00');
-
   const fn = () => {
     const currentTime = new Date();
-    time.value = currentTime.toLocaleTimeString().slice(0, 9); // 获取当前时间 上午11:29
+    time.value = currentTime.toLocaleTimeString().slice(0, 10); // 获取当前时间 上午11:29
     date.value = currentTime.toLocaleDateString(); // 获取当前日期，2021/12/1
   };
   fn();
   setInterval(fn, 1000);
-
+  // setTimeout(() => {
+  //   taskBar.push({
+  //     icon: 'home.png',
+  //     name: 'home',
+  //   });
+  // }, 3000);
   // 点击任务栏，传递name，DOM获取类名并赋予其层级为最高
   const showTaskerbarPanel = (e) => {
     // 目标组件
     const target = document.querySelector(`.${e}`);
-
     if (target.style.zIndex === '' || target.style.zIndex < 0) {
       showBox(target);
     } else {
-      hideBox(true, target, e);
+      if (e === 'startMenu' || e === 'search' || e === 'widget') {
+        return hideBox(false, target, e);
+      }
+      return hideBox(true, target, e);
     }
   };
+  // 向Bus发送事件
+  function showTasker(controlIndex) {
+    $bus.emit('showOne', controlIndex);
+  }
 </script>
 
 <style lang="scss" scoped>
@@ -165,7 +157,6 @@
     background: rgba(255, 255, 255, 0.8);
     transition: all 200ms ease-in-out;
   }
-
   .taskbarBtn {
     display: flex;
     align-items: center;
@@ -196,12 +187,25 @@
       height: 20px;
       vertical-align: middle;
     }
-
     .systemTime {
       padding: 0 5px;
       font-size: 14px;
       text-align: center;
       margin-top: 10px;
+    }
+  }
+  .transition img {
+    animation: small-and-big 1s;
+  }
+  @keyframes small-and-big {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 </style>

@@ -31,7 +31,7 @@ export const taskBarBottomPop = [
     icon: 'widget.png',
     name: 'widget',
     way: 'left',
-    component: shallowRef(LeftPane),
+    // component: shallowRef(LeftPane),
   },
 ];
 
