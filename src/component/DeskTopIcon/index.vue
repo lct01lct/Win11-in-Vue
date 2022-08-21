@@ -108,6 +108,7 @@
       &:hover {
         background-color: rgba($color: #fffefe, $alpha: 0.2);
       }
+
       img {
         width: 2em;
         height: 2em;

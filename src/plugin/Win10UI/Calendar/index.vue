@@ -59,16 +59,22 @@
   <div class="calendar-wrapper">
     <div class="calendar-header-wrapper">
       <div class="now">
-        {{ nowHour }}:{{ nowMinute }}:{{ nowSecond }}
-        <div class="calendar-date" @click="step = 0">
-          {{ nowMonth }}月{{ nowDate }}日，星期{{ calendarTableHeader[nowDay - 1] }}
+        <div class="nowdata">
+          <div class="calendar-date" @click="step = 0">
+            {{ nowMonth }}月{{ nowDate }}日，星期{{ calendarTableHeader[nowDay - 1] }}
+          </div>
+          <div class="lunar-date">{{ nowLunar }}</div>
         </div>
-        <div class="lunar-date">{{ nowLunar }}</div>
+        <div class="nowclock">{{ nowHour }}:{{ nowMinute }}:{{ nowSecond }}</div>
       </div>
       <div class="options">
-        <span class="active-date">{{ activeDayjs.year() }}年{{ activeDayjs.month() + 1 }}月</span>
-        <button class="prev" @click="selectMonth('prev')">^</button>
-        <button class="next" @click="selectMonth('next')">^</button>
+        <div class="op-left">
+          <span class="active-date">{{ activeDayjs.year() }}年{{ activeDayjs.month() + 1 }}月</span>
+        </div>
+        <div class="op-right">
+          <button class="prev" @click="selectMonth('prev')">^</button>
+          <button class="next" @click="selectMonth('next')">^</button>
+        </div>
       </div>
     </div>
     <div class="calendar-table-wrapper">
@@ -78,7 +84,25 @@
 </template>
 
 <style scoped>
+  .calendar-wrapper {
+    padding: 17px 14px 7px 14px;
+  }
   .next {
     transform: rotateX(180deg);
+  }
+  .now {
+    display: flex;
+    justify-content: space-between;
+    line-height: 26px;
+    border-bottom: 1px solid #c2bebe;
+    padding-bottom: 10px;
+  }
+  .options {
+    display: flex;
+    justify-content: space-between;
+    margin: 22px 5px;
+  }
+  .prev {
+    margin-right: 22px;
   }
 </style>

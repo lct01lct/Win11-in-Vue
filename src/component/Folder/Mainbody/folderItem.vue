@@ -1,5 +1,15 @@
 <template>
-  <li ref="folderItemRef" @dblclick="goToTargetPath(data)" :title="`大小：${size}`">
+  <li ref="folderItemRef" @dblclick="goToTargetPath(data)" :title="`大小：${size}`">=======</li>
+
+  <li
+    ref="folderItemRef"
+    @dblclick="goToTargetPath(data)"
+    :title="`大小：${size}`"
+    @mousedown="mousedown($event, folderItemRef, fullyData, data)"
+    :class="{ active: isActive }"
+    @mouseenter="setIsActive('enter')"
+    @mouseleave="setIsActive('leave')"
+  >
     <!-- ${usageRate ? `Rate: ${usageRate}` : ''} -->
     <img :src="getSrcSetting(icon)" />
     <div>
@@ -20,8 +30,26 @@
 <script setup>
   import folderStore from '@/store/folderStore';
   import { getSrcSetting } from '@/utils/getSrc';
+  import drag from '@/utils/ViewSize/drag';
+  import useMeunStore from '@/view/Home/Menu/store/menuStore';
+  const meunStore = useMeunStore();
+  const menuVisible = computed(() => meunStore.menuVisible);
 
   const folderItemRef = ref(null);
+  const isActive = ref(false);
+  const setIsActive = (type) => {
+    if (menuVisible.value) {
+      return false;
+    }
+    if (type === 'enter') {
+      isActive.value = true;
+    } else if (type === 'leave') {
+      isActive.value = false;
+    }
+  };
+  document.addEventListener('click', function () {
+    isActive.value = false;
+  });
 
   defineProps({
     icon: {
@@ -128,10 +156,9 @@
         font-size: 0.7em;
       }
     }
-
-    &:hover {
-      background-color: #e1f3ff;
-    }
+  }
+  .active {
+    background-color: #e1f3ff;
   }
   div {
     margin: 0 auto;

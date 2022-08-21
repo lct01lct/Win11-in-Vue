@@ -23,6 +23,8 @@
   import AllApp from './allApp.vue';
   import Pinned from './pinned.vue';
   import router from '@/router';
+
+  import $bus from '@/utils/ViewSize/Bus.js';
   const componentTag = shallowRef(Pinned);
   const changeTag = () => {
     componentTag.value = componentTag.value === markRaw(Pinned) ? markRaw(AllApp) : markRaw(Pinned);
@@ -31,9 +33,30 @@
   const gotoLoginPage = () => {
     router.push('/');
   };
+  const show = ref(0);
+
+  $bus.on('showOne', (index) => {
+    if (index === 2) {
+      console.log(index);
+      show.value = !show.value;
+    } else {
+      show.value = false;
+    }
+  });
 </script>
 <style lang="scss" scoped>
   .startMenu {
+    // width: 610px;
+    // height: 636px;
+    // border-radius: 3px;
+    // box-shadow: 1px 1px 2px rgba(34, 34, 34, 0.25);
+    // background-color: rgb(222 235 246);
+    // position: fixed;
+    // bottom: 60px;
+    // left: 50%;
+    // transform: translateX(-50%);
+    // z-index: 20;
+
     width: 610px;
     height: 636px;
     border-radius: 3px;
@@ -44,7 +67,6 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: -1;
-
     .content {
       background-color: #ddeaf54f;
       box-sizing: border-box;

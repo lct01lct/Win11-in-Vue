@@ -35,6 +35,8 @@
 </template>
 <script setup>
   import { getSrcStartIcon } from '../../utils/getSrc';
+  // import { emit, ref } from 'process';
+  // import { emit } from 'process';
   import { tabListData, letterData } from './StartData.json';
   const jump = ref(false);
 

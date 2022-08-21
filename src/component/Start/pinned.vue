@@ -31,6 +31,11 @@
 
 <script setup>
   import { getSrcStartIcon } from '../../utils/getSrc';
+  // import { emit } from 'process';
+  // import { reactive } from 'vue';
+  // import { useStore } from "vuex";
+  // const store = useStore();
+  // import { defineEmits } from 'vue';
   import { pinnedData, recommendData } from './StartData.json';
   import { showBox } from '@/utils';
 

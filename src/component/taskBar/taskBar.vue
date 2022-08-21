@@ -5,55 +5,64 @@
       <div class="tsleft">
         <div class="taskbarBtn" id="widget" @click.stop="showTaskerbarPanel('widget')">
           <img src="@/assets/img/icon/widget.png" alt="" id="startMenuImg" />
+          <div class="taskbarBtn" id="widget" @click.stop="showTasker(1)">
+            <img src="@/assets/img/icon/widget.png" alt="" id="startMenuImg" />
+          </div>
         </div>
-      </div>
-      <div class="center fcc">
-        <!-- 打开的方式不同，使用popover -->
-        <Popover dir="bottom" v-for="item in bottomPop" :key="item">
-          <component :is="item.component"></component>
-          <template #reference>
-            <div id="taskMenu" class="taskbarBtn">
-              <img :src="getSrcIcon(item.icon)" :id="`${item.icon}Img`" />
-            </div>
-          </template>
-        </Popover>
-        <!-- 任务栏中间部分 @click="closeAllPanel"-->
-        <div
-          v-for="item in taskBar"
-          :key="item"
-          :id="item.name"
-          class="taskbarBtn"
-          @click="showTaskerbarPanel(item.name)"
-        >
-          <img :src="getSrcIcon(item.icon)" :id="`${item.name}Img`" />
-        </div>
-      </div>
-      <div class="tsright fcc">
-        <div class="up fcc">^</div>
-
-        <Popover dir="bottom">
-          <SideWiFi></SideWiFi>
-          <template #reference>
-            <div class="wf">
-              <ul class="fcc">
-                <li><img src="@/assets/img/icon/ui/wifi.png" alt="" /></li>
-                <li><img src="@/assets/img/icon/ui/audio3.png" alt="" /></li>
-              </ul>
-            </div>
-          </template>
-        </Popover>
-
-        <Popover dir="bottom">
-          <Win11Calendar></Win11Calendar>
-          <template #reference>
-            <div class="data fcc">
-              <div class="systemTime">
-                <div>{{ time }}</div>
-                <div>{{ date }}</div>
+        <div class="center fcc">
+          <!-- 打开的方式不同，使用popover -->
+          <Popover dir="bottom" v-for="item in bottomPop" :key="item">
+            <component :is="item.component"></component>
+            <template #reference>
+              <div id="taskMenu" class="taskbarBtn">
+                <img :src="getSrcIcon(item.icon)" :id="`${item.icon}Img`" />
               </div>
-            </div>
-          </template>
-        </Popover>
+            </template>
+          </Popover>
+          <!-- 任务栏中间部分 @click="closeAllPanel"-->
+          <div
+            v-for="item in taskBar"
+            :key="item"
+            :id="item.name"
+            class="taskbarBtn"
+            @click="showTaskerbarPanel(item.name)"
+          >
+            <img :src="getSrcIcon(item.icon)" :id="`${item.name}Img`" />
+          </div>
+        </div>
+        <div class="tsright fcc">
+          <div class="up fcc">^</div>
+
+          <Popover dir="bottom">
+            <SideWiFi></SideWiFi>
+            <template #reference>
+              <div class="wf">
+                <ul class="fcc">
+                  <li><img src="@/assets/img/icon/ui/wifi.png" alt="" /></li>
+                  <li><img src="@/assets/img/icon/ui/audio3.png" alt="" /></li>
+                </ul>
+              </div>
+            </template>
+          </Popover>
+          <div class="wf" @click.stop="showTasker(4)">
+            <ul class="fcc">
+              <li><img src="../../assets/img/icon/ui/wifi.png" alt="" /></li>
+              <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
+            </ul>
+          </div>
+
+          <Popover dir="bottom">
+            <Win11Calendar></Win11Calendar>
+            <template #reference>
+              <div class="data fcc">
+                <div class="systemTime">
+                  <div>{{ time }}</div>
+                  <div>{{ date }}</div>
+                </div>
+              </div>
+            </template>
+          </Popover>
+        </div>
       </div>
     </div>
   </div>
@@ -65,7 +74,7 @@
   import Win11Calendar from './components/Win11Calendar';
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
   import { getSrcIcon } from '../../utils/getSrc';
-
+  import $bus from '@/utils/ViewSize/Bus.js';
   const count = ref(0);
   onMounted(() => {
     count.value = 1;
@@ -100,7 +109,7 @@
 
   const fn = () => {
     const currentTime = new Date();
-    time.value = currentTime.toLocaleTimeString().slice(0, 9); // 获取当前时间 上午11:29
+    time.value = currentTime.toLocaleTimeString().slice(0, 10); // 获取当前时间 上午11:29
     date.value = currentTime.toLocaleDateString(); // 获取当前日期，2021/12/1
   };
   fn();
@@ -110,13 +119,17 @@
   const showTaskerbarPanel = (e) => {
     // 目标组件
     const target = document.querySelector(`.${e}`);
-
     if (target.style.zIndex === '' || target.style.zIndex < 0) {
       showBox(target);
     } else {
       hideBox(true, target, e);
+      return hideBox(true, target, e);
     }
   };
+  // 向Bus发送事件
+  function showTasker(controlIndex) {
+    $bus.emit('showOne', controlIndex);
+  }
 </script>
 
 <style lang="scss" scoped>

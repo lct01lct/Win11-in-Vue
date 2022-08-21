@@ -14,10 +14,11 @@
 <style scoped>
   .calendar-wrapper {
     position: fixed;
-    bottom: 48px;
-    right: 0;
-    width: 400px;
-    height: 600px;
-    background: #242624;
+    bottom: 55px;
+    right: 8px;
+    width: 387px;
+    height: 489px;
+    background: #eff0f0;
+    border-radius: 6px;
   }
 </style>

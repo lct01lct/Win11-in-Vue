@@ -13,7 +13,9 @@ export default defineStore('deskTopConfigStore', {
   getters: {
     maxIconCountY: (state) =>
       Math.floor((getViewportSize().height - state.taskbarHeight) / state.iconBaseWeight),
+
     maxIconCountX: Math.floor((state) => getViewportSize().weight / state.iconBaseHeight),
+
     deskTopViewSize: (state) => getViewportSize().height - state.taskbarHeight,
   },
   actions: {

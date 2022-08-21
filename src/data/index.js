@@ -27,7 +27,6 @@ export const taskBarBottomPop = [
   {
     icon: 'widget.png',
     name: 'widget',
-    component: 'Start',
   },
 ];
 
