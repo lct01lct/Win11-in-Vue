@@ -3,6 +3,7 @@
   import { DragFeatrue } from '@/utils/ViewSize/drag';
   import useMenuStore from './store/menuStore';
   import DeskTopMenu from './DeskTopMenu.vue';
+  import IconMenu from './IconMenu.vue';
   const menuStore = useMenuStore();
 
   const menuRef = ref(null);

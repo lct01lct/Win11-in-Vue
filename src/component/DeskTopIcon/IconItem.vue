@@ -2,7 +2,7 @@
   import drag from '@/utils/ViewSize/drag';
   import { getViewportSize } from '@/utils/ViewSize/utils';
   import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
-  import { showBox } from '../../utils';
+  import { showBox } from '@/utils';
   import folderStore from '@/store/folderStore';
   // import useMeunStore from '@/view/Home/Menu/store/menuStore';
 
@@ -76,9 +76,25 @@
     return classes;
   };
 
-  const showIconMenu = (e) => {
+  const getPos = (posIdx) => {
+    return {
+      top:
+        (
+          (Math.floor(posIdx % maxIconCountY ? posIdx % maxIconCountY : maxIconCountY) - 1) *
+          iconBaseWeight
+        ).toFixed(1) + 'px',
+      left:
+        (
+          Math.floor(posIdx % maxIconCountY ? posIdx / maxIconCountY : posIdx / maxIconCountY - 1) *
+          iconBaseHeight
+        ).toFixed(1) + 'px',
+    };
+  };
+
+  const menuRef = ref(null);
+  const showMainMenu = (e) => {
     e.preventDefault();
-    configStore.isIconMenuVisible = true;
+    menuRef.value.setMenu(e, 'blank');
   };
 </script>
 
@@ -87,17 +103,18 @@
     ref="deskTopIconRef"
     class="deskTopIcon"
     @click.stop="clickApp"
-    @contextmenu.stop="showIconMenu($event)"
+    @contextmenu.stop="showMainMenu($event)"
     @dblclick="dblClickApp($event, data)"
     :style="`
-        top: ${((Math.floor(data.posIdx % maxIconCountY) - 1) * iconBaseWeight).toFixed(1) + 'px'};
-        left: ${(Math.floor(data.posIdx / maxIconCountY) * iconBaseHeight).toFixed(1) + 'px'};
+        top: ${getPos(data.posIdx).top};
+        left: ${getPos(data.posIdx).left};
       `"
     @mousedown="dragIconOrOpenMenu($event, deskTopIconRef, DeskTopIconData, data)"
     :class="getClasses()"
   >
     <img :src="`src/assets/img/icon/${icon}`" draggable="false" />
     <span>{{ name }}</span>
+    <!-- <Menu ref="menuRef"></Menu> -->
   </div>
 </template>
 
