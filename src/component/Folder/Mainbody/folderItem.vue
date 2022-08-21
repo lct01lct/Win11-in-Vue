@@ -68,6 +68,10 @@
   };
 
   const changeName = (e, item) => {
+    // 桌面不能改
+    if (item.name === 'DeskTop' && item.getPath()[1] === 'DeskTop') {
+      return;
+    }
     const target = e.target.parentElement;
     const input = target.nextElementSibling;
     input.style.display = 'block';
