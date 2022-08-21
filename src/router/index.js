@@ -19,22 +19,22 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach(function (to, from, next) {
-  if (to.name === 'Login') {
-    return next();
-  }
+// router.beforeEach(function (to, from, next) {
+//   if (to.name === 'Login') {
+//     return next();
+//   }
 
-  // 判断本地是否记录token值
-  const store = useUserStore();
-  const token = store.getToken;
+//   // 判断本地是否记录token值
+//   const store = useUserStore();
+//   const token = store.getToken;
 
-  if (token) {
-    // todo
-    // 获取用户信息
-    next();
-  } else {
-    next({ name: 'Login' });
-  }
-});
+//   if (token) {
+//     // todo
+//     // 获取用户信息
+//     next();
+//   } else {
+//     next({ name: 'Login' });
+//   }
+// });
 
 export default router;
