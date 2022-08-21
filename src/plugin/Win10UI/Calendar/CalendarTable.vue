@@ -144,12 +144,12 @@
     padding: 11px;
     font-size: 13px;
     border-radius: 50%;
-    .wordnew {
-      font-size: 15px;
-    }
-    .wordold {
-      font-size: 13px;
-    }
+  }
+  .wordold {
+    font-size: 13px;
+  }
+  .wordnew {
+    font-size: 15px;
   }
   td:hover {
     background-color: #cdcdcdc9;

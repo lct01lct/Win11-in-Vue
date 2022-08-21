@@ -1,5 +1,5 @@
 <template>
-  <div class="search-box" :style="{ top: show ? '10px' : '-800px' }">
+  <div class="search-box" :style="{ top: show ? '10px' : '-774px' }">
     <div class="search-bar">
       <div class="search-icon"><img width="18" src="src/assets/img/icon/search.png" alt="" /></div>
 
@@ -54,7 +54,7 @@
   const show = ref(0);
 
   $bus.on('showOne', (index) => {
-    if (index == 3) {
+    if (index === 3) {
       console.log(index);
       show.value = !show.value;
     } else {

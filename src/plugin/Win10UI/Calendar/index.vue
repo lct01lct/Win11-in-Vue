@@ -96,21 +96,13 @@
     line-height: 26px;
     border-bottom: 1px solid #c2bebe;
     padding-bottom: 10px;
-    .nowdata {
-    }
-    .nowclock {
-    }
   }
   .options {
     display: flex;
     justify-content: space-between;
     margin: 22px 5px;
-    .op-left {
-    }
-    .op-right {
-      .prev {
-        margin-right: 22px;
-      }
-    }
+  }
+  .prev {
+    margin-right: 22px;
   }
 </style>

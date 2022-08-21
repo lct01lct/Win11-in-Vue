@@ -24,9 +24,7 @@
   import SettingsVue from '@/component/setting/index.vue';
   import TaskBarVue from '@/component/taskBar/taskBar.vue';
   import Folder from '@/component/Folder/index.vue';
-  import Start from '@/component/Start/index.vue';
 
-  import Search from '@/component/Search/Search.vue';
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
   import LeftPane from '@/component/LeftPane/LeftPane.vue';
 
