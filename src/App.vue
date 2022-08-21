@@ -1,12 +1,13 @@
 <script setup>
-  import userStore from './store/userStore';
+  import userStore from '@/store/userStore';
+  import { getSrcSettingTheme } from '@/utils/getSrc';
 
   const store = userStore();
 
   onMounted(() => {
-    document.querySelector(
-      '#app'
-    ).style.backgroundImage = `url("@/assets/img/setting/assetsImg/default/${store.getTheme}.jpg")`;
+    document.querySelector('#app').style.backgroundImage = `url(${getSrcSettingTheme(
+      `${store.getTheme}.jpg`
+    )})`;
   });
 </script>
 

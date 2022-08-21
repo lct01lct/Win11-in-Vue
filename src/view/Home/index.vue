@@ -24,7 +24,6 @@
   import Start from '@/component/Start/index.vue';
   import Run from '@/component/Run';
   import Terminal from '@/component/Terminal';
-
   import Edge from '@/component/Edge/index.vue';
   import DeskTopIcon from '@/component/DeskTopIcon';
   import { getUsers } from './api';
