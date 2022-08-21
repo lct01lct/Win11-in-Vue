@@ -23,27 +23,20 @@
   import { setWidth, judgeContains } from '@/utils/ViewSize/drag';
   import { searchTargetFolderByPath } from '@/utils/handleFolder';
   import IconItem from './IconItem';
-
   const deskTopStore = deskTopConfigStore();
-
   const that = getCurrentInstance();
-
   // // 图标的父div
   let IconsRef;
-
   // // 模态拖动框
   let ModalFrameRef;
-
   onMounted(() => {
     ModalFrameRef = that.refs.ModalFrameRef;
     IconsRef = that.refs.IconsRef;
   });
-
   const deskTopIconDoms = [];
   const deskTopIconRefs = (e) => {
     deskTopIconDoms.push(e);
   };
-
   // 模态框拖动
   const dragModalFrame = (e) => {
     const target = e.target;
@@ -57,7 +50,6 @@
     // 清除所有已选中的样式
     Array.from(IconsRef.children).map((value) => value.classList.remove('selected'));
     deskTopStore.changeCurrentSelected([]);
-
     const move = (e) => {
       // 改变模态框的大小
       const tempX = e.pageX < X ? e.pageX : X;
@@ -66,26 +58,22 @@
       ModalFrameRef.style.top = tempY + 'px';
 
       setWidth(e.pageX - X, e.pageY - Y, ModalFrameRef);
-
       // 当前被选中的元素
       const inContains = judgeContains(IconsRef, ModalFrameRef);
       // 存储状态
       deskTopStore.changeCurrentSelected(inContains);
     };
-
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', () => {
       setWidth(0, 0, ModalFrameRef);
       document.removeEventListener('mousemove', move);
     });
   };
-
   const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
-
   // eslint-disable-next-line prefer-const
-  let DeskTopIconData = computed(
-    () => new DeskTop(deskTopData, getDesktopFolderData.children).appData
-  );
+  const DeskTopIconData = computed(() => {
+    return new DeskTop(deskTopData, getDesktopFolderData.children).appData;
+  });
 </script>
 
 <style lang="scss">
@@ -104,7 +92,6 @@
     align-content: flex-start;
     flex-wrap: wrap;
     user-select: none;
-
     .deskTopIcon {
       position: absolute;
       // z-index: 998;
@@ -119,16 +106,13 @@
       font-size: 0.8em;
       transition: 0.1s;
       border-radius: 0.2em;
-
       &:hover {
         background-color: rgba($color: #fffefe, $alpha: 0.2);
       }
-
       img {
         width: 2em;
         height: 2em;
       }
-
       span {
         text-align: center;
         width: 100%;
@@ -139,7 +123,6 @@
       }
     }
   }
-
   .selected {
     // transition: 1s;
     border: 1px solid rgba(215, 212, 212, 0.6);
@@ -150,7 +133,6 @@
       animation: scale 0.3s;
     }
   }
-
   @keyframes scale {
     0% {
       transform: scale(1);
