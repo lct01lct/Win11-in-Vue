@@ -13,18 +13,23 @@ class DeskTop {
   // 处理原始数据
   setAppData(baseData, userFolderData) {
     this.appData = this.appData.concat(baseData);
+    this.setEmptyPosIdx();
 
     userFolderData.forEach((item, i) => {
-      item.posIdx = 20 + i;
+      this.setEmptyPosIdx();
+
+      item.posIdx = 10 + this.emptyPosIdx;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
       // console.log(item);
       this.appData.push(item);
+      this.setEmptyPosIdx();
     });
-    sortByPosIdx(this.appData);
+    // sortByPosIdx(this.appData);
   }
 
   setEmptyPosIdx() {
+    sortByPosIdx(this.appData);
     let currIdx = this.appData[0].posIdx;
     if (currIdx !== 1) {
       return (this.emptyPosIdx = 1);

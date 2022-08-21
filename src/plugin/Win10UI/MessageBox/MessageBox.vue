@@ -132,21 +132,52 @@
     width: 400px;
     height: 200px;
     background-color: #fff;
-    border: 2px solid transparent;
+    // border: 2px solid transparent;
     box-shadow: 0 0 20px rgb(125, 124, 124);
     border-radius: 5px;
     user-select: none;
 
     .title {
-      height: 32px;
+      display: flex;
+      align-items: center;
+      height: 22px;
+      padding-right: 5px;
+      padding: 5px;
+
+      message-box-closed {
+        margin-right: 5px;
+      }
     }
     .content-wrapper {
       flex: 1;
     }
     .btn-group {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
       height: 50px;
+      background-color: #2e71d4;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px;
+
       button {
         float: right;
+        margin: 10px;
+        color: white;
+        width: 5em;
+        height: 1.8em;
+        background-color: #2e71d4;
+        border: 2px solid white;
+        border-radius: 5px;
+
+        &:hover {
+          background-color: #0f8fee;
+        }
+
+        &:focus {
+          color: black;
+          background-color: white;
+        }
       }
     }
   }
