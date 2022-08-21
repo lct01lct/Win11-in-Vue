@@ -1,6 +1,6 @@
 import Start from '@/component/Start';
 import Search from '@/component/Search/Search.vue';
-import LeftPane from '@/component/LeftPane/LeftPane';
+// import LeftPane from '@/component/LeftPane/LeftPane';
 
 export const toolSize = {
   viewSizeWidth: 800,
@@ -27,12 +27,12 @@ export const taskBarBottomPop = [
     way: 'bottom',
     component: shallowRef(Search),
   },
-  {
-    icon: 'widget.png',
-    name: 'widget',
-    way: 'left',
-    // component: shallowRef(LeftPane),
-  },
+  // {
+  //   icon: 'widget.png',
+  //   name: 'widget',
+  //   way: 'left',
+  //   // component: shallowRef(LeftPane),
+  // },
 ];
 
 export const taskBarData = reactive([

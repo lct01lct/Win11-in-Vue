@@ -7,7 +7,6 @@
       <Folder></Folder>
       <!-- <Edge></Edge> -->
 
-      <SideWiFi></SideWiFi>
       <LeftPane></LeftPane>
       <DeskTopIcon></DeskTopIcon>
       <Terminal></Terminal>

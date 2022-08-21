@@ -1,6 +1,4 @@
 <template>
-  <li ref="folderItemRef" @dblclick="goToTargetPath(data)" :title="`大小：${size}`">=======</li>
-
   <li
     ref="folderItemRef"
     @dblclick="goToTargetPath(data)"
