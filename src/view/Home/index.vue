@@ -5,8 +5,7 @@
       <IconOverlayTip></IconOverlayTip>
       <SettingsVue></SettingsVue>
       <Folder></Folder>
-      <!-- <Edge></Edge> -->
-
+      <Edge></Edge>
       <LeftPane></LeftPane>
       <DeskTopIcon></DeskTopIcon>
       <Terminal></Terminal>
@@ -26,8 +25,6 @@
   import DeskTopIcon from '@/component/DeskTopIcon';
   import { getUsers } from './api';
   import IconOverlayTip from './IconOvelayTip';
-
-  import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
   import LeftPane from '@/component/LeftPane/LeftPane.vue';
 
   import Menu from './Menu';

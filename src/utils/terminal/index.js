@@ -202,6 +202,7 @@ function handleCdArray(path, command, folder, itemArray) {
 }
 
 export const handleTabCommand = (path, command) => {
+  console.log(path, command);
   const current = searchTargetFolderByPath(path);
 
   // eslint-disable-next-line prefer-const

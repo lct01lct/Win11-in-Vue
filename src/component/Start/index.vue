@@ -55,7 +55,6 @@
     // bottom: 60px;
     // left: 50%;
     // transform: translateX(-50%);
-    // z-index: 20;
 
     width: 610px;
     height: 636px;
@@ -66,7 +65,9 @@
     bottom: 60px;
     left: 50%;
     transform: translateX(-50%);
-    z-index: -1;
+    // z-index: -1;
+    z-index: 200;
+
     .content {
       background-color: #ddeaf54f;
       box-sizing: border-box;

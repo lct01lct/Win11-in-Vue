@@ -2,35 +2,15 @@
   import drag from '@/utils/ViewSize/drag';
   import { getViewportSize } from '@/utils/ViewSize/utils';
   import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
-  import { showBox } from '../../utils';
+  import { showBox } from '@/utils';
   import folderStore from '@/store/folderStore';
+
   import { getSrcIcon } from '../../utils/getSrc';
-  import useMeunStore from '@/view/Home/Menu/store/menuStore';
-
-  const meunStore = useMeunStore();
-  const menuVisible = computed(() => meunStore.menuVisible);
-
+  // import useMeunStore from '@/view/Home/Menu/store/menuStore';
   const configStore = useDeskTopConfigStore();
-
   const { iconBaseWeight, iconBaseHeight, maxIconCountY } = configStore;
-
-  const getPos = (posIdx) => {
-    return {
-      top:
-        (
-          (Math.floor(posIdx % maxIconCountY ? posIdx % maxIconCountY : maxIconCountY) - 1) *
-          iconBaseWeight
-        ).toFixed(1) + 'px',
-      left:
-        (
-          Math.floor(posIdx % maxIconCountY ? posIdx / maxIconCountY : posIdx / maxIconCountY - 1) *
-          iconBaseHeight
-        ).toFixed(1) + 'px',
-    };
-  };
-
   const deskTopIconRef = ref(null);
-  defineProps({
+  const props = defineProps({
     icon: {
       type: String,
       default: 'explorer.png',
@@ -52,18 +32,15 @@
       default: () => [],
     },
   });
-  const clickApp = (e, item) => {
+  const dblClickApp = (e, item) => {
     const target = document.querySelector(`.${item.componentName}`);
-
     if (item.componentName === 'FolderFullBox') {
       // todo
       const store = folderStore();
       store.changeCurrentFolder(item);
     }
-
     showBox(target);
   };
-
   // 判断鼠标点击哪个键位
   const dragIconOrOpenMenu = (e, dom, list, item) => {
     if (e.button === 0) {
@@ -77,40 +54,55 @@
       console.log('菜单');
     }
   };
-
-  const isActive = ref(false);
-  const setIsActive = (type) => {
-    if (menuVisible.value) {
-      return false;
-    }
-    if (type === 'enter') {
-      if (configStore.currentSelected.length) {
-        return false;
-      }
-      isActive.value = true;
-    } else if (type === 'leave') {
-      isActive.value = false;
-    }
-  };
+  const isSelected = ref(false);
   document.addEventListener('click', function () {
-    isActive.value = false;
+    isSelected.value = false;
   });
+
+  const getClasses = () => {
+    const classes = [];
+    if (configStore.currentSelected.some((item) => item.posIdx === props.data.posIdx)) {
+      classes.push('selected');
+    }
+    return classes;
+  };
+  const getPos = (posIdx) => {
+    return {
+      top:
+        (
+          (Math.floor(posIdx % maxIconCountY ? posIdx % maxIconCountY : maxIconCountY) - 1) *
+          iconBaseWeight
+        ).toFixed(1) + 'px',
+      left:
+        (
+          Math.floor(posIdx % maxIconCountY ? posIdx / maxIconCountY : posIdx / maxIconCountY - 1) *
+          iconBaseHeight
+        ).toFixed(1) + 'px',
+    };
+  };
+  const menuRef = ref(null);
+  const showMainMenu = (e) => {
+    e.preventDefault();
+    menuRef.value.setMenu(e, 'blank');
+  };
+  const clickApp = () => {
+    configStore.changeCurrentSelected(props.data);
+  };
 </script>
 
 <template>
   <div
     ref="deskTopIconRef"
     class="deskTopIcon"
-    :title="name"
-    @dblclick="clickApp($event, data)"
+    @contextmenu.stop="showMainMenu($event)"
+    @dblclick="dblClickApp($event, data)"
+    @click="clickApp"
     :style="`
         top: ${getPos(data.posIdx).top};
         left: ${getPos(data.posIdx).left};
       `"
     @mousedown="dragIconOrOpenMenu($event, deskTopIconRef, DeskTopIconData, data)"
-    :class="{ active: isActive }"
-    @mouseenter="setIsActive('enter')"
-    @mouseleave="setIsActive('leave')"
+    :class="getClasses()"
   >
     <img :src="getSrcIcon(icon)" draggable="false" />
     <span>{{ name }}</span>

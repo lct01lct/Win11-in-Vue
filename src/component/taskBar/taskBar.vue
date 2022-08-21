@@ -4,7 +4,7 @@
     <div class="taskbar fcs">
       <div class="tsleft">
         <div class="taskbarBtn" id="widget" @click.stop="showTasker(1)">
-          <img src="../../assets/img/icon/widget.png" alt="" id="startMenuImg" />
+          <img src="@/assets/img/icon/widget.png" alt="" id="startMenuImg" />
         </div>
       </div>
       <div class="center fcc">
@@ -14,7 +14,7 @@
           <component :is="item.component"></component>
           <template #reference>
             <div id="taskMenu" class="taskbarBtn">
-              <img :src="`src/assets/img/icon/${item.icon}`" :id="`${item.icon}Img`" />
+              <img :src="getSrcIcon(item.icon)" :id="`${item.icon}Img`" />
             </div>
           </template>
         </Popover>
@@ -26,7 +26,7 @@
           class="taskbarBtn"
           @click="showTaskerbarPanel(item.name)"
         >
-          <img :src="`src/assets/img/icon/${item.icon}`" :id="`${item.name}Img`" />
+          <img :src="getSrcIcon(item.icon)" :id="`${item.name}Img`" />
         </div>
       </div>
       <div class="tsright fcc">
@@ -36,8 +36,8 @@
           <template #reference>
             <div class="wf">
               <ul class="fcc">
-                <li><img src="../../assets/img/icon/ui/wifi.png" alt="" /></li>
-                <li><img src="../../assets/img/icon/ui/audio3.png" alt="" /></li>
+                <li><img src="@/assets/img/icon/ui/wifi.png" alt="" /></li>
+                <li><img src="@/assets/img/icon/ui/audio3.png" alt="" /></li>
               </ul>
             </div>
           </template>
@@ -64,6 +64,7 @@
   import { showBox, hideBox } from '@/utils';
   import Win11Calendar from './components/Win11Calendar';
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
+  import { getSrcIconUI, getSrcIcon } from '../../utils/getSrc';
 
   import $bus from '@/utils/ViewSize/Bus.js';
   const count = ref(0);
@@ -138,6 +139,7 @@
     backdrop-filter: saturate(3) blur(20px);
     bottom: 0;
     user-select: none;
+    z-index: 100;
   }
   .tsleft {
     width: 212px;

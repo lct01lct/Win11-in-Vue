@@ -7,7 +7,7 @@
       <!-- //搜索框 -->
       <div class="search-bar">
         <div class="search-icon">
-          <img width="18" src="src/assets/img/icon/search.png" alt="" />
+          <img width="18" src="@/assets/img/icon/search.png" alt="" />
         </div>
         <input type="text" placeholder="搜索新闻" value="" class="search-input" />
       </div>
@@ -61,7 +61,7 @@
         // //
         content: ' ';
         background-color: #f25664;
-        background-image: url('src/assets/img/leftPane/userIcon.png');
+        background-image: url('@/assets/img/leftPane/userIcon.png');
         background-size: 100% 100%;
         right: 15px;
         top: 15px;

@@ -49,6 +49,7 @@
     console.log(`打开应用：${appName}`);
     if (appName === 'Terminal') {
       const target = document.querySelector(`.${appName}`);
+      console.log(target);
       showBox(target, appName);
     }
   };

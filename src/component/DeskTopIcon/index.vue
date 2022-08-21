@@ -30,8 +30,11 @@
   // // 模态拖动框
   let ModalFrameRef;
   onMounted(() => {
-    ModalFrameRef = that.refs.ModalFrameRef;
-    IconsRef = that.refs.IconsRef;
+    // ModalFrameRef = that.refs.ModalFrameRef;
+    // IconsRef = that.refs.IconsRef;
+
+    ModalFrameRef = document.querySelector('.modalFrame');
+    IconsRef = document.querySelector('.deskTopIcons');
   });
   const deskTopIconDoms = [];
   const deskTopIconRefs = (e) => {
@@ -71,6 +74,7 @@
   const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
   // eslint-disable-next-line prefer-const
   const DeskTopIconData = computed(() => {
+    console.log(new DeskTop(deskTopData, getDesktopFolderData.children).appData);
     return new DeskTop(deskTopData, getDesktopFolderData.children).appData;
   });
 </script>

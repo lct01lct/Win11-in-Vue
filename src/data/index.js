@@ -58,7 +58,7 @@ export const deskTopData = [
   {
     icon: 'user.png',
     name: 'User',
-    componentName: 'FolderFullBox',
+    componentName: 'user',
     posIdx: 1,
   },
   {

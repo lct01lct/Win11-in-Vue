@@ -38,23 +38,23 @@
   <div class="main-menu-wrapper" v-if="menuVisible" @click.stop ref="menuRef">
     <ul class="icon-options-list">
       <li class="icon-option-item">
-        <img src="src/assets/img/setting/cut.png" alt="" draggable="false" />
+        <img src="@/assets/img/setting/cut.png" alt="" draggable="false" />
       </li>
       <li class="icon-option-item">
-        <img src="src/assets/img/setting/copy.png" alt="" draggable="false" />
+        <img src="@/assets/img/setting/copy.png" alt="" draggable="false" />
       </li>
       <li class="icon-option-item">
-        <img src="src/assets/img/setting/paste.png" alt="" draggable="false" />
+        <img src="@/assets/img/setting/paste.png" alt="" draggable="false" />
       </li>
       <li class="icon-option-item">
-        <img src="src/assets/img/setting/rename.png" alt="" draggable="false" />
+        <img src="@/assets/img/setting/rename.png" alt="" draggable="false" />
       </li>
 
       <li class="icon-option-item">
-        <img src="src/assets/img/setting/cut.png" alt="" draggable="false" />
+        <img src="@/assets/img/setting/cut.png" alt="" draggable="false" />
       </li>
       <li class="icon-option-item">
-        <img src="src/assets/img/setting/cut.png" alt="" draggable="false" />
+        <img src="@/assets/img/setting/cut.png" alt="" draggable="false" />
       </li>
     </ul>
     <hr />
