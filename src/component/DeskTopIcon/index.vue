@@ -48,7 +48,8 @@
     const X = e.pageX;
     const Y = e.pageY;
     // 清除所有已选中的样式
-    Array.from(IconsRef.children).map((value) => value.classList.remove('selected'));
+    // Array.from(IconsRef.children).map((value) => value.classList.remove('selected'));
+    console.log(IconsRef);
     const move = (e) => {
       // 改变模态框的大小
       const tempX = e.pageX < X ? e.pageX : X;
