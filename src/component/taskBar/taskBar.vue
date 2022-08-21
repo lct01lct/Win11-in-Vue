@@ -10,7 +10,6 @@
       <div class="center fcc">
         <!-- 打开的方式不同，使用popover -->
         <Popover dir="bottom" v-for="item in bottomPop" :key="item">
-          <!-- <Start></Start> -->
           <component :is="item.component"></component>
           <template #reference>
             <div id="taskMenu" class="taskbarBtn">
