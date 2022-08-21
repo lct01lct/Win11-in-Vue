@@ -59,8 +59,11 @@
     deskTopStore.changeCurrentSelected([]);
 
     const move = (e) => {
+      const currentX1 = e.pageX;
+      const x2 = X;
+
       // 改变模态框的大小
-      ModalFrameRef.style.left = X + 'px';
+      ModalFrameRef.style.left = currentX1 - X + 'px';
       ModalFrameRef.style.top = Y + 'px';
       setWidth(e.pageX - X, e.pageY - Y, ModalFrameRef);
 
