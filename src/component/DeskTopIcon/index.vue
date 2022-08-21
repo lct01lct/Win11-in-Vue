@@ -31,6 +31,7 @@
   let ModalFrameRef;
   onMounted(() => {
     ModalFrameRef = that.refs.ModalFrameRef;
+    console.log(that.refs);
     IconsRef = that.refs.IconsRef;
   });
   const deskTopIconDoms = [];
