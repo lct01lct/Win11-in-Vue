@@ -18,7 +18,7 @@ class DeskTop {
     userFolderData.forEach((item, i) => {
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
-      item.posIdx = index + 10;
+      item.posIdx = index;
       this.appData.push(item);
       console.log(this.appData);
       this.setEmptyPosIdx();
