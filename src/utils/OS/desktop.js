@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 class DeskTop {
   constructor(baseData, userFolderData) {
     this.emptyPosIdx = 1; // 当前可以存放文件的空位置
@@ -22,8 +24,9 @@ class DeskTop {
       item.posIdx = this.emptyPosIdx;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
-      console.log(this.appData);
+
       this.appData.push(item);
+      console.log(this.appData);
       this.setEmptyPosIdx();
     }
   }
@@ -63,7 +66,7 @@ function sortByPosIdx(appData) {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
       if (arr[j].posIdx > arr[j + 1].posIdx) {
-        const temp = { ...arr[j + 1] };
+        const temp = _.cloneDeep(arr[j + 1]);
         arr[j + 1] = arr[j];
         arr[j] = temp;
       }
