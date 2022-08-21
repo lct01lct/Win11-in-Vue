@@ -38,7 +38,7 @@
   $bus.on('showOne', (index) => {
     if (index === 1) {
       currentTime = new Date();
-      time.value = currentTime.toLocaleTimeString().slice(0, 7);
+      time.value = currentTime.toLocaleTimeString().slice(0, 6);
       console.log(index);
       show.value = !show.value;
     } else {
@@ -48,7 +48,7 @@
 </script>
 <style lang="scss" scoped>
   .pane-top {
-    width: 693px;
+    width: 694px;
     margin: 22px 6px 10px 60px;
     .title {
       text-align: center;
@@ -101,7 +101,7 @@
     top: 12px;
     bottom: 12px;
     width: 837px;
-    height: 765px;
+    height: 793px;
     z-index: 10;
     border-radius: 13px;
     backdrop-filter: blur(55px);
@@ -116,7 +116,7 @@
     overflow-x: hidden;
     overflow-y: scroll;
     width: 725px;
-    height: 750px;
+    height: 648px;
     margin-left: 45px;
   }
   .erery-item {

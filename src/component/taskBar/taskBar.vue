@@ -201,4 +201,18 @@
       margin-top: 10px;
     }
   }
+  .transition img {
+    animation: small-and-big 1s;
+  }
+  @keyframes small-and-big {
+    0% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.8);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
 </style>

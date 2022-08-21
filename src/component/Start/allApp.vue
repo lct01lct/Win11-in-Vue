@@ -74,7 +74,7 @@
     h5 {
       width: 100%;
       // box-sizing: border-box;
-      padding: 8px 0 8px 4px;
+      padding-left: 5px;
       font-size: 0.76em;
       font-weight: 400;
       cursor: pointer;
@@ -82,19 +82,20 @@
     .loopItem {
       display: flex;
       align-items: center;
-      padding: 8px 0 8px 30px;
+      padding: 8px 0 8px 5px;
       border-radius: 4px;
       img {
         width: 20px;
         height: 20px;
       }
       p {
-        margin-left: 30px;
-        line-height: 20px;
+        line-height: 17px;
+        margin: 5px 0 5px 26px;
       }
       &:hover {
-        background: rgb(255, 255, 255);
+        background: rgb(255 255 255 / 59%);
         border-radius: 3px;
+        transition: all 0.1s;
       }
     }
   }

@@ -34,10 +34,10 @@
         <div class="t-foot">
           <h4>热门搜索</h4>
           <div class="hot-box">
-            <div class="hot-item">lol非活跃账户被删除</div>
-            <div class="hot-item">lol非活跃账户被删除</div>
-            <div class="hot-item">lol非活跃账户被删除</div>
-            <div class="hot-item">lol非活跃账户被删除</div>
+            <div class="hot-item">中国女排横扫韩国女排</div>
+            <div class="hot-item">连续十天高温红警发布</div>
+            <div class="hot-item">上海暂停多地景观照明</div>
+            <div class="hot-item">南方蚊子变少了</div>
           </div>
         </div>
       </div>
@@ -83,8 +83,6 @@
       display: flex;
       padding: 0 10px;
       width: 90%;
-      .search-icon {
-      }
       .search-input {
         width: 100%;
         background: #ffffff;

@@ -141,9 +141,10 @@
   td {
     text-align: center;
     /* margin: 6px; */
-    padding: 11px;
+    padding: 9px 11px;
     font-size: 13px;
     border-radius: 50%;
+    border: 1px solid #eff0f0;
   }
   .wordold {
     font-size: 13px;
@@ -171,6 +172,6 @@
 
   /* 被选中的日期 */
   .focus-day {
-    border: 1px solid #000;
+    border: 1px solid rgb(0, 145, 73);
   }
 </style>
