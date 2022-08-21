@@ -1,5 +1,5 @@
 <template>
-  <div class="left-pane" :style="{ left: show ? '18px' : '-840px' }">
+  <div class="left-pane">
     <div class="pane-top">
       <div class="title">
         {{ time }}
@@ -7,7 +7,7 @@
       <!-- //搜索框 -->
       <div class="search-bar">
         <div class="search-icon">
-          <img width="18" src="src/assets/img/icon/search.png" alt="" />
+          <img width="18" src="@/assets/img/icon/search.png" alt="" />
         </div>
         <input type="text" placeholder="搜索新闻" value="" class="search-input" />
       </div>
@@ -28,28 +28,28 @@
 */
   import PaneItem from './PaneItem.vue';
   import { imgInfoList } from './imgInfo.json';
-  import $bus from '@/utils/ViewSize/Bus.js';
-  // import { ref, reactive } from 'vue';
-  let currentTime = new Date();
+  // import $bus from '@/utils/ViewSize/Bus.js';
+  const currentTime = new Date();
   const time = ref('00:00');
   time.value = currentTime.toLocaleTimeString().slice(0, 7); // 获取当前时间 上午11:29
   const show = ref(0);
 
-  $bus.on('showOne', (index) => {
-    if (index === 1) {
-      currentTime = new Date();
-      time.value = currentTime.toLocaleTimeString().slice(0, 7);
-      console.log(index);
-      show.value = !show.value;
-    } else {
-      show.value = false;
-    }
-  });
+  // $bus.on('showOne', (index) => {
+  //   if (index === 1) {
+  //     currentTime = new Date();
+  //     time.value = currentTime.toLocaleTimeString().slice(0, 7);
+  //     console.log(index);
+  //     show.value = !show.value;
+  //   } else {
+  //     show.value = false;
+  //   }
+  // });
 </script>
 <style lang="scss" scoped>
   .pane-top {
     width: 693px;
     margin: 22px 6px 10px 60px;
+
     .title {
       text-align: center;
       font-size: 25px;
@@ -63,7 +63,7 @@
         content: ' ';
 
         background-color: #f25664;
-        background-image: url('src/assets/img/leftPane/userIcon.png');
+        background-image: url('@/assets/img/leftPane/userIcon.png');
         background-size: 100% 100%;
         right: 15px;
         top: 15px;
@@ -97,15 +97,30 @@
   }
 
   .left-pane {
-    position: absolute;
-    top: 12px;
-    bottom: 12px;
     width: 837px;
-    height: 765px;
-    z-index: 10;
+    height: 700px;
     border-radius: 13px;
     backdrop-filter: blur(55px);
     transition: all 0.5s cubic-bezier(0.77, 0, 0.18, 1);
+    box-shadow: 1px 1px 2px rgba(34, 34, 34, 0.25);
+    background-color: rgba(222, 235, 246, 0.6);
+
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: -1;
+
+    overflow-y: hidden;
+  }
+
+  .left-pane::-webkit-scrollbar {
+    width: 3px;
+  }
+  .left-pane::-webkit-scrollbar-thumb {
+    height: 2em;
+    border-radius: 5px;
+    background-color: #777a7c;
   }
   .left-pane-content {
     display: flex;
@@ -123,10 +138,6 @@
     margin: 5px 0;
     filter: drop-shadow(1px 0px 4px #68787a);
   }
-
-  // .left-pane-content::-webkit-scrollbar-button {
-  //   background-color: rgb(108, 141, 249);
-  // }
 
   /* 滚动条里面的滑块 */
   .left-pane-content::-webkit-scrollbar-thumb {

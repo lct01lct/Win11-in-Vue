@@ -30,25 +30,22 @@
 
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
   import LeftPane from '@/component/LeftPane/LeftPane.vue';
-  import useMenuStore from '@/store/menuStore';
 
   import Menu from './Menu';
   getUsers();
-
-  const menuStore = useMenuStore();
 
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
   });
 
-  const initDeskTop = () => {
-    menuStore.setMenuVisible(false);
-  };
+  // const initDeskTop = () => {
+  //   menuStore.setMenuVisible(false);
+  // };
 
-  const menuRef = ref(null);
-  const showMainMenu = (e) => {
-    menuRef.value.setMenu(e, 'blank');
-  };
+  // const menuRef = ref(null);
+  // const showMainMenu = (e) => {
+  //   menuRef.value.setMenu(e, 'blank');
+  // };
 
   document.addEventListener('keyup', (e) => {
     if (e.key === 'Control') {

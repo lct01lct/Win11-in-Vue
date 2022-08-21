@@ -4,10 +4,6 @@ export default {
       token: localStorage.getItem('token'),
       username: '',
       themeSrc: localStorage.getItem('theme') || 'default',
-      // storeCurrentFolder: {},
-      // storeCompletedFolder: {},
-      // lastFolder: [],
-      // currentShowFolder: [],
     };
   },
   getters: {

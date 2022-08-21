@@ -1,5 +1,6 @@
 import Start from '@/component/Start';
 import Search from '@/component/Search/Search.vue';
+import LeftPane from '@/component/LeftPane/LeftPane';
 
 export const toolSize = {
   viewSizeWidth: 800,
@@ -17,16 +18,20 @@ export const taskBarBottomPop = [
   {
     icon: 'home.png',
     name: 'startMenu',
+    way: 'bottom',
     component: shallowRef(Start),
   },
   {
     icon: 'search.png',
     name: 'search',
+    way: 'bottom',
     component: shallowRef(Search),
   },
   {
     icon: 'widget.png',
     name: 'widget',
+    way: 'left',
+    component: shallowRef(LeftPane),
   },
 ];
 

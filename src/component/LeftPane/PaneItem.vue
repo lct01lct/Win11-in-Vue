@@ -1,22 +1,23 @@
 <template>
   <div>
     <div class="mid-size" v-if="imgInfo.size == 'm'">
-      <img :src="`src/assets/img/leftPane/${imgInfo.url}.png`" alt="" />
+      <img :src="getSrcLeftPane(`${imgInfo.url}.png`)" alt="" />
     </div>
     <div class="long-size" v-if="imgInfo.size == 'l'">
-      <img :src="`src/assets/img/leftPane/${imgInfo.url}.png`" alt="" />
+      <img :src="getSrcLeftPane(`${imgInfo.url}.png`)" alt="" />
     </div>
     <div class="mid-size flex-column" v-if="imgInfo.size == 's'">
       <div class="small-size">
-        <img :src="`src/assets/img/leftPane/${imgInfo.url.smallImgList[0]}.png`" alt="" />
+        <img :src="getSrcLeftPane(`${imgInfo.url.smallImgList[0]}.png`)" alt="" />
       </div>
       <div class="small-size">
-        <img :src="`src/assets/img/leftPane/${imgInfo.url.smallImgList[1]}.png`" alt="" />
+        <img :src="getSrcLeftPane(`${imgInfo.url.smallImgList[1]}.png`)" alt="" />
       </div>
     </div>
   </div>
 </template>
 <script setup>
+  import { getSrcLeftPane } from '../../utils/getSrc';
   const props = defineProps({
     imgInfo: null,
   });

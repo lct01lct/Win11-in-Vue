@@ -1,5 +1,5 @@
 <template>
-  <div class="search-box" :style="{ top: show ? '10px' : '-774px' }">
+  <div class="search-box">
     <div class="search-bar">
       <div class="search-icon"><img width="18" src="@/assets/img/icon/search.png" alt="" /></div>
 
@@ -49,8 +49,6 @@
   import { lastedData, todayData } from './searchData.json';
   import { showBox } from '@/utils';
   import { getSrcSearch, getSrcStartIcon } from '../../utils/getSrc';
-  import $bus from '@/utils/ViewSize/Bus.js';
-
   /** 需求分析：
    *  1. 静态页面
    */
@@ -58,16 +56,6 @@
     const target = document.querySelector(`.${name}`);
     showBox(target, name);
   };
-  const show = ref(0);
-
-  $bus.on('showOne', (index) => {
-    if (index === 3) {
-      console.log(index);
-      show.value = !show.value;
-    } else {
-      show.value = false;
-    }
-  });
 </script>
 
 <style lang="scss" scoped>
@@ -82,7 +70,6 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: -1;
-    transition: all 0.4;
     .search-bar {
       height: 35px;
       border: solid 2px #1885e3;
@@ -156,10 +143,8 @@
           background-color: #fffdfc;
           border-radius: 5px;
           height: 167px;
-
           img {
             border-radius: 5px 5px 0 0;
-
             width: 144px;
             height: 104px;
           }
@@ -180,7 +165,6 @@
         .hot-box {
           display: flex;
           flex-wrap: wrap;
-
           height: 109px;
           border-radius: 8px;
           .hot-item {

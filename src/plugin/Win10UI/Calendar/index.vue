@@ -86,6 +86,7 @@
 <style scoped>
   .calendar-wrapper {
     padding: 17px 14px 7px 14px;
+    overflow: hidden;
   }
   .next {
     transform: rotateX(180deg);

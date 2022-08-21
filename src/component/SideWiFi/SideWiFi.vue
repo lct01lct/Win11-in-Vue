@@ -1,5 +1,5 @@
 <template>
-  <div class="sidePane" :style="{ right: show == true ? '12px' : '-372px' }">
+  <div class="sidePane">
     <div class="quickSettings">
       <div class="qkCont">
         <div
@@ -36,8 +36,6 @@
 <script setup>
   import { WiFiData } from './WFData.json';
   import { getSrcIconUI } from '../../utils/getSrc';
-  import $bus from '@/utils/ViewSize/Bus.js';
-
   // import { ref } from 'vue'; // 先引入
   const selectStat = reactive(new Array(6).fill(0));
   // let selectStat0 = 1;
@@ -49,29 +47,18 @@
     // selectStat.splice(1, 0);
     // that.ctx.$forceUpdate();
   }
-  const show = ref(0);
-
-  $bus.on('showOne', (index) => {
-    if (index === 4) {
-      console.log(index);
-      show.value = !show.value;
-    } else {
-      show.value = false;
-    }
-  });
 </script>
 <style lang="scss" scoped>
   .sidePane {
     position: absolute;
     bottom: 58px;
-    right: -372px;
+    right: 12px;
     width: 360px;
     border-radius: 0.5rem;
     background: #e9f2ff;
     padding: 1.25rem 1.25rem 2rem 1.25rem;
     overflow: hidden;
-    z-index: 10;
-    transition: all 0.3s;
+    z-index: -1;
   }
   .quickSettings {
     // background: #e9f2ff;
@@ -89,7 +76,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-
     color: #2e2e2f;
     .quickIcon {
       &:hover {
@@ -102,10 +88,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
       border-bottom-color: rgba(0, 0, 0, 0.2);
       background: #fffefecf;
-
       border: solid 0.1px rgba(17, 17, 17, 0.1);
       // transition: all 0.1s ease;
     }
