@@ -31,7 +31,7 @@
   let ModalFrameRef;
   onMounted(() => {
     ModalFrameRef = that.refs.ModalFrameRef;
-    IconsRef = document.querySelector('.deskTopIcons');
+    IconsRef = that.refs.IconsRef;
   });
   const deskTopIconDoms = [];
   const deskTopIconRefs = (e) => {
@@ -48,8 +48,7 @@
     const X = e.pageX;
     const Y = e.pageY;
     // 清除所有已选中的样式
-    // Array.from(IconsRef.children).map((value) => value.classList.remove('selected'));
-    console.log(IconsRef);
+    Array.from(IconsRef.children).map((value) => value.classList.remove('selected'));
     const move = (e) => {
       // 改变模态框的大小
       const tempX = e.pageX < X ? e.pageX : X;
@@ -59,9 +58,9 @@
 
       setWidth(e.pageX - X, e.pageY - Y, ModalFrameRef);
       // 当前被选中的元素
-      // const inContains = judgeContains(IconsRef, ModalFrameRef);
-      // // 存储状态
-      // deskTopStore.changeCurrentSelected(inContains);
+      const inContains = judgeContains(IconsRef, ModalFrameRef);
+      // 存储状态
+      deskTopStore.changeCurrentSelected(inContains);
     };
     document.addEventListener('mousemove', move);
     document.addEventListener('mouseup', () => {
