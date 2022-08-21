@@ -2,15 +2,19 @@
   import { pagePos, getViewportSize } from '@/utils/ViewSize/utils';
   import { DragFeatrue } from '@/utils/ViewSize/drag';
   import useMenuStore from './store/menuStore';
+  import DeskTopMenu from './DeskTopMenu.vue';
+  import IconMenu from './IconMenu.vue';
   const menuStore = useMenuStore();
 
   const menuRef = ref(null);
   const menuVisible = computed(() => menuStore.menuVisible);
+  const clickType = ref('');
 
   const setMenu = (e, type) => {
     if (!type) {
       return false;
     }
+    clickType.value = type;
     menuStore.setMenuVisible(true);
     nextTick(() => {
       DragFeatrue.prototype.move.call(
@@ -29,6 +33,10 @@
     });
   };
 
+  const hideMenu = () => {
+    menuStore.setMenuVisible(false);
+  };
+
   defineExpose({
     setMenu,
   });
@@ -36,57 +44,12 @@
 
 <template>
   <div class="main-menu-wrapper" v-if="menuVisible" @click.stop ref="menuRef">
-    <ul class="icon-options-list">
-      <li class="icon-option-item">
-        <img src="src/assets/img/setting/cut.png" alt="" draggable="false" />
-      </li>
-      <li class="icon-option-item">
-        <img src="src/assets/img/setting/copy.png" alt="" draggable="false" />
-      </li>
-      <li class="icon-option-item">
-        <img src="src/assets/img/setting/paste.png" alt="" draggable="false" />
-      </li>
-      <li class="icon-option-item">
-        <img src="src/assets/img/setting/rename.png" alt="" draggable="false" />
-      </li>
-
-      <li class="icon-option-item">
-        <img src="src/assets/img/setting/cut.png" alt="" draggable="false" />
-      </li>
-      <li class="icon-option-item">
-        <img src="src/assets/img/setting/cut.png" alt="" draggable="false" />
-      </li>
-    </ul>
-    <hr />
-    <div class="text-options-wrapper">
-      <ul class="text-options-list">
-        <li class="text-option-item">查看</li>
-        <li class="text-option-item">排序方式</li>
-        <li class="text-option-item">刷新</li>
-        <li class="text-option-item">新建</li>
-        <!-- <li class="text-option-item">以管理员身份打开</li>
-        <li class="text-option-item">固定到开始屏幕</li>
-        <li class="text-option-item">压缩为ZIP文件</li>
-        <li class="text-option-item">复制文件地址</li>
-        <li class="text-option-item">属性</li> -->
-      </ul>
-      <hr />
-      <ul class="text-options-list">
-        <li class="text-option-item">显示更多选项</li>
-      </ul>
-      <hr />
-      <ul class="text-options-list">
-        <!-- <li class="text-option-item">OneDirve</li> -->
-        <li class="text-option-item">显示设置</li>
-        <li class="text-option-item">个性化</li>
-        <li class="text-option-item">Open in Windows Terminal</li>
-        <li class="text-option-item">显示更多选项</li>
-      </ul>
-    </div>
+    <DeskTopMenu v-if="clickType === 'blank'" @hideMenu="hideMenu"></DeskTopMenu>
+    <!-- <IconMenu v-if="clickType === 'blank'" @hideMenu="hideMenu"></IconMenu> -->
   </div>
 </template>
 
-<style scoped lang="scss">
+<style lang="scss">
   .main-menu-wrapper {
     display: flex;
     flex-direction: column;
@@ -95,7 +58,7 @@
     left: 0;
     z-index: 9999;
     width: 258px;
-    height: 336px;
+    // height: 336px;
     user-select: none;
     background-color: rgb(247, 247, 247);
     padding: 5px;

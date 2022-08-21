@@ -8,6 +8,7 @@ export default defineStore('deskTopConfigStore', {
       iconBaseHeight: 76.8,
       taskbarHeight: 48,
       currentSelected: [],
+      isIconMenuVisible: false,
     };
   },
   getters: {

@@ -75,6 +75,11 @@
     }
     return classes;
   };
+
+  const showIconMenu = (e) => {
+    e.preventDefault();
+    configStore.isIconMenuVisible = true;
+  };
 </script>
 
 <template>
@@ -82,6 +87,7 @@
     ref="deskTopIconRef"
     class="deskTopIcon"
     @click.stop="clickApp"
+    @contextmenu.stop="showIconMenu($event)"
     @dblclick="dblClickApp($event, data)"
     :style="`
         top: ${((Math.floor(data.posIdx % maxIconCountY) - 1) * iconBaseWeight).toFixed(1) + 'px'};
