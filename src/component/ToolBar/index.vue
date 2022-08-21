@@ -1,6 +1,7 @@
 <script setup>
   import { toolSize } from '@/data';
   import { hideBox, searchMaxZindex } from '@/utils';
+  import { getSrcSetting } from '../../utils/getSrc';
   defineProps({
     color: {
       type: String,
@@ -212,7 +213,7 @@
     <div class="functionArea">
       <button @click="mini"><img src="@/assets/img/setting/minimize.png" /></button>
       <button @click="max" @mouseenter="showSplit">
-        <img :src="`/src/assets/img/setting/${MaxOrMin}.png`" />
+        <img :src="getSrcSetting(`${MaxOrMin}.png`)" />
       </button>
       <button @click="close"><img src="@/assets/img/setting/close.png" /></button>
     </div>

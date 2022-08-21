@@ -1,12 +1,7 @@
 <template>
-  <li
-    ref="folderItemRef"
-    @dblclick="goToTargetPath(data)"
-    :title="`大小：${size}`"
-    @mousedown="mousedown($event, folderItemRef, fullyData, data)"
-  >
+  <li ref="folderItemRef" @dblclick="goToTargetPath(data)" :title="`大小：${size}`">
     <!-- ${usageRate ? `Rate: ${usageRate}` : ''} -->
-    <img :src="`src/assets/img/setting/${icon}`" />
+    <img :src="getSrcSetting(icon)" />
     <div>
       <span @click.right="changeName($event, data)">
         <em
@@ -24,7 +19,7 @@
 
 <script setup>
   import folderStore from '@/store/folderStore';
-  import drag from '@/utils/ViewSize/drag';
+  import { getSrcSetting } from '@/utils/getSrc';
 
   const folderItemRef = ref(null);
 
@@ -64,13 +59,6 @@
   });
 
   const store = folderStore();
-
-  const mousedown = (e, dom, data, item) => {
-    // drag.call(dom, e, data, item, {
-    //   edgeWeight: 600,
-    //   edgeHeight: 300,
-    // });
-  };
 
   // 接收emits，目的是更新
   const goToTargetPath = (item) => {

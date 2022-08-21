@@ -2,13 +2,13 @@
   <div class="fileToolBar">
     <ul>
       <li @click="addNewFolder">
-        <img src="src/assets/img/setting/new.png" />
+        <img src="@/assets/img/setting/new.png" />
         <span class="desc">New</span>
       </li>
       <li v-for="item in toolList" :key="item">
         <span v-if="item.type === 'spacer'" class="spacer"></span>
         <template v-if="item.type === 'icon'">
-          <img :src="`src/assets/img/setting/${item.icon}`" />
+          <img :src="getSrcSetting(item.icon)" />
           <span class="desc">{{ item.desc }}</span>
         </template>
       </li>
@@ -26,8 +26,9 @@
   //  5. 排序
   //  6. 视图
   import folderStore from '@/store/folderStore';
-  import { uploadFolderStruct } from './api';
-  const { appContext } = getCurrentInstance();
+  import { sortByPosIdx } from '@/utils/OS/desktop';
+  import { getSrcSetting } from '@/utils/getSrc';
+
   const toolList = [
     {
       type: 'spacer',
@@ -73,22 +74,12 @@
       memory: '0KB',
       children: [],
     };
+    sortByPosIdx(currentFolder);
+
     const index = currentFolder.addNewEmptyFolder(obj);
     const targetObject = currentFolder.children[index - 1];
 
-    // 因为将MainBody -> 新的组件，原逻辑改变
-    // 由于监听currentShowFolder所以不能检测到该树的改变
-    // 手动push一下
     store.currentShowFolder.push(targetObject);
-    // todo
-    const temp = appContext.config.globalProperties._cloneDeep(targetObject);
-    // console.log(temp);
-    // console.log(
-    //   await uploadFolderStruct({
-    //     struct: temp,
-    //     path: currentFolder.getPath(),
-    //   })
-    // );
   };
 </script>
 

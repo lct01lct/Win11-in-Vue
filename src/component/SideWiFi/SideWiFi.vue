@@ -10,7 +10,7 @@
         >
           <div class="quickIcon" :style="{ background: selectStat[index] != 0 ? '#0067c0' : '' }">
             <div :style="{ filter: selectStat[index] == 1 ? 'invert(1)' : '' }">
-              <img width="16" :src="`src/assets/img/icon/ui/${item.url}.png`" alt="" />
+              <img width="16" :src="getSrcIconUI(`${item.url}.png`)" alt="" />
             </div>
           </div>
           <div class="qktext">{{ item.name }}</div>
@@ -19,13 +19,13 @@
 
       <div class="slineCont">
         <div class="mx-2">
-          <img width="20" src="src/assets/img/icon/ui/brightness.png" alt="" />
+          <img width="20" src="@/assets/img/icon/ui/brightness.png" alt="" />
         </div>
         <input class="Slider" type="range" min="10" max="100" value="100" />
       </div>
       <div class="slineCont">
         <div class="mx-2">
-          <img width="18" src="src/assets/img/icon/ui//audio3.png" alt="" />
+          <img width="20" src="@/assets/img/icon/ui/audio3.png" alt="" />
         </div>
         <input class="slider" type="range" min="0" max="100" value="100" />
       </div>
@@ -35,6 +35,8 @@
 
 <script setup>
   import { WiFiData } from './WFData.json';
+  import { getSrcIconUI } from '../../utils/getSrc';
+
   // import { ref } from 'vue'; // 先引入
   const selectStat = reactive(new Array(6).fill(0));
   // let selectStat0 = 1;

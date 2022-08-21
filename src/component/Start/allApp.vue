@@ -14,7 +14,7 @@
       <div class="scroll-item" :id="item.main" v-for="(item, index) in tabListData" :key="index">
         <h5 @click="showLetter">{{ item.mainList.length > 0 ? item.main : '' }}</h5>
         <div class="loopItem" v-for="(row, key) in item.mainList" :key="key">
-          <img :src="`src/assets/img/icon/startIcon/${row.url}.png`" alt="" />
+          <img :src="getSrcStartIcon(`${row.url}.png`)" alt="" />
           <p>{{ row.name }}</p>
         </div>
       </div>
@@ -34,9 +34,7 @@
   </div>
 </template>
 <script setup>
-  // import { emit, ref } from 'process';
-  // import { emit } from 'process';
-  // import { ref, defineEmits } from 'vue';
+  import { getSrcStartIcon } from '../../utils/getSrc';
   import { tabListData, letterData } from './StartData.json';
   const jump = ref(false);
 

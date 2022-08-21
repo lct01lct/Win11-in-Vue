@@ -10,7 +10,7 @@
     <div class="bottomMenu" @click="gotoLoginPage">
       <!-- 左侧头像和用户名 -->
       <div class="user">
-        <img src="src/assets/img/icon/startIcon/user.png" alt="" />
+        <img src="@/assets/img/icon/startIcon/user.png" alt="" />
         <p>username</p>
       </div>
       <!-- 右侧电源按钮 -->

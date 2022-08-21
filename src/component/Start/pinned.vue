@@ -12,7 +12,7 @@
     <!-- pinned列表 -->
     <div class="pinnedList">
       <div v-for="(item, index) in pinnedData" :key="index" @click.stop="openApp(item.name)">
-        <img :src="`src/assets/img/icon/startIcon/${item.url}.png`" alt="" srcset="" />
+        <img :src="getSrcStartIcon(`${item.url}.png`)" alt="" srcset="" />
         <p>{{ item.name }}</p>
       </div>
     </div>
@@ -21,7 +21,7 @@
     <p>Recommended</p>
     <div class="recommend">
       <div class="item" v-for="(item, index) in recommendData" :key="index">
-        <img :src="`src/assets/img/icon/startIcon/${item.url}.png`" alt="" srcset="" />
+        <img :src="getSrcStartIcon(`${item.url}.png`)" alt="" srcset="" />
         <h3>{{ item.title }}</h3>
         <p>{{ item.name }}</p>
       </div>
@@ -30,10 +30,7 @@
 </template>
 
 <script setup>
-  // import { emit } from 'process';
-  // import { reactive } from 'vue';
-  // import { useStore } from "vuex";
-  // const store = useStore();
+  import { getSrcStartIcon } from '../../utils/getSrc';
   import { pinnedData, recommendData } from './StartData.json';
   import { showBox } from '@/utils';
 

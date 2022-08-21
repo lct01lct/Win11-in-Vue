@@ -58,7 +58,7 @@ class DeskTop {
 export default DeskTop;
 
 // 根据 PosIdx 排序
-function sortByPosIdx(appData) {
+export function sortByPosIdx(appData) {
   const arr = appData;
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {

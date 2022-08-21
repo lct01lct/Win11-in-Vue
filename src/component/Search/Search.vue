@@ -1,7 +1,7 @@
 <template>
   <div class="search-box">
     <div class="search-bar">
-      <div class="search-icon"><img width="18" src="src/assets/img/icon/search.png" alt="" /></div>
+      <div class="search-icon"><img width="18" src="@/assets/img/icon/search.png" alt="" /></div>
 
       <input type="text" placeholder="Type here to search" value="" class="search-input" />
     </div>
@@ -17,17 +17,17 @@
             class="lasted-item"
           >
             <!-- 借用start的icon -->
-            <img :src="`src/assets/img/icon/startIcon/${item.url}.png`" alt="" srcset="" />
+            <img :src="getSrcStartIcon(`${item.url}.png`)" alt="" srcset="" />
             <p>{{ item.name }}</p>
           </div>
         </div>
       </div>
       <div class="today-box">
         <h4>今天</h4>
-        <div class="t-top"><img src="src/assets/img/search/1.png" alt="" /></div>
+        <div class="t-top"><img src="@/assets/img/search/1.png" alt="" /></div>
         <div class="t-mid">
           <div class="t-d-item" v-for="(item, index) in todayData" :key="index">
-            <img :src="`src/assets/img/search/${item.url}.png`" alt="" />
+            <img :src="getSrcSearch(`${item.url}.png`)" alt="" />
             <p>{{ item.desc }}</p>
           </div>
         </div>
@@ -48,6 +48,8 @@
 <script setup>
   import { lastedData, todayData } from './searchData.json';
   import { showBox } from '@/utils';
+  import { getSrcSearch, getSrcStartIcon } from '../../utils/getSrc';
+
   /** 需求分析：
    *  1. 静态页面
    */

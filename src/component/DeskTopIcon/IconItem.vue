@@ -4,10 +4,26 @@
   import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
   import { showBox } from '../../utils';
   import folderStore from '@/store/folderStore';
+  import { getSrcIcon } from '../../utils/getSrc';
 
   const configStore = useDeskTopConfigStore();
 
   const { iconBaseWeight, iconBaseHeight, maxIconCountY } = configStore;
+
+  const getPos = (posIdx) => {
+    return {
+      top:
+        (
+          (Math.floor(posIdx % maxIconCountY ? posIdx % maxIconCountY : maxIconCountY) - 1) *
+          iconBaseWeight
+        ).toFixed(1) + 'px',
+      left:
+        (
+          Math.floor(posIdx % maxIconCountY ? posIdx / maxIconCountY : posIdx / maxIconCountY - 1) *
+          iconBaseHeight
+        ).toFixed(1) + 'px',
+    };
+  };
 
   const deskTopIconRef = ref(null);
   defineProps({
@@ -66,12 +82,12 @@
     :title="name"
     @dblclick="clickApp($event, data)"
     :style="`
-        top: ${((Math.floor(data.posIdx % maxIconCountY) - 1) * iconBaseWeight).toFixed(1) + 'px'};
-        left: ${(Math.floor(data.posIdx / maxIconCountY) * iconBaseHeight).toFixed(1) + 'px'};
+        top: ${getPos(data.posIdx).top};
+        left: ${getPos(data.posIdx).left};
       `"
     @mousedown="dragIconOrOpenMenu($event, deskTopIconRef, DeskTopIconData, data)"
   >
-    <img :src="`src/assets/img/icon/${icon}`" draggable="false" />
+    <img :src="getSrcIcon(icon)" draggable="false" />
     <span>{{ name }}</span>
   </div>
 </template>
