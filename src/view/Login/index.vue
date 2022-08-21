@@ -45,16 +45,16 @@
   };
 
   const goToHome = () => {
-    login(loginForm)
-      .then((res) => {
-        console.log(res);
-        userStore.setToken(res.token);
-        router.push({ name: 'Home' });
-      })
-      .catch((err) => {
-        console.log(err);
-        errMessage.value = err && err.message;
-      });
+    // login(loginForm)
+    //   .then((res) => {
+    //     console.log(res);
+    //     userStore.setToken(res.token);
+    router.push({ name: 'Home' });
+    // })
+    // .catch((err) => {
+    //   console.log(err);
+    //   errMessage.value = err && err.message;
+    // });
   };
 </script>
 
