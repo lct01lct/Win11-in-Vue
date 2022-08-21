@@ -13,11 +13,12 @@ const store = terminalStore();
 // const useFolderStore
 
 const commandArray = [
-  { action: 'cd', msg: '切换至目标路径' },
-  { action: 'dir', msg: '搜索当前文件夹下已存文件' },
-  { action: 'cls', msg: '清空屏幕内容' },
-  { action: 'help', msg: '帮助列表' },
-  { action: 'md', msg: '创建文件夹' },
+  { action: 'CD', msg: '切换至目标路径' },
+  { action: 'DIR', msg: '搜索当前文件夹下已存文件' },
+  { action: 'CLS', msg: '清空屏幕内容' },
+  { action: 'HELP', msg: '帮助列表' },
+  { action: 'MD', msg: '创建文件夹' },
+  { action: 'DEL', msg: '删除文件夹' },
 ];
 
 // 同步文件夹路径

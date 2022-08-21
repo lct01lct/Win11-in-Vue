@@ -14,31 +14,40 @@ class DeskTop {
   setAppData(baseData, userFolderData) {
     this.appData = this.appData.concat(baseData);
     this.setEmptyPosIdx();
-    const index = this.emptyPosIdx;
-    userFolderData.forEach((item, i) => {
+
+    // userFolderData.forEach((item, i) => {});
+
+    for (let i = 0; i < userFolderData.length; i++) {
+      const item = userFolderData[i];
+      item.posIdx = this.emptyPosIdx;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
-      item.posIdx = index;
-      this.appData.push(item);
       console.log(this.appData);
+      this.appData.push(item);
       this.setEmptyPosIdx();
-    });
+    }
   }
 
   setEmptyPosIdx() {
     sortByPosIdx(this.appData);
     let currIdx = this.appData[0].posIdx;
     if (currIdx !== 1) {
-      return (this.emptyPosIdx = 1);
+      this.emptyPosIdx = 1;
+      return;
     }
 
+    let idx;
     for (let i = 0; i < this.appData.length; i++, currIdx++) {
-      const idx = this.appData[i].posIdx;
-
+      idx = this.appData[i].posIdx;
       if (currIdx !== idx) {
         this.emptyPosIdx = this.appData[i - 1].posIdx + 1;
+
         break;
       }
+    }
+
+    if (currIdx > idx) {
+      this.emptyPosIdx = currIdx;
     }
   }
 

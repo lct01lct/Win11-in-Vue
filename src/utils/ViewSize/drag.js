@@ -242,8 +242,8 @@ function getIconInfoByPosIdx(list, posIdx) {
 
 // 设置宽高
 export const setWidth = (width, height, Modal) => {
-  Modal.style.width = width + 'px';
-  Modal.style.height = height + 'px';
+  Modal.style.width = (width < 0 ? -width : width) + 'px';
+  Modal.style.height = (height < 0 ? -height : height) + 'px';
 };
 
 // 判断元素是否属于该区域
@@ -254,7 +254,9 @@ export const judgeContains = (parent, Modal) => {
   childNode.map((value) => {
     const item = value.getBoundingClientRect();
     if (item.left > left && item.right < right && item.top > top && item.bottom < bottom) {
-      containsArray.push(value);
+      value.classList.add('selected');
+
+      containsArray.push(value.__vnode.ref.i.props.data);
     }
   });
   return containsArray;

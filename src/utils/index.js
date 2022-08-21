@@ -14,14 +14,21 @@ import { taskBarData } from '@/data';
  * @return number
  */
 export const topZindex = (target) => {
-  toggleTaskPublicData.currentAppCount.map((value) => {
-    value.style.zIndex = toggleTaskPublicData.zIndex;
-  });
+  forAppArray();
   toggleTaskPublicData.currentAppCount.push(target);
   return ++toggleTaskPublicData.zIndex;
 };
 
-export const searchMaxZindex = () => {};
+export const forAppArray = () => {
+  toggleTaskPublicData.currentAppCount.map((value) => {
+    value.style.zIndex = --value.style.zIndex < 1 ? 1 : value.style.zIndex;
+  });
+};
+
+export const searchMaxZindex = () => {
+  forAppArray();
+  return toggleTaskPublicData.zIndex;
+};
 
 /**
  * function：切换task显示将其透明度设置为-1，并维护公共数据，表明
