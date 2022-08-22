@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 class DeskTop {
   constructor(baseData, userFolderData) {
     this.emptyPosIdx = 1; // 当前可以存放文件的空位置
@@ -13,28 +15,39 @@ class DeskTop {
   // 处理原始数据
   setAppData(baseData, userFolderData) {
     this.appData = this.appData.concat(baseData);
-    userFolderData.forEach((item, i) => {
-      item.posIdx = 20 + i;
+    this.setEmptyPosIdx();
+
+    for (let i = 0; i < userFolderData.length; i++) {
+      const item = userFolderData[i];
+      item.posIdx = this.emptyPosIdx;
       item.componentName = 'FolderFullBox';
       item.icon = 'explorer.png';
+
       this.appData.push(item);
-    });
-    sortByPosIdx(this.appData);
+      this.setEmptyPosIdx();
+    }
   }
 
   setEmptyPosIdx() {
+    sortByPosIdx(this.appData);
     let currIdx = this.appData[0].posIdx;
     if (currIdx !== 1) {
-      return (this.emptyPosIdx = 1);
+      this.emptyPosIdx = 1;
+      return;
     }
 
+    let idx;
     for (let i = 0; i < this.appData.length; i++, currIdx++) {
-      const idx = this.appData[i].posIdx;
-
+      idx = this.appData[i].posIdx;
       if (currIdx !== idx) {
         this.emptyPosIdx = this.appData[i - 1].posIdx + 1;
+
         break;
       }
+    }
+
+    if (currIdx > idx) {
+      this.emptyPosIdx = currIdx;
     }
   }
 
@@ -45,12 +58,12 @@ class DeskTop {
 export default DeskTop;
 
 // 根据 PosIdx 排序
-function sortByPosIdx(appData) {
+export function sortByPosIdx(appData) {
   const arr = appData;
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - i - 1; j++) {
       if (arr[j].posIdx > arr[j + 1].posIdx) {
-        const temp = { ...arr[j + 1] };
+        const temp = _.cloneDeep(arr[j + 1]);
         arr[j + 1] = arr[j];
         arr[j] = temp;
       }

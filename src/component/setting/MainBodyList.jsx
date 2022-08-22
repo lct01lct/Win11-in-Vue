@@ -1,7 +1,7 @@
-import { defineComponent } from 'vue';
 import { handleRename } from '@/utils';
 import userStore from '@/store/userStore/index.js';
 import './jsxCss.scss';
+import { getSrcSettingTheme, getSrcSetting } from '../../utils/getSrc';
 
 export default defineComponent({
   props: ['data'],
@@ -54,7 +54,7 @@ export default defineComponent({
                     <div class="left">
                       {/* 图片时动态的，应该存储在store，此处先做死数据 */}
                       <img
-                        src={`src/assets/img/setting/assetsImg/default/${store.getTheme}.jpg`}
+                        src={getSrcSettingTheme(`${store.getTheme}.jpg`)}
                         class="systemThemeImg"
                       />
                       <div class="message">
@@ -72,7 +72,7 @@ export default defineComponent({
                         </div>
                       </div>
                       <div class="column" onClick={() => setPage('Windows Update')}>
-                        <img src="src/assets/img/setting/Windows Update.webp" alt="" height={20} />
+                        <img src={getSrcSetting('Windows Update.webp')} alt="" height={20} />
                         <div>
                           <span>Windows Update</span>
                           <span class="column_lower">You're up to date</span>
@@ -99,21 +99,21 @@ export default defineComponent({
                 return (
                   <div key={value} class={value.type}>
                     <div>
-                      <img src="src/assets/img/setting/wifi1.png" />
+                      <img src={getSrcSetting('wifi1.png')} />
                       <div class="message">
                         <h2>WiFi</h2>
                         <p>Connected, secured</p>
                       </div>
                     </div>
                     <div>
-                      <img class="warning" src="src/assets/img/setting/warning.jpg" />
+                      <img class="warning" src={getSrcSetting('warning.jpg')} />
                       <div class="message">
                         <h3>Properties</h3>
                         <p>Public network 5 Ghz</p>
                       </div>
                     </div>
                     <div>
-                      <img class="warning" src="src/assets/img/setting/warning.jpg" />
+                      <img class="warning" src={getSrcSetting('warning.jpg')} />
                       <div class="message">
                         <h3>Data Usage</h3>
                         <p>{Math.round(Math.random() * 100)}GB, last 30 days</p>
@@ -127,7 +127,7 @@ export default defineComponent({
                     <div>
                       <img
                         class="CurrentImg"
-                        src={`src/assets/img/setting/assetsImg/default/${store.$state.themeSrc}.jpg`}
+                        src={getSrcSettingTheme(`${store.$state.themeSrc}.jpg`)}
                       />
                     </div>
                     <div>
@@ -138,7 +138,7 @@ export default defineComponent({
                             <img
                               onClick={toggleTheme}
                               payload={value.name}
-                              src={`src/assets/img/setting/assetsImg/default/${value.name}.jpg`}
+                              src={getSrcSettingTheme(`${value.name}.jpg`)}
                             />
                           );
                         })}
@@ -149,7 +149,7 @@ export default defineComponent({
               case 'accountsTop':
                 return (
                   <div key={value} class={value.type}>
-                    <img src="src/assets/img/setting/defAccount.png" />
+                    <img src={getSrcSetting('defAccount.png')} />
                     <div className="message">
                       <span>{store.getUsername}</span>
                       <span>Local Account</span>
@@ -173,7 +173,7 @@ export default defineComponent({
                 return (
                   <div key={value} class={value.type}>
                     <div>
-                      <img src="src/assets/img/setting/update.png" />
+                      <img src={getSrcSetting('update.png')} />
                       <div>
                         <span>You're up to date</span>
                         <span>Last checked: Today</span>
@@ -187,7 +187,6 @@ export default defineComponent({
               default:
                 return (
                   <li key={value}>
-                    {/* <img src={`src/assets/img/setting/${value.icon}.png`} /> */}
                     <div class="descMessage">
                       <span class="descMessage-name">{value.name}</span>
                       <span class="descMessage-desc">{value.desc}</span>

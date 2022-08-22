@@ -4,12 +4,10 @@
   import useDeskTopConfigStore from '@/store/deskTopConfigStore/index';
   import { showBox } from '@/utils';
   import folderStore from '@/store/folderStore';
+  import { getSrcIcon } from '../../utils/getSrc';
   // import useMeunStore from '@/view/Home/Menu/store/menuStore';
-
   const configStore = useDeskTopConfigStore();
-
   const { iconBaseWeight, iconBaseHeight, maxIconCountY } = configStore;
-
   const deskTopIconRef = ref(null);
   const props = defineProps({
     icon: {
@@ -35,16 +33,13 @@
   });
   const dblClickApp = (e, item) => {
     const target = document.querySelector(`.${item.componentName}`);
-
     if (item.componentName === 'FolderFullBox') {
       // todo
       const store = folderStore();
       store.changeCurrentFolder(item);
     }
-
     showBox(target);
   };
-
   // 判断鼠标点击哪个键位
   const dragIconOrOpenMenu = (e, dom, list, item) => {
     if (e.button === 0) {
@@ -58,16 +53,10 @@
       console.log('菜单');
     }
   };
-
   const isSelected = ref(false);
   document.addEventListener('click', function () {
     isSelected.value = false;
   });
-
-  const clickApp = () => {
-    configStore.changeCurrentSelected(props.data);
-  };
-
   const getClasses = () => {
     const classes = [];
     if (configStore.currentSelected.some((item) => item.posIdx === props.data.posIdx)) {
@@ -75,7 +64,6 @@
     }
     return classes;
   };
-
   const getPos = (posIdx) => {
     return {
       top:
@@ -90,11 +78,13 @@
         ).toFixed(1) + 'px',
     };
   };
-
   const menuRef = ref(null);
   const showMainMenu = (e) => {
     e.preventDefault();
     menuRef.value.setMenu(e, 'blank');
+  };
+  const clickApp = () => {
+    configStore.changeCurrentSelected(props.data);
   };
 </script>
 
@@ -102,9 +92,9 @@
   <div
     ref="deskTopIconRef"
     class="deskTopIcon"
-    @click.stop="clickApp"
     @contextmenu.stop="showMainMenu($event)"
     @dblclick="dblClickApp($event, data)"
+    @click="clickApp"
     :style="`
         top: ${getPos(data.posIdx).top};
         left: ${getPos(data.posIdx).left};
@@ -112,10 +102,13 @@
     @mousedown="dragIconOrOpenMenu($event, deskTopIconRef, DeskTopIconData, data)"
     :class="getClasses()"
   >
-    <img :src="`src/assets/img/icon/${icon}`" draggable="false" />
+    <img :src="getSrcIcon(icon)" draggable="false" />
     <span>{{ name }}</span>
-    <!-- <Menu ref="menuRef"></Menu> -->
   </div>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .active {
+    background-color: rgba($color: #fffefe, $alpha: 0.2);
+  }
+</style>

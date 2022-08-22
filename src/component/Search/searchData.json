@@ -1,0 +1,54 @@
+{
+  "lastedData": [
+    {
+      "url": "terminal",
+      "name": "Terminal"
+    },
+    {
+      "url": "edge",
+      "name": "EdgeFullBox"
+    },
+    {
+      "url": "winWord",
+      "name": "Word"
+    },
+    {
+      "url": "powerpoint",
+      "name": "PowerPoint"
+    },
+    {
+      "url": "onenote",
+      "name": "OneNote"
+    },
+    {
+      "url": "mail",
+      "name": "Mail"
+    },
+    {
+      "url": "todo",
+      "name": "To Do"
+    },
+    {
+      "url": "store",
+      "name": "Store"
+    },
+    {
+      "url": "photos",
+      "name": "Photos"
+    }
+  ],
+  "todayData": [
+    {
+      "url": "21",
+      "desc": "水下博物馆"
+    },
+    {
+      "url": "22",
+      "desc": "每日一词"
+    },
+    {
+      "url": "23",
+      "desc": "历史上的今天"
+    }
+  ]
+}

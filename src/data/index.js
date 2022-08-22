@@ -1,4 +1,6 @@
 import Start from '@/component/Start';
+import Search from '@/component/Search/Search.vue';
+// import LeftPane from '@/component/LeftPane/LeftPane';
 
 export const toolSize = {
   viewSizeWidth: 800,
@@ -9,27 +11,31 @@ export const toolSize = {
 
 export const toggleTaskPublicData = {
   zIndex: 1,
+  currentAppCount: [],
 };
 
 export const taskBarBottomPop = [
   {
     icon: 'home.png',
     name: 'startMenu',
-    component: Start,
+    way: 'bottom',
+    component: shallowRef(Start),
   },
   {
     icon: 'search.png',
     name: 'search',
-    component: 'Start',
+    way: 'bottom',
+    component: shallowRef(Search),
   },
-  {
-    icon: 'widget.png',
-    name: 'widget',
-    component: 'Start',
-  },
+  // {
+  //   icon: 'widget.png',
+  //   name: 'widget',
+  //   way: 'left',
+  //   // component: shallowRef(LeftPane),
+  // },
 ];
 
-export const taskBarData = [
+export const taskBarData = reactive([
   {
     icon: 'settings.png',
     name: 'settingFullBox',
@@ -46,13 +52,13 @@ export const taskBarData = [
     icon: 'store.png',
     name: 'store',
   },
-];
+]);
 
 export const deskTopData = [
   {
     icon: 'user.png',
     name: 'User',
-    componentName: 'FolderFullBox',
+    componentName: 'user',
     posIdx: 1,
   },
   {

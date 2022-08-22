@@ -1,0 +1,24 @@
+.content-wrapper {
+  // display: flex;
+  background-color: #2e71d4;
+  padding: 20px;
+
+  .prompt-ipt {
+    height: 1.7em;
+    width: 60%;
+    outline: none;
+    background-color: #004380;
+    border: 3px solid #66a9e6;
+    border-radius: 5px;
+
+    &:focus {
+      background-color: white;
+      border: 0;
+    }
+  }
+
+  .content {
+    margin-bottom: 10px;
+    color: white;
+  }
+}

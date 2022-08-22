@@ -14,9 +14,6 @@
 
 <script setup>
   import ToolBarVue from '@/component/ToolBar/index.vue';
-  // onMounted(() => {
-  //   document.domain = 'https://cn.bing.com/';
-  // });
 </script>
 
 <style lang="scss" scoped>

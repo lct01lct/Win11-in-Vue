@@ -14,7 +14,7 @@
       <div class="scroll-item" :id="item.main" v-for="(item, index) in tabListData" :key="index">
         <h5 @click="showLetter">{{ item.mainList.length > 0 ? item.main : '' }}</h5>
         <div class="loopItem" v-for="(row, key) in item.mainList" :key="key">
-          <img :src="`src/assets/img/icon/startIcon/${row.url}.png`" alt="" />
+          <img :src="getSrcStartIcon(`${row.url}.png`)" alt="" />
           <p>{{ row.name }}</p>
         </div>
       </div>
@@ -34,6 +34,7 @@
   </div>
 </template>
 <script setup>
+  import { getSrcStartIcon } from '../../utils/getSrc';
   // import { emit, ref } from 'process';
   // import { emit } from 'process';
   import { tabListData, letterData } from './StartData.json';
@@ -74,7 +75,7 @@
     h5 {
       width: 100%;
       // box-sizing: border-box;
-      padding: 8px 0 8px 4px;
+      padding-left: 5px;
       font-size: 0.76em;
       font-weight: 400;
       cursor: pointer;
@@ -82,19 +83,20 @@
     .loopItem {
       display: flex;
       align-items: center;
-      padding: 8px 0 8px 30px;
+      padding: 8px 0 8px 5px;
       border-radius: 4px;
       img {
         width: 20px;
         height: 20px;
       }
       p {
-        margin-left: 30px;
-        line-height: 20px;
+        line-height: 17px;
+        margin: 5px 0 5px 26px;
       }
       &:hover {
-        background: rgb(255, 255, 255);
+        background: rgb(255 255 255 / 59%);
         border-radius: 3px;
+        transition: all 0.1s;
       }
     }
   }

@@ -25,6 +25,7 @@ export const HPromptContent = (content, promptValue) => {
       class: 'content-wrapper',
     },
     [
+      HContent(content),
       h('input', {
         value: promptValue.value,
         onInput: (e) => {
@@ -32,7 +33,6 @@ export const HPromptContent = (content, promptValue) => {
         },
         class: 'prompt-ipt',
       }),
-      HContent(content),
     ]
   );
 };

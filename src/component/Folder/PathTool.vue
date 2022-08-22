@@ -4,11 +4,10 @@
     <span class="historyBtn" @click="goToChildren">🔜</span>
     <span class="historyBtn" @click="goToDesc">🔝</span>
     <div class="path">
-      <img :src="`src/assets/img/setting/${headerIcon}`" alt="" />
+      <img src="@/assets/img/setting/user-sm.png" alt="" />
       <input type="text" id="input" v-model.lazy.trim="inputPath" />
       <div class="path-content">
         <span v-for="item in path" :key="item">
-          <!-- {{ item }} -->
           <i @click="goTarget(path, item)">{{ item }}</i>
           <div class="showOtherBrother" @click="showOtherBrother(path, item)">&gt;</div>
         </span>
@@ -16,7 +15,7 @@
       <label for="input" class="clickLocation"></label>
     </div>
     <div class="search">
-      <img src="src/assets/img/setting/search.png" alt="" />
+      <img src="@/assets/img/setting/search.png" alt="" />
       <input type="text" placeholder="search" @keydown.enter="searchStr($event)" />
     </div>
   </div>
@@ -81,9 +80,6 @@
     console.log(tempArray);
     const result = searchTargetFolderByPath(tempArray);
     console.log(result);
-    // if (result) {
-    //   store.changeCurrentFolder(result);
-    // }
   };
 
   // 监视路径变化
@@ -94,8 +90,6 @@
     },
     { deep: true }
   );
-
-  const headerIcon = ref('user-sm.png');
 
   // 把路径做处理
   const inputPath = computed({

@@ -16,7 +16,7 @@
         <div class="navList">
           <ul>
             <li v-for="item in navNameList" :key="item" @click="toggle(item)">
-              <img :src="`src/assets/img/setting/${item}.webp`" alt="" />
+              <img :src="getSrcSetting(`${item}.webp`)" alt="" />
               {{ item }}
             </li>
           </ul>
@@ -35,6 +35,8 @@
   import ToolBarVue from '@/component/ToolBar/index.vue';
   import jsx from './MainBodyList.jsx';
   import userStore from '@/store/userStore';
+  import { getSrcSetting } from '../../utils/getSrc';
+
   const store = userStore();
   /** 需求分析：
    *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭

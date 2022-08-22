@@ -4,7 +4,7 @@
     <div class="login-wrap" v-if="isShow">
       <div class="user-wrap">
         <div class="avatar-wrap">
-          <img src="src/assets/img/setting/assetsImg/avatar/default.jpg" />
+          <img src="@/assets/img/setting/assetsImg/avatar/default.jpg" />
         </div>
         <div class="username">{{ loginForm.name }}</div>
       </div>
@@ -66,7 +66,7 @@
     justify-content: center;
     align-items: center;
     transition: 0.8s ease-in-out;
-    background: url('src/assets/img/setting/assetsImg/default/dark.jpg');
+    background: url('@/assets/img/setting/assetsImg/default/dark.jpg');
     background-attachment: fixed;
     background-size: 100% 100%;
     transform: scale(1.1);

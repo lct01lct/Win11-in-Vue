@@ -9,7 +9,7 @@
     @mouseleave="setIsActive('leave')"
   >
     <!-- ${usageRate ? `Rate: ${usageRate}` : ''} -->
-    <img :src="`src/assets/img/setting/${icon}`" />
+    <img :src="getSrcSetting(icon)" />
     <div>
       <span @click.right="changeName($event, data)">
         <em
@@ -27,9 +27,9 @@
 
 <script setup>
   import folderStore from '@/store/folderStore';
+  import { getSrcSetting } from '@/utils/getSrc';
   import drag from '@/utils/ViewSize/drag';
   import useMeunStore from '@/view/Home/Menu/store/menuStore';
-
   const meunStore = useMeunStore();
   const menuVisible = computed(() => meunStore.menuVisible);
 
@@ -86,13 +86,6 @@
 
   const store = folderStore();
 
-  const mousedown = (e, dom, data, item) => {
-    // drag.call(dom, e, data, item, {
-    //   edgeWeight: 600,
-    //   edgeHeight: 300,
-    // });
-  };
-
   // 接收emits，目的是更新
   const goToTargetPath = (item) => {
     if (item.children) {
@@ -101,6 +94,10 @@
   };
 
   const changeName = (e, item) => {
+    // 桌面不能改
+    if (item.name === 'DeskTop' && item.getPath()[1] === 'DeskTop') {
+      return;
+    }
     const target = e.target.parentElement;
     const input = target.nextElementSibling;
     input.style.display = 'block';

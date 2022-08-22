@@ -1,5 +1,5 @@
 <template>
-  <div class="Terminal FullBox" v-if="false">
+  <div class="Terminal FullBox">
     <ToolBar color="white">命令提示符</ToolBar>
     <main>
       <CommandItem v-for="item in itemArray" :key="item" :item="item" />
@@ -7,9 +7,11 @@
         <span>{{ path.join('/') }}</span>
         <textarea
           @input="input"
-          @keyup.enter="enter"
+          @keydown.enter="enter"
           v-model="textarea"
           @keyup.up="upRecord"
+          @keyup.down="tabCommand"
+          @keyup.delete="tabArray.splice(0, tabArray.length)"
         ></textarea>
       </div>
     </main>
@@ -19,8 +21,8 @@
 <script setup>
   import ToolBar from '@/component/ToolBar';
   import CommandItem from './CommandItem';
-  import folderStore from '@/store/folderStore';
-  import { responseAction, setPath } from '@/utils/terminal';
+  import { responseAction, setPath, handleTabCommand } from '@/utils/terminal';
+  import { handleInput } from '@/utils/terminal/handleInput';
 
   // 打印的信息
   // eslint-disable-next-line prefer-const
@@ -41,20 +43,20 @@
   setPath(path);
 
   const enter = (e) => {
-    const flag = textarea.value.split('').slice(0, -1).join('');
+    // 禁止回车换行
+    e.preventDefault();
 
-    if (flag === '') {
-      textarea.value = '';
+    const flag = textarea.value;
+
+    const value = handleInput(flag, textarea);
+
+    if (!value) {
       return;
     }
 
-    // eslint-disable-next-line prefer-const
-    let value = flag.split(' ');
-
-    const actionOrigin = value.splice(0, 1)[0];
+    const { actionOrigin, command } = value;
 
     // 如果是回退那么就不拆分
-    const command = value.join(' ') === '../' ? '../' : value.join(' ').split('/');
     const res = responseAction(path, { actionOrigin, command }, itemArray);
 
     // 记录栈
@@ -73,6 +75,48 @@
       count.value = 0;
     }
     textarea.value = record[count.value++];
+  };
+
+  // 接受补全的数组
+  // eslint-disable-next-line prefer-const
+  let tabArray = reactive([]);
+
+  const tabCommand = () => {
+    // 为了处理输入的命令
+    const flag = textarea.value;
+    const value = handleInput(flag, textarea);
+    if (!value) {
+      return;
+    }
+    const { actionOrigin, command } = value;
+
+    // ---------------------------------------
+
+    // 如果不是cd或是command为空 退出函数
+    if (actionOrigin.toLocaleLowerCase() !== 'cd' || command[0] === '') {
+      return;
+    }
+
+    // -------------------------------------
+
+    // 如果补全的数组不为空，说明还没补全完毕,不退出
+    // 但是如果中途切换了目录，但是数组未空，但是切换目录一定是要删除的
+    // 所以监测删除建，如果删除，则立即情况补全数组
+    //  -> @keyup.delete="tabArray.splice(0,tabArray.length)"
+    if (tabArray.length) {
+      textarea.value = `cd ${tabArray.pop()}`;
+      return;
+    }
+
+    // 处理补全任务
+    const res = handleTabCommand(path, command);
+
+    if (!res.length) {
+      return;
+    }
+
+    tabArray.splice(0, tabArray.length, ...res);
+    textarea.value = `cd ${tabArray.pop()}`;
   };
 
   // 目的是更改大小
@@ -96,7 +140,7 @@
   .Terminal {
     background-color: rgba($color: #0b0b0b, $alpha: 0.98);
     box-shadow: 0 0 5px black;
-    z-index: 10;
+    z-index: -1;
     user-select: auto;
 
     main {

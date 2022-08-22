@@ -1,23 +1,13 @@
 <script setup>
   import { toolSize } from '@/data';
-  import { hideBox } from '@/utils';
+  import { hideBox, searchMaxZindex } from '@/utils';
+  import { getSrcSetting } from '../../utils/getSrc';
   defineProps({
     color: {
       type: String,
       default: 'black',
     },
   });
-  /** ToolBar需求分析：
-   *  1. Tab页初始打开占满屏幕，可拖动，并且右上角icon可以设置最小化或小屏或关闭
-   *  4. 页面布局：
-   *      a. 顶部Tab功能按钮为一栏
-   *
-   *  需要添加的监视：
-   *  1. 长按拖动
-   *  2. 最小化
-   *  3. 最大化
-   *  4. 关闭
-   */
 
   // 最大化或者最小化图标
   const MaxOrMin = ref('maxmin');
@@ -92,7 +82,7 @@
   const moveBox = (e) => {
     // 无论是否拖动，点击即会改变层级
     // 获取层级最大的元素，并并加一
-    // parent.style.zIndex = toggleTaskPublicData.zIndex
+    parent.style.zIndex = searchMaxZindex();
 
     // 初始鼠标按下时候的，在toolbar的位置
     const X = e.pageX - parent.offsetLeft;
@@ -223,7 +213,7 @@
     <div class="functionArea">
       <button @click="mini"><img src="@/assets/img/setting/minimize.png" /></button>
       <button @click="max" @mouseenter="showSplit">
-        <img :src="`/src/assets/img/setting/${MaxOrMin}.png`" />
+        <img :src="getSrcSetting(`${MaxOrMin}.png`)" />
       </button>
       <button @click="close"><img src="@/assets/img/setting/close.png" /></button>
     </div>
