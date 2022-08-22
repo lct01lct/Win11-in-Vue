@@ -24,7 +24,7 @@
   import { searchTargetFolderByPath } from '@/utils/handleFolder';
   import IconItem from './IconItem';
   const deskTopStore = deskTopConfigStore();
-  const that = getCurrentInstance();
+  // const that = getCurrentInstance();
   // // 图标的父div
   let IconsRef;
   // // 模态拖动框
