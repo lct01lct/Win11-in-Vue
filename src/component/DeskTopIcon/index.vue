@@ -74,7 +74,6 @@
   const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
   // eslint-disable-next-line prefer-const
   const DeskTopIconData = computed(() => {
-    console.log(new DeskTop(deskTopData, getDesktopFolderData.children).appData);
     return new DeskTop(deskTopData, getDesktopFolderData.children).appData;
   });
 </script>

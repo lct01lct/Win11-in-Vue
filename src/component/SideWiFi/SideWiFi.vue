@@ -42,7 +42,7 @@
   function selected(index) {
     selectStat[index] = !selectStat[index];
     // selectStat0 = true;
-    console.log(selectStat[index]);
+    // console.log(selectStat[index]);
     // selectStat = [...selectStat];
     // selectStat.splice(1, 0);
     // that.ctx.$forceUpdate();

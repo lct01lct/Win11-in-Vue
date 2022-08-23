@@ -60,7 +60,7 @@
   };
 
   function scrollToPosition(index) {
-    console.log(`${index}提升到最高位置`);
+    // console.log(`${index}提升到最高位置`);
   }
 </script>
 

@@ -41,15 +41,15 @@
 
   const emit = defineEmits(['changeTag']);
   function toAllApps() {
-    console.log("  emit('changeTag');");
+    // console.log("  emit('changeTag');");
 
     emit('changeTag');
   }
   const openApp = (appName) => {
-    console.log(`打开应用：${appName}`);
+    // console.log(`打开应用：${appName}`);
     if (appName === 'Terminal') {
       const target = document.querySelector(`.${appName}`);
-      console.log(target);
+      // console.log(target);
       showBox(target, appName);
     }
   };
