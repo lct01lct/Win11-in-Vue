@@ -1,36 +1,50 @@
 <script setup>
   import { toolSize } from '@/data';
   import { hideBox, searchMaxZindex } from '@/utils';
+  import { BindGlobalEvent, RemoveGlobalEvent, BindEvent } from '@/utils/bind.js';
+  import { changeDomStyle } from '@/utils/domSet.js';
   import { getSrcSetting } from '../../utils/getSrc';
-  defineProps({
+  import useCompScheduler from '@/store/componentScheduler';
+  import { scheduler } from '../../scheduler';
+  scheduler
+  
+  const store = useCompScheduler()
+  const props = defineProps({
     color: {
       type: String,
       default: 'black',
     },
   });
+  const refParent = ref(null);
+  let parent;
 
   // 最大化或者最小化图标
   const MaxOrMin = ref('maxmin');
-
-  const that = getCurrentInstance();
+  // 更改图标
+  const changeIcon = () => {
+    const allTcon = ['maximize', 'maxmin'];
+    const isFullScreen = parent.style.width === '100%' && parent.style.height === '100%';
+    if (isFullScreen) {
+      MaxOrMin.value = allTcon[0];
+    } else {
+      MaxOrMin.value = allTcon[1];
+    }
+  };
 
   let { viewSizeWidth, viewSizeHeight, top, left } = toolSize;
-
-  // 获取该工具栏的父元素
-  let parent;
-
   // 拆分功能区
   const splitFlag = ref(false);
 
-  // 由于setup执行时机是早于beforeCreate的，所以此时还不能拿到模板
-  // 所以在挂载之后获取
+  console.log('我初始化了');
+
   onMounted(() => {
-    // 初始化获取parent，并在toolbar上进行对父组件的大小位置的控制
-    parent = that.refs.ParentRef.parentElement;
-    parent.style.width = `${toolSize.viewSizeWidth}px`;
-    parent.style.height = `${toolSize.viewSizeHeight}px`;
-    parent.style.left = `${toolSize.left}px`;
-    parent.style.top = `${toolSize.top}px`;
+    parent = refParent.value.offsetParent;
+    changeDomStyle(parent, {
+      width: `${viewSizeWidth}px`,
+      height: `${viewSizeHeight}px`,
+      left: `${left}px`,
+      top: `${top}px`,
+    });
   });
 
   // 最小化
@@ -40,45 +54,48 @@
 
   // 关闭
   const close = () => {
-    hideBox(false, parent, parent.classList[0]);
-  };
+    // console.log(scheduler);
 
-  // 更改图标
-  const changeIcon = () => {
-    const allTcon = ['maximize', 'maxmin'];
-    // 如果当前图标是最大化的
-    // 那么取反为最小化的
-    // 否则赋为另一个值
-    // MaxOrMin.value === allTcon[0]
-    //   ? (MaxOrMin.value = allTcon[1])
-    //   : (MaxOrMin.value = allTcon[0]);
-    if (parent.style.width === '100%' && parent.style.height === '100%') {
-      MaxOrMin.value = allTcon[0];
-    } else {
-      MaxOrMin.value = allTcon[1];
-    }
+    scheduler.components.filter(v => v.isMount === true).forEach(item => {
+      const parentScopeId = parent.__vnode.scopeId
+      const curScopeId = item.$$$refImpl.__vnode.scopeId
+      if(parentScopeId === curScopeId) {
+        item.removeNode()
+      }
+    })
+    
+    // console.log(parent, store);
+    // hideBox(false, parent, parent.classList[0]);
   };
 
   // 切换最大化最小化
   const max = () => {
-    if (parent.style.width === '' || parent.style.width === '100%') {
+    const width = parent.style.width;
+    const isFullWidth = width === '' || width === '100%';
+    let changeObj = {};
+
+    if (isFullWidth) {
       // 默认最小化为用户自定义的宽度大小，位置
-      parent.style.width = `${viewSizeWidth}px`;
-      parent.style.height = `${viewSizeHeight}px`;
-      parent.style.left = `${left}px`;
-      parent.style.top = `${top}px`;
+      changeObj = {
+        width: `${viewSizeWidth}px`,
+        height: `${viewSizeHeight}px`,
+        left: `${left}px`,
+        top: `${top}px`,
+      };
     } else {
-      parent.style.height = '100%';
-      parent.style.width = '100%';
-      parent.style.left = '0';
-      parent.style.top = '0';
+      changeObj = {
+        width: '100%',
+        height: '100%',
+        left: '0',
+        top: '0',
+      };
     }
 
+    changeDomStyle(parent, changeObj);
     changeIcon();
   };
 
   // 拖动元素
-  // 实现思路大概是做mousedown和mouseup的事件
   const moveBox = (e) => {
     // 无论是否拖动，点击即会改变层级
     // 获取层级最大的元素，并并加一
@@ -92,18 +109,22 @@
 
     // 移动监听事件
     const move = (e) => {
-      parent.style.top = e.pageY - Y + 'px';
-      parent.style.left = e.pageX - X + 'px';
+      const ofX = e.pageX - X;
+      const ofY = e.pageY - Y;
+
+      parent.style.top = ofY + 'px';
+      parent.style.left = ofX + 'px';
 
       // 更新位置的数据
-      left = e.pageX - X;
-      top = e.pageY - Y;
+      left = ofX;
+      top = ofY;
     };
+
     // 添加监听和移除监听
-    document.addEventListener('mousemove', move);
-    document.addEventListener('mouseup', () => {
+    BindGlobalEvent('mousemove', move);
+    BindGlobalEvent('mouseup', () => {
       parent.classList.remove('notransition');
-      document.removeEventListener('mousemove', move);
+      RemoveGlobalEvent('mousemove', move);
     });
   };
 
@@ -119,19 +140,23 @@
     parent.classList.add('notransition');
     const move = (e) => {
       if (flag === 'HEIGHT') {
-        parent.style.height = e.pageY - parent.offsetTop + 'px';
+        const ofT = parent.offsetTop;
+        parent.style.height = e.pageY - ofT + 'px';
 
         // 更新改变视窗的大小，并更新viewData的数据
-        viewSizeHeight = e.pageY - parent.offsetTop;
+        viewSizeHeight = e.pageY - ofT;
       } else {
-        parent.style.width = e.pageX - parent.offsetLeft + 'px';
+        const ofL = parent.offsetLeft;
+
+        parent.style.width = e.pageX - ofL + 'px';
 
         // 更新改变视窗的大小，并更新viewData的数据
-        viewSizeWidth = e.pageX - parent.offsetLeft;
+        viewSizeWidth = e.pageX - ofL;
       }
     };
-    document.addEventListener('mousemove', move);
-    document.addEventListener('mouseup', () => {
+
+    BindGlobalEvent('mousemove', move);
+    BindGlobalEvent('mouseup', () => {
       parent.classList.remove('notransition');
       document.removeEventListener('mousemove', move);
     });
@@ -140,24 +165,15 @@
   // maxButton 的移入事件，target：显示split窗口
   const showSplit = async (e) => {
     const target = e.target;
-    // const flag = await new Promise((reslove) => {
-    //   const timer = setTimeout(() => {
-    //     reslove(true);
-    //   }, 800);
-    //   target.addEventListener('mouseleave', () => {
-    //     clearTimeout(timer);
-    //     reslove(false);
-    //   });
-    // });
 
-    // eslint-disable-next-line promise/param-names
-    const flag = await new Promise((reslove) => {
+    const flag = await new Promise((resolve) => {
       const timer = setTimeout(() => {
-        reslove(true);
+        resolve(true);
       }, 800);
-      target.addEventListener('mouseleave', () => {
+
+      BindEvent(target, 'mouseleave', () => {
         clearTimeout(timer);
-        reslove(false);
+        resolve(false);
       });
     });
     if (flag) {
@@ -174,31 +190,39 @@
   const splitFunction = (flag) => {
     switch (flag) {
       case 'left': {
-        parent.style.width = '50vw';
-        parent.style.height = '100vh';
-        parent.style.left = 0;
-        parent.style.top = 0;
+        changeDomStyle(parent, {
+          width: '50vw',
+          height: '100vh',
+          left: 0,
+          top: 0,
+        });
         break;
       }
       case 'right': {
-        parent.style.width = '50vw';
-        parent.style.height = '100vh';
-        parent.style.left = `${document.body.clientWidth / 2}px`;
-        parent.style.top = 0;
+        changeDomStyle(parent, {
+          width: '50vw',
+          height: '100vh',
+          left: `${document.body.clientWidth / 2}px`,
+          top: 0,
+        });
         break;
       }
       case 'top': {
-        parent.style.width = '100vw';
-        parent.style.height = '50vh';
-        parent.style.left = 0;
-        parent.style.top = 0;
+        changeDomStyle(parent, {
+          width: '100vw',
+          height: '50vh',
+          left: 0,
+          top: 0,
+        });
         break;
       }
       case 'bottom': {
-        parent.style.width = '100vw';
-        parent.style.height = '50vh';
-        parent.style.left = 0;
-        parent.style.top = `${window.screen.height / 2}px`;
+        changeDomStyle(parent, {
+          width: '100vw',
+          height: '50vh',
+          left: 0,
+          top: `${window.screen.height / 2}px`,
+        });
         break;
       }
     }
@@ -206,8 +230,8 @@
   };
 </script>
 <template>
-  <div class="topButton" ref="ParentRef">
-    <div class="title" :style="{ color: color }" @mousedown="moveBox">
+  <div class="topButton">
+    <div class="title" :style="{ color: color }" @mousedown="moveBox" ref="refParent">
       <slot></slot>
     </div>
     <div class="functionArea">

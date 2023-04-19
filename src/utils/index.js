@@ -56,10 +56,11 @@ export const relizeZindex = (target) => {
  */
 export const showBox = (target, name) => {
   if (!target) return;
-  target.style.zIndex = topZindex(target);
+  // target.style.zIndex = topZindex(target);
 
-  target.classList.add('showBox');
-  target.classList.remove('hideBox');
+  // target.classList.add('showBox');
+  // target.classList.remove('hideBox');
+  target.style.display = 'block';
 
   if (name) {
     let flag;
@@ -90,18 +91,20 @@ export const showBox = (target, name) => {
 export const hideBox = (flag, target, e) => {
   if (!target) return;
 
-  target.style.zIndex = -1;
-  target.classList.remove('showBox');
-  target.classList.add('hideBox');
-  relizeZindex(target);
+  // target.style.zIndex = -1;
+  // target.classList.remove('showBox');
+  // target.classList.add('hideBox');
+  target.style.display = 'none';
+  target.isMount = false;
+  // relizeZindex(target);
 
   const item = document.querySelector(`#${e}`);
 
-  if (!flag) {
-    item.style.borderBottom = '0';
-  } else {
-    item.style.borderBottom = '3px solid black';
-  }
+  // if (!flag) {
+  //   item.style.borderBottom = '0';
+  // } else {
+  //   item.style.borderBottom = '3px solid black';
+  // }
 };
 
 /**

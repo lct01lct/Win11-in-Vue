@@ -1,35 +1,38 @@
 <template>
   <div class="all" @contextmenu.prevent="showMainMenu($event)" @click="initDeskTop">
-    <div class="main">
-      <Menu ref="menuRef"></Menu>
-      <IconOverlayTip></IconOverlayTip>
-      <SettingsVue></SettingsVue>
-      <Folder></Folder>
-      <Edge></Edge>
-      <LeftPane></LeftPane>
-      <DeskTopIcon></DeskTopIcon>
-      <Terminal></Terminal>
-    </div>
+    <!-- <div class="main"> -->
+    <!-- <Menu ref="menuRef"></Menu> -->
+    <!-- <IconOverlayTip></IconOverlayTip> -->
+    <!-- <SettingsVue></SettingsVue> -->
+    <!-- <Folder></Folder> -->
+    <!-- <Edge></Edge> -->
+    <!-- <LeftPane></LeftPane> -->
+    <!-- <DeskTopIcon></DeskTopIcon> -->
+    <!-- <Terminal></Terminal> -->
+    <!-- </div> -->
     <div class="bar">
       <TaskBarVue></TaskBarVue>
     </div>
+    <Index />
   </div>
 </template>
 
 <script setup>
-  import SettingsVue from '@/component/setting/index.vue';
-  import TaskBarVue from '@/component/taskBar/taskBar.vue';
-  import Folder from '@/component/Folder/index.vue';
-  import Terminal from '@/component/Terminal';
-  import Edge from '@/component/Edge/index.vue';
+  import { scheduler } from '../../scheduler';
   import DeskTopIcon from '@/component/DeskTopIcon';
-  import { getUsers } from './api';
   import IconOverlayTip from './IconOvelayTip';
   import LeftPane from '@/component/LeftPane/LeftPane.vue';
+  import Index from './index.jsx';
+  import useCompScheduler from '@/store/componentScheduler';
+  import TaskBarVue from '@/component/taskBar/taskBar.vue'
+  
 
   import Menu from './Menu';
-  getUsers();
+  const store = useCompScheduler();
 
+  onMounted(() => {
+    store.cacheScheduler(scheduler)
+  }),
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
   });
@@ -63,6 +66,8 @@
       width: 100%;
     }
     .bar {
+      position: absolute;
+      bottom: 0;
       height: 48px;
       width: 100%;
     }
