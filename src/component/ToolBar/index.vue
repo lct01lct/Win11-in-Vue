@@ -6,7 +6,6 @@
   import { getSrcSetting } from '../../utils/getSrc';
   import useCompScheduler from '@/store/componentScheduler';
   import { getUUid } from '@/utils/componentHandles'
-  // import { scheduler } from '../../scheduler';
   
   const props = defineProps({
     color: {

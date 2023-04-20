@@ -19,7 +19,9 @@
           </template>
         </Popover>
         <!-- 任务栏中间部分 @click="closeAllPanel"-->
-        <renderTask v-for="item in components" :key="item.uuid" :item="item"/>
+        <renderFixTask v-for="item in components[0]" :key="item.order ? item.order : item.uuid" :item="item"/>
+        <span class="splitTask"></span>
+        <renderSideTask v-for="item in components[1]" :key="item.order" :item="item"/>
       </div>
       <div class="tsright fcc">
         <div class="up fcc">^</div>
@@ -57,7 +59,7 @@
   import Win11Calendar from './components/Win11Calendar';
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
   import { getSrcIconUI, getSrcIcon } from '../../utils/getSrc';
-  import renderTask from './renderTask.jsx'
+  import {renderFixTask, renderSideTask} from './renderTask.jsx'
   import $bus from '@/utils/ViewSize/Bus.js';
   import useCompScheduler from '@/store/componentScheduler'
   
@@ -68,15 +70,53 @@
   })
 
   const store = useCompScheduler()
-  const components = computed(() => props.list.length && props.list)
+
+  // MARK：联动currentShowComponent
+  // const components1 = computed(() => props.list.length && props.list)
+  const components = computed(() => {
+    if(props.list[1].length) {
+      /**
+       *  将currentShowComponent中是fixTaskBarComponent的组件全部剔除，
+       *  将剔除出来的元素进行记录，将fixTaskBarComponent中的元素进行替换，剩下的操作就要交给renderFixTask了
+       */
+      // MARK：岂不是每个组件变动都需要重新执行
+      // 解决方案：做分别处理，这样能最大限度的减少对全局的影响
+      const fixs = new Map()
+      const fixedComponents = [...toRaw(props.list[0])]
+      const curShowComponent = [...toRaw(props.list[1])]
+      const spareArr = curShowComponent.filter((c) => {
+        if(c.isFixTaskBar) {
+          // 剔除
+          fixs.set(c.uuid, c)
+          return false
+        } else {
+          return true
+        }
+      })
+      curShowComponent.splice(0, spareArr.length + 1, ...spareArr)
+      fixedComponents.forEach((c, i) => {
+        const isExist = fixs.get(c.uuid)
+        if(isExist) {
+          fixedComponents.splice(i, 1, isExist)
+        }
+      })
+      console.log(fixedComponents, curShowComponent);
+      return [fixedComponents, curShowComponent]
+    } else {
+      return props.list
+    }
+  })
+
   // MARK：call the sync show function to sync every things
   const triggerShow = (uuid) => {
-    store.syncShowComponentData(uuid, true)
+    return store.syncShowComponentData(uuid, true)
   }
   provide('triggerShow', triggerShow)
 
   watchEffect(() => {
-    console.log(components.value, ' <-- 变化了')
+
+    // console.log(components.value, ' <-- 变化了')
+    // console.log(components.value, ' <-- 变化了')
   })
 
   const count = ref(0);
@@ -231,5 +271,13 @@
     100% {
       transform: scale(1);
     }
+  }
+
+  .splitTask {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    height: 30px;
+    border: 1px solid #999;
   }
 </style>

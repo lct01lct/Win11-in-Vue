@@ -27,7 +27,7 @@
   import folderStore from '@/store/folderStore';
 
   defineProps({
-    IsShowTaskBar: true,
+    IsShowTaskBar: false,
     appName: 'Folder',
     iconImg: '/src/assets/img/icon/explorer.png',
   });

@@ -52,6 +52,7 @@ export default {
       // sync currentShowComponent
       // NOTE: 我认为即使是最小化的组件也应该保存在currentShowComponent中
       //       这show，所代表的含义是是否存在节点
+      return targetComponent[0].isHide;
     },
 
     /**
@@ -110,6 +111,8 @@ export default {
       // NOTE: duplicate removal
       const composeCurrentShowComponent = this.currentShowComponent.filter((v) => v.uuid !== uuid);
       this.updateCurrentShowComponent([...composeCurrentShowComponent, currentShow]);
+
+      return isShow;
     },
 
     toggleZIndexComponent(uuid) {
@@ -142,7 +145,7 @@ function isObj(v) {
   return typeof v === 'object';
 }
 
-/* NO_PURE_ */
+/*#__NO_PURE_#*/
 function patchProperty(origin, propList) {
   if (!isObj(propList)) {
     throw new Error('NOT A OBJ FOR THIS propList');
