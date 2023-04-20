@@ -13,7 +13,7 @@
     <div class="bar">
       <TaskBarVue :list="computeComponents"></TaskBarVue>
     </div>
-    <Index :list="components.renderList"/>
+    <Index :list="components"/>
   </div>
 </template>
 
@@ -31,13 +31,10 @@
 
   import Menu from './Menu';
   const store = useCompScheduler();
-  const components = reactive({
-    renderList: [],
-    origin: []
-  })
+  const components = reactive([])
 
   const computeComponents = computed(() => {
-    return store.components.length && store.components
+    return store.components.length && [store.fixTaskBarComponent, store.currentShowComponent]
   })
 
   store.cacheScheduler(new Scheduler(All))
@@ -45,8 +42,7 @@
   watchEffect(() => {
     if(store.components.length) {
       const len = components.length
-      components.renderList = render(store.components)
-      components.origin.push(...store.components)
+      components.splice(0, len, ...render(store.components))
     }
   })
 
