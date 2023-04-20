@@ -1,4 +1,4 @@
-import { h, ref, defineComponent, watchEffect } from 'vue';
+import { h, ref, defineComponent, watchEffect, toRefs } from 'vue';
 import { DESKTOPICON_IMG_STYLESHEET, DESKTOPICON_SPAN_STYLESHEET } from '../data';
 import useCompScheduler from '@/store/componentScheduler';
 
@@ -8,42 +8,55 @@ export const HOCPluginComponent = (isTaskBar, componentConfig) => {
   const store = useCompScheduler();
   return defineComponent({
     render(proxy) {
-      const { type, uuid, appName, iconImg, isMount, customZIndex } = componentConfig;
+      // NOTE:
+      const { type, uuid, appName, iconImg } = componentConfig;
+      const { isMount, customZIndex } = toRefs(store.components.find((v) => v.uuid === uuid));
       const refImpl = ref(null);
-      const isShow = ref(isMount && customZIndex > 0);
+      // const isExistNode = ref(isMount.value && customZIndex.value > 0);
+      const isExistNode = ref(isMount.value);
 
-      /**
-       *  利用闭包特性，componentConfig自动互联
-       */
+      // MARK：maybe remove
       const removeNode = () => {
         console.log(store);
         componentConfig.isMount = false;
         componentConfig.customZIndex = -1;
-        isShow.value = false;
+        isExistNode.value = false;
         proxy.$forceUpdate();
       };
-
-      // watchEffect(() => {
-      //   console.log('isShow has changed', isShow);
-      // });
 
       const props = isTaskBar
         ? {
             onClick: () => {
-              isShow.value = !isShow.value;
+              // isExistNode.value = !isExistNode.value;
+              // console.log(1);
+              if (isMount.value) {
+                /// 已经挂载了, 如果是低层级最小化则提升层级
+                if (customZIndex.value > 0) {
+                  return;
+                }
+                console.log(componentConfig, isMount, customZIndex);
+                store.toggleZIndexComponent(uuid);
+              } else {
+                /// 还没挂载
+                store.syncShowComponentData(uuid);
+                isExistNode.value = !isExistNode.value;
+              }
             },
           }
         : Object.assign(
             {
               ondblclick: () => {
-                if (isMount) {
+                if (isMount.value) {
                   /// 已经挂载了, 如果是低层级最小化则提升层级
+                  if (customZIndex.value > 0) {
+                    return;
+                  }
                   console.log(componentConfig, isMount, customZIndex);
+                  store.toggleZIndexComponent(uuid);
                 } else {
                   /// 还没挂载
-                  componentConfig.isMount = true;
-                  isShow.value = !isShow.value;
-                  componentConfig.customZIndex = uuid + 1;
+                  store.syncShowComponentData(uuid);
+                  isExistNode.value = !isExistNode.value;
                 }
               },
             },
@@ -69,6 +82,7 @@ export const HOCPluginComponent = (isTaskBar, componentConfig) => {
         'div',
         {
           ref: refImpl,
+          // class: !isTaskBar && 'deskTopIcon'
         },
         [
           h(
@@ -76,23 +90,24 @@ export const HOCPluginComponent = (isTaskBar, componentConfig) => {
             props,
             h('img', {
               src: iconImg,
-              style: DESKTOPICON_IMG_STYLESHEET,
+              style: !isTaskBar && DESKTOPICON_IMG_STYLESHEET,
             }),
-            h(
-              'span',
-              {
-                style: DESKTOPICON_SPAN_STYLESHEET,
-              },
-              appName
-            )
+            !isTaskBar &&
+              h(
+                'span',
+                {
+                  style: DESKTOPICON_SPAN_STYLESHEET,
+                },
+                appName
+              )
           ),
-          isShow.value
+          isExistNode.value
             ? h(type, {
                 style: {
-                  display: isShow.value ? 'block' : 'none',
-                  zIndex: customZIndex,
+                  zIndex: customZIndex.value,
                 },
-                isMount: isShow.value,
+                isMount: isExistNode.value,
+                __SG_uuid: uuid,
               })
             : null,
         ]

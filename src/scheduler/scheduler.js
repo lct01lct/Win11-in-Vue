@@ -3,7 +3,7 @@ export class Scheduler {
   constructor(vNodes) {
     this.components = [];
     this.fixTaskBarComponent = [];
-    this.currentShowComponent = [];
+    this.currentShowComponent = []; // component + timeStamp
     this.size = 0;
     this.maxTrie = 1;
 
@@ -87,14 +87,52 @@ export class Scheduler {
     }
   }
 
-  adjustComponentTier() {
+  addCurrentShowComponent(components) {
+    this.currentShowComponent = components;
+  }
+
+  // MARK: maybe remove
+  updateComponents() {
     /**
-     *  遍历所有挂载的且层级大于0的元素
-     *  给他们的$$$refImpl 进行zIndex排序
+     * 什么时候需要更新组件？ 更新某个属性还是更新整个元素
+     * 一般是在最小化隐藏（层级）某个组件的时候，因为遍历的是currentShowComponent
+     *    所以需要同步更改一下，可能后续会想到一个更好的解决方案，比如在UI层采取computed类实现
      */
   }
 
-  judgeIsMaxTrie() {}
+  adjustComponentTier(uuid) {
+    /**
+     *  遍历所有挂载的且层级大于0的元素
+     *  给他们的$$$refImpl 进行zIndex排序
+     *  难点：如何将影响降到最低
+     */
+    if (uuid) {
+      /**
+       * NOTE：表明此为拖动标题框
+       * 不要做多内容重排，影响面比较大，直接调大层级即可
+       */
+
+      return;
+    }
+
+    /**
+     *  一般为默认开启新App，需要调用该函数
+     *  函数会返回一个目标层级，一般来说就是最大的层级
+     *  除此之外还需要调整其他层级，需要对现阶段所有显示的组件重新排列层级
+     *  同一时间只需要一个层级处于最上层
+     */
+
+    /**
+     *  但是问题来了，遍历的对象是components还是currentShowComponent
+     *  这会涉及到响应式的问题
+     *  思考：什么东西需要考虑层级的问题？没有显示的组件需要考虑层级吗？
+     *  显然不需要，因此遍历currentShowComponent
+     */
+  }
+
+  judgeIsMaxTrie(customZIndex) {
+    return customZIndex >= this.maxTrie;
+  }
 }
 
 function isVNodeType(v) {

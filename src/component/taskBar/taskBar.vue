@@ -19,7 +19,7 @@
           </template>
         </Popover>
         <!-- 任务栏中间部分 @click="closeAllPanel"-->
-        <div
+        <!-- <div
           v-for="item in taskBar"
           :key="item"
           :id="item.name"
@@ -27,7 +27,17 @@
           @click="showTaskerbarPanel(item.name)"
         >
           <img :src="getSrcIcon(item.icon)" :id="`${item.name}Img`" />
-        </div>
+        </div> -->
+        <!-- <div
+          v-for="item in store.components"
+          :key="item.uuid"
+          :id="item.appName"
+          class="taskbarBtn"
+        >
+          {{ renderComp(item) }}
+          <img :src="getSrcIcon(item.icon)" :id="`${item.name}Img`" />
+        </div> -->
+        <renderTask :list="props.list"/>
       </div>
       <div class="tsright fcc">
         <div class="up fcc">^</div>
@@ -65,8 +75,17 @@
   import Win11Calendar from './components/Win11Calendar';
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
   import { getSrcIconUI, getSrcIcon } from '../../utils/getSrc';
-
+  import renderTask from './renderTask.jsx'
   import $bus from '@/utils/ViewSize/Bus.js';
+  
+  const props = defineProps({
+    list: {
+      type: Array
+    }
+  })
+
+
+  
   const count = ref(0);
   onMounted(() => {
     count.value = 1;

@@ -11,28 +11,50 @@
     <!-- <Terminal></Terminal> -->
     <!-- </div> -->
     <div class="bar">
-      <TaskBarVue></TaskBarVue>
+      <TaskBarVue :list="components.list"></TaskBarVue>
     </div>
-    <Index />
+    <Index :list="components.list"/>
   </div>
 </template>
 
 <script setup>
-  import { scheduler } from '../../scheduler';
+  import { Scheduler } from '../../scheduler/scheduler'
+  import All from '../../scheduler/apps';
   import DeskTopIcon from '@/component/DeskTopIcon';
   import IconOverlayTip from './IconOvelayTip';
   import LeftPane from '@/component/LeftPane/LeftPane.vue';
   import Index from './index.jsx';
   import useCompScheduler from '@/store/componentScheduler';
   import TaskBarVue from '@/component/taskBar/taskBar.vue'
+  import render from './renderQueue'
   
 
   import Menu from './Menu';
   const store = useCompScheduler();
+  const components = reactive({
+    list: []
+  })
 
-  onMounted(() => {
-    store.cacheScheduler(scheduler)
-  }),
+  store.cacheScheduler(new Scheduler(All))
+
+  watchEffect(() => {
+    if(store.components.length) {
+      const len = components.length
+      components.list = render(store.components)
+    }
+  })
+
+  watchEffect(() => {
+    console.log(components.list);
+  })
+
+
+  setTimeout(() => {
+    store.installComponents(LeftPane)
+    
+  }, 2000);
+
+
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
   });

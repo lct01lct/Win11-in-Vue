@@ -5,18 +5,21 @@
   import { changeDomStyle } from '@/utils/domSet.js';
   import { getSrcSetting } from '../../utils/getSrc';
   import useCompScheduler from '@/store/componentScheduler';
-  import { scheduler } from '../../scheduler';
-  scheduler
+  import { getUUid } from '@/utils/componentHandles'
+  // import { scheduler } from '../../scheduler';
   
-  const store = useCompScheduler()
   const props = defineProps({
     color: {
       type: String,
       default: 'black',
     },
   });
+
+  const store = useCompScheduler()
+  let _uuid = null
   const refParent = ref(null);
   let parent;
+
 
   // 最大化或者最小化图标
   const MaxOrMin = ref('maxmin');
@@ -35,10 +38,10 @@
   // 拆分功能区
   const splitFlag = ref(false);
 
-  console.log('我初始化了');
-
   onMounted(() => {
+    console.log('我初始化了');
     parent = refParent.value.offsetParent;
+    _uuid = getUUid(parent.attributes)
     changeDomStyle(parent, {
       width: `${viewSizeWidth}px`,
       height: `${viewSizeHeight}px`,
@@ -49,23 +52,16 @@
 
   // 最小化
   const mini = () => {
-    hideBox(true, parent, parent.classList[0]);
+    if (_uuid) {
+      store.syncHideComponentData(Number(_uuid), false)
+    }
   };
 
   // 关闭
   const close = () => {
-    // console.log(scheduler);
-
-    scheduler.components.filter(v => v.isMount === true).forEach(item => {
-      const parentScopeId = parent.__vnode.scopeId
-      const curScopeId = item.$$$refImpl.__vnode.scopeId
-      if(parentScopeId === curScopeId) {
-        item.removeNode()
-      }
-    })
-    
-    // console.log(parent, store);
-    // hideBox(false, parent, parent.classList[0]);
+    if (_uuid) {
+      store.syncHideComponentData(Number(_uuid), true)
+    }
   };
 
   // 切换最大化最小化

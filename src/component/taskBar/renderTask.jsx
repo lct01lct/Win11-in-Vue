@@ -1,12 +1,6 @@
-import { h, toRefs, toRaw, computed, reactive } from 'vue';
-// import All from '../../scheduler/apps';
-// import { scheduler } from '../../scheduler/index';
+import { h, defineComponent, markRaw, toRaw } from 'vue';
+import { HOCPluginComponent } from '../../utils/HOC';
 
-import styles from './index.module.scss';
-
-/**
- *  render All Packages
- */
 export default defineComponent({
   props: {
     list: {
@@ -29,3 +23,5 @@ export default defineComponent({
     return render;
   },
 });
+
+// export default renderTask;

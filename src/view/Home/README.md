@@ -16,8 +16,8 @@
 
 [√]思路是要将所有的组件和tabBar做联动，当点击的时候控制对应的组件显现，突然觉得和FWF forum做的有点像 - 通过nomalize HOC实现
 [] 重构ToolsBar
-    - []组件最小化不应该进行隐藏，而是隐藏层级，因为频繁的触发display：none会引起性能问题
-    - []组件隐藏需要考虑是否进行display：none，因为关闭后可能短时间内不会再次打开
+    - [√]组件最小化不应该进行隐藏，而是隐藏层级，因为频繁的触发display：none会引起性能问题
+    - [√]组件隐藏需要考虑是否进行display：none，因为关闭后可能短时间内不会再次打开
     + 如何实现全局联动，单纯依靠对象的引用特性难以达成需求，如果依靠响应式那么如何将scheduler数据流向全局？
     + [X]如果采用props那就意味着需要对所有的组件进行改动，这显然违背开闭原则
     + [√]如果采用store方式可以实现跨组件间共享数据，但是组件过多，是否会引起性能负担、
@@ -26,7 +26,6 @@
 [] 重构taskBar
     - []底部栏根据你的配置决定是否固定 通过 Scheduler - isShowTaskBar实现
     - []底部栏要联动桌面 通过HOC实现
-[]ToolsBar联动componentConfig【pinia.components】实现层级切换
 []taskBar还需要考虑当前打开的app是否是taskBar固定的，如果是固定的就原地打开即可，如果不是就末位打开，按照时间戳排序（UI层消化）
 []
 []
@@ -34,6 +33,9 @@
 []
 []
 []
+
+[√]ToolsBar联动componentConfig【pinia.components】实现层级切换
+[]ToolsBar 要首要缓存下pinia中的目标uuid
 
 组件强制使用forceUpdate不会同步更新pinia，因此可以考虑在toolbar获取pinia值，然后同步更改
 更改方式可以使用uuid
