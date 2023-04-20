@@ -65,11 +65,11 @@
       // 存储状态
       deskTopStore.changeCurrentSelected(inContains);
     };
-    document.addEventListener('mousemove', move);
-    document.addEventListener('mouseup', () => {
-      setWidth(0, 0, ModalFrameRef);
-      document.removeEventListener('mousemove', move);
-    });
+    // document.addEventListener('mousemove', move);
+    // document.addEventListener('mouseup', () => {
+    //   setWidth(0, 0, ModalFrameRef);
+    //   document.removeEventListener('mousemove', move);
+    // });
   };
   const getDesktopFolderData = searchTargetFolderByPath(['C:', 'DeskTop']);
   // eslint-disable-next-line prefer-const

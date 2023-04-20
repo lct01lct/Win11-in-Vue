@@ -1,34 +1,67 @@
 <template>
   <div class="all" @contextmenu.prevent="showMainMenu($event)" @click="initDeskTop">
-    <div class="main">
-      <Menu ref="menuRef"></Menu>
-      <IconOverlayTip></IconOverlayTip>
-      <SettingsVue></SettingsVue>
-      <Folder></Folder>
-      <Edge></Edge>
-      <LeftPane></LeftPane>
-      <DeskTopIcon></DeskTopIcon>
-      <Terminal></Terminal>
-    </div>
+    <!-- <div class="main"> -->
+    <!-- <Menu ref="menuRef"></Menu> -->
+    <!-- <IconOverlayTip></IconOverlayTip> -->
+    <!-- <SettingsVue></SettingsVue> -->
+    <!-- <Folder></Folder> -->
+    <!-- <Edge></Edge> -->
+    <!-- <LeftPane></LeftPane> -->
+    <!-- <DeskTopIcon></DeskTopIcon> -->
+    <!-- <Terminal></Terminal> -->
+    <!-- </div> -->
     <div class="bar">
-      <TaskBarVue></TaskBarVue>
+      <TaskBarVue :list="computeComponents"></TaskBarVue>
     </div>
+    <Index :list="components.renderList"/>
   </div>
 </template>
 
 <script setup>
-  import SettingsVue from '@/component/setting/index.vue';
-  import TaskBarVue from '@/component/taskBar/taskBar.vue';
-  import Folder from '@/component/Folder/index.vue';
-  import Terminal from '@/component/Terminal';
-  import Edge from '@/component/Edge/index.vue';
+  import { Scheduler } from '../../scheduler/scheduler'
+  import All from '../../scheduler/apps';
   import DeskTopIcon from '@/component/DeskTopIcon';
-  import { getUsers } from './api';
   import IconOverlayTip from './IconOvelayTip';
   import LeftPane from '@/component/LeftPane/LeftPane.vue';
+  import Index from './index.jsx';
+  import useCompScheduler from '@/store/componentScheduler';
+  import TaskBarVue from '@/component/taskBar/taskBar.vue'
+  import render from './renderQueue'
+  
 
   import Menu from './Menu';
-  getUsers();
+  const store = useCompScheduler();
+  const components = reactive({
+    renderList: [],
+    origin: []
+  })
+
+  const computeComponents = computed(() => {
+    return store.components.length && store.components
+  })
+
+  store.cacheScheduler(new Scheduler(All))
+
+  watchEffect(() => {
+    if(store.components.length) {
+      const len = components.length
+      components.renderList = render(store.components)
+      components.origin.push(...store.components)
+    }
+  })
+
+
+
+  watchEffect(() => {
+    console.log(computeComponents.value);
+  })
+
+
+  setTimeout(() => {
+    store.installComponents(LeftPane)
+    
+  }, 2000);
+
 
   document.addEventListener('contextmenu', (e) => {
     e.preventDefault();
@@ -63,6 +96,8 @@
       width: 100%;
     }
     .bar {
+      position: absolute;
+      bottom: 0;
       height: 48px;
       width: 100%;
     }

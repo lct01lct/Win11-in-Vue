@@ -1,0 +1,18 @@
+.taskBarIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    transition: all 0.5s;
+    text-align: center;
+    &:hover {
+      background: #fff;
+      border-radius: 0.3em;
+    }
+    img {
+      height: 24px;
+      vertical-align: middle;
+    }
+}

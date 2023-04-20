@@ -359,7 +359,7 @@ template {
   box-shadow: 0 0 15px rgb(132, 131, 131);
   user-select: none;
   font-family: 'Cascadia Code';
-  z-index: -1;
+  // z-index: -1;
 
   // 限制缩放的大小
   min-width: 700px;
@@ -389,18 +389,17 @@ template {
     opacity: 1;
     transform: scale(1);
   }
+
 }
 
 .showBox {
+  display: block;
   animation: toggleTaskSlideIn 0.3s;
 }
 
-@keyframes toggleTaskSlideOut {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
 
+
+@keyframes toggleTaskSlideOut {
   to {
     opacity: 0;
     transform: scale(0);
@@ -408,5 +407,6 @@ template {
 }
 
 .hideBox {
+  display: none;
   animation: toggleTaskSlideOut 0.3s;
 }

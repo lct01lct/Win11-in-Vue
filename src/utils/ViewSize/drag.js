@@ -255,7 +255,7 @@ export const judgeContains = (parent, Modal) => {
     const item = value.getBoundingClientRect();
     if (item.left > left && item.right < right && item.top > top && item.bottom < bottom) {
       value.classList.add('selected');
-
+      console.log(value.__vnode, value.__vnode.ref.i.props.data);
       containsArray.push(value.__vnode.ref.i.props.data);
     }
   });

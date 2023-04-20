@@ -1,5 +1,5 @@
 <template>
-  <div class="FolderFullBox FullBox">
+  <div class="FolderFullBox FullBox" ref="self">
     <ToolBarVue>File Explorer</ToolBarVue>
     <FolderTopToolBar></FolderTopToolBar>
     <PathTool></PathTool>
@@ -13,6 +13,7 @@
     </main>
   </div>
 </template>
+
 <script setup>
   import ToolBarVue from '../ToolBar/index.vue';
   import FolderTopToolBar from './FolderTopToolBar.vue';
@@ -24,6 +25,14 @@
   import Desc from '@/utils/OS/desc';
   // 缓存下全部的文件结构
   import folderStore from '@/store/folderStore';
+
+  defineProps({
+    IsShowTaskBar: true,
+    appName: 'Folder',
+    iconImg: '/src/assets/img/icon/explorer.png',
+  });
+  const self = ref(null);
+
   const store = folderStore();
   // create folder obj
   const data = (function () {

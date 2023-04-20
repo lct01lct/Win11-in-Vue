@@ -27,4 +27,5 @@
     overflow: hidden;
     transition: 0.8s;
   }
+
 </style>

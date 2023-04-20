@@ -1,0 +1,43 @@
+.deskTopIcons {
+    position: relative;
+    // width: 100%;
+    // height: 100%;
+    padding: 0.2em;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+    user-select: none;
+    .deskTopIcon {
+      position: absolute;
+      // z-index: 998;
+      display: flex;
+      width: 6em;
+      height: 6em;
+      margin: 0.5em;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      color: white;
+      font-size: 0.8em;
+      transition: 0.1s;
+      border-radius: 0.2em;
+      &:hover {
+        background-color: rgba($color: #fffefe, $alpha: 0.2);
+      }
+
+      img {
+        width: 2em;
+        height: 2em;
+      }
+      span {
+        text-align: center;
+        width: 100%;
+        font-size: 0.7em;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+  }

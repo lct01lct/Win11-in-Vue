@@ -44,6 +44,13 @@
       show.value = false;
     }
   });
+
+  defineProps({
+    IsShowTaskBar: false,
+    appName: 'Pane',
+    iconImg: '/src/assets/img/icon/settings.png',
+  });
+
 </script>
 <style lang="scss" scoped>
   .pane-top {

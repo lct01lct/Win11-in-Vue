@@ -19,15 +19,7 @@
           </template>
         </Popover>
         <!-- 任务栏中间部分 @click="closeAllPanel"-->
-        <div
-          v-for="item in taskBar"
-          :key="item"
-          :id="item.name"
-          class="taskbarBtn"
-          @click="showTaskerbarPanel(item.name)"
-        >
-          <img :src="getSrcIcon(item.icon)" :id="`${item.name}Img`" />
-        </div>
+        <renderTask v-for="item in components" :key="item.uuid" :item="item"/>
       </div>
       <div class="tsright fcc">
         <div class="up fcc">^</div>
@@ -65,12 +57,35 @@
   import Win11Calendar from './components/Win11Calendar';
   import SideWiFi from '@/component/SideWiFi/SideWiFi.vue';
   import { getSrcIconUI, getSrcIcon } from '../../utils/getSrc';
-
+  import renderTask from './renderTask.jsx'
   import $bus from '@/utils/ViewSize/Bus.js';
+  import useCompScheduler from '@/store/componentScheduler'
+  
+  const props = defineProps({
+    list: {
+      type: Array
+    }
+  })
+
+  const store = useCompScheduler()
+  const components = computed(() => props.list.length && props.list)
+  // MARK：call the sync show function to sync every things
+  const triggerShow = (uuid) => {
+    store.syncShowComponentData(uuid, true)
+  }
+  provide('triggerShow', triggerShow)
+
+  watchEffect(() => {
+    console.log(components.value, ' <-- 变化了')
+  })
+
   const count = ref(0);
   onMounted(() => {
     count.value = 1;
   });
+
+
+
   /** 需求分析：
    *  1. 点击底栏图标，图标有反应+相应板块显
    *  2.
@@ -89,7 +104,7 @@
    *  实现：
    *      1.写Icon组件，点击有动效
    *      2.tabData.json写好每个图标的信息，传递到Icon组件渲染出来
-   *      3.弹窗的显隐用opercity实现
+   *      3.弹窗的显隐用opacity实现
    *      4.底栏点击icon，打算用事件总线发送事件，对应板块监听。
    */
   const taskBar = reactive(taskBarData);

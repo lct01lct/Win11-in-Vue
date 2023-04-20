@@ -24,6 +24,12 @@
   import { responseAction, setPath, handleTabCommand } from '@/utils/terminal';
   import { handleInput } from '@/utils/terminal/handleInput';
 
+  defineProps({
+    IsShowTaskBar: true,
+    appName: 'Terminal',
+    iconImg: '/src/assets/img/icon/startIcon/terminal.png'    
+  })
+
   // 打印的信息
   // eslint-disable-next-line prefer-const
   let itemArray = reactive([]);
