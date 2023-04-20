@@ -11,9 +11,9 @@
     <!-- <Terminal></Terminal> -->
     <!-- </div> -->
     <div class="bar">
-      <TaskBarVue :list="components.list"></TaskBarVue>
+      <TaskBarVue :list="computeComponents"></TaskBarVue>
     </div>
-    <Index :list="components.list"/>
+    <Index :list="components.renderList"/>
   </div>
 </template>
 
@@ -32,7 +32,12 @@
   import Menu from './Menu';
   const store = useCompScheduler();
   const components = reactive({
-    list: []
+    renderList: [],
+    origin: []
+  })
+
+  const computeComponents = computed(() => {
+    return store.components.length && store.components
   })
 
   store.cacheScheduler(new Scheduler(All))
@@ -40,12 +45,15 @@
   watchEffect(() => {
     if(store.components.length) {
       const len = components.length
-      components.list = render(store.components)
+      components.renderList = render(store.components)
+      components.origin.push(...store.components)
     }
   })
 
+
+
   watchEffect(() => {
-    console.log(components.list);
+    console.log(computeComponents.value);
   })
 
 

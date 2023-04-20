@@ -46,7 +46,7 @@
   });
 
   defineProps({
-    IsShowTaskBar: true,
+    IsShowTaskBar: false,
     appName: 'Pane',
     iconImg: '/src/assets/img/icon/settings.png',
   });

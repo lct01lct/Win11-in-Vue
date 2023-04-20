@@ -12,7 +12,7 @@ export class Scheduler {
 
   Init(vNodes) {
     this.handleComponent(vNodes);
-    this.handlesFixTaskBarComponent();
+    this.handlesAddFixTaskBarComponent();
     this.size = this.components.length;
   }
 
@@ -36,12 +36,20 @@ export class Scheduler {
     }
   }
 
-  handlesFixTaskBarComponent() {
+  handlesAddFixTaskBarComponent() {
     this.components.forEach((type) => {
       if (type.IsShowTaskBar) {
-        this.fixTaskBarComponent.push(type);
+        this.addFixTaskBarComponent(type);
       }
     });
+  }
+
+  addFixTaskBarComponent(components) {
+    this.fixTaskBarComponent.push(components);
+  }
+
+  removeTaskBarComponent(uuid) {
+    this.fixTaskBarComponent = this.fixTaskBarComponent.filter((v) => v.uuid != uuid);
   }
 
   installComponents(vNodeImpl) {
@@ -53,7 +61,7 @@ export class Scheduler {
     const { vNode, type, IsShowTaskBar, iconImg, appName, isMount, customZIndex } =
       formatInitComponent(vNodeImpl);
 
-    this.components.push({
+    const components = {
       uuid: this.size++,
       $$$refImpl: null,
       vNode,
@@ -64,7 +72,12 @@ export class Scheduler {
       isMount,
       customZIndex,
       removeNode: null,
-    });
+    };
+
+    if (IsShowTaskBar) {
+      this.addFixTaskBarComponent(components);
+    }
+    this.components.push(components);
   }
 
   uninstallComponents(uuid) {

@@ -62,34 +62,54 @@ export default {
      *
      * @param {*} uuid
      */
-    syncShowComponentData(uuid) {
+    // MARK: 不能盲目调用，需要在此处进行最大层级判断，如果是就return，需要完善scheduler.judgeMaxTrie 和 adjustComponentTrie方法
+    // MARK：此外如果是tabBar调用，多次点击其实是可以隐藏的
+    syncShowComponentData(uuid, isTaskBar) {
       if (!isNum(uuid)) {
         throw new Error('RECEIVER PARAMS NOT A NUMBER');
       }
       console.log('Show --> ', uuid);
 
       const targetComponent = catchTargetComponent(this.scheduler.components, uuid);
+      // const isExist = catchTargetComponent(this.currentShowComponent, uuid);
+      // if (isExist.length) {
+      //   console.warn('MAYBE HAVE SOME ERROR FOR THIS FUNCTION OF YOUR CALLED');
+      //   return;
+      // }
 
       if (!targetComponent.length) {
         console.warn("CAN'T FIND THE uuid OF COMPONENT, YOU SHOULD CHECK THE uuid FROM YOU PASS");
         return;
       }
 
+      const target = targetComponent[0];
+      const isShow = target['isMount'] && target['customZIndex'] > 0;
+
       //// change property
-      patchProperty(targetComponent[0], {
-        isMount: true,
-        customZIndex: uuid + 1,
-      });
+      if (isTaskBar && isShow) {
+        patchProperty(target, {
+          isMount: true,
+          customZIndex: -1,
+        });
+      } else {
+        patchProperty(target, {
+          isMount: true,
+          customZIndex: uuid + 1,
+        });
+      }
 
       // Sync currentShowComponent
       const currentShow = {
         uuid,
-        component: targetComponent[0],
+        component: target,
         order: Date.now(),
-        isHide: false,
+        isHide: isShow,
+        isFixTaskBar: target['IsShowTaskBar'],
       };
-      const composeCurrentShowComponent = [...this.currentShowComponent, currentShow];
-      this.updateCurrentShowComponent(composeCurrentShowComponent);
+
+      // NOTE: duplicate removal
+      const composeCurrentShowComponent = this.currentShowComponent.filter((v) => v.uuid !== uuid);
+      this.updateCurrentShowComponent([...composeCurrentShowComponent, currentShow]);
     },
 
     toggleZIndexComponent(uuid) {

@@ -1,27 +1,33 @@
-import { h, defineComponent, markRaw, toRaw } from 'vue';
-import { HOCPluginComponent } from '../../utils/HOC';
+import { h, defineComponent, inject } from 'vue';
+import styles from './index.module.scss';
 
 export default defineComponent({
   props: {
-    list: {
-      type: Array,
+    item: {
+      type: Object,
     },
   },
   setup(props) {
-    const { list } = toRefs(props);
+    const { appName, iconImg, uuid } = props.item;
+    const triggerShow = inject('triggerShow');
 
     const render = () => {
-      return (
-        <div>
-          {list.value.map((c) => {
-            console.log('re run');
-            return h(c);
-          })}
-        </div>
+      return h(
+        'div',
+        {
+          class: styles.taskBarIcon,
+          onClick: () => triggerShow(uuid),
+        },
+        [
+          h(
+            'div',
+            h('img', {
+              src: iconImg,
+            })
+          ),
+        ]
       );
     };
     return render;
   },
 });
-
-// export default renderTask;

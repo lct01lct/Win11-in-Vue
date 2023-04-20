@@ -44,3 +44,18 @@
 taskbar同步消费currentShowTaskbar，数据按照时间戳进行排序
 desktop要消费scheduler.components直接消费pinia的components即可
 做到多向联动性是系统互联的基础
+
+---
+
+继续演变
+> 为什么要继续演变？
+> 因为如果继续采用HOC方案，那么目标应用在开启的时候需要打开两次，这不是一个好的结果
+> 那么如何做到组件统一管理，且只渲染一次呢？
+> 我的思路是仍然保留scheduler方案，HOC方案也可以继续得以保留，因为我觉得以HOC方案做组件的管理要更加单一化细粒度，各HOC各司其职
+> 那么就需要taskBar做出让步了，因此taskBar的渲染方案并不是继续采用HOC方案，而是自己渲染出一套icon来
+> 由于在index中会向其传入component数组，因此可以拿到img、appName、包括uuid，
+> 这样的话在点击的时候就可以利用uuid进行内容的显示了
+
+如何在组件隐藏的时候能同步taskbar样式
+想起来很简单，因为如果是正在显示的话，一定是存在于currentShowComponent中的，如此一来，我需要在taskBar中做出操作
+如何操作？
